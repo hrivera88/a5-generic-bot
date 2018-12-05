@@ -1,0 +1,23 @@
+<div class="alivepay-modal" [ngClass]="{ show: showModal }">
+  <div
+    class="window-wrapper"
+    [ngClass]="{ active: showModal }"
+    [@modalVisibility]="showModal"
+  >
+    <iframe
+      *ngIf="movieTitle === 'jurassic park'"
+      src="https://api-v1-stage.websitealive.com/alivesecure/portl.asp?product_id=jw"
+    ></iframe>
+    <iframe
+      *ngIf="movieTitle === 'mamma mia'"
+      src="https://api-v1-stage.websitealive.com/alivesecure/portl.asp?product_id=mm"
+    ></iframe>
+    <iframe
+      *ngIf="movieTitle === 'skyscraper'"
+      src="https://api-v1-stage.websitealive.com/alivesecure/portl.asp?product_id=ss"
+    ></iframe>
+    <div class="hide-alivepay-modal">
+      <button class="btn" (click)="hideModal()">Cancel</button>
+    </div>
+  </div>
+</div>
