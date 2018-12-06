@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #a6caea;
+  border-bottom: 2px solid #F1592B;
   font-size: 17px;
   padding: 0.25rem;
   color: #666;
@@ -53,12 +53,12 @@
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  color: #a6caea;
+  color: #F1592B;
 }
 .hide-chat fa-icon,
 .end-chat fa-icon {
   margin-right: 5px;
-  color: #a6caea;
+  color: #F1592B;
 }
 .logo,
 .hide-chat,
@@ -199,8 +199,8 @@
 
 #dialog-options button {
   display: block;
-  border: 1px solid #36b0e2;
-  color: #36b0e2;
+  border: 1px solid #F1592B;
+  color: #F1592B;
   border-radius: 16px;
   padding: 0.25rem 1rem;
   letter-spacing: 0.25px;
@@ -258,7 +258,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: #a6caea;
+  color: #F1592B;
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;

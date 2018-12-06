@@ -150,9 +150,9 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = '../../assets/img/portl-logo.png';
+  logoImg = '../../assets/img/alive5-logo-plain.svg';
   brandLine = "Welcome Message!";
-  showBrandingLine = true;
+  showBrandingLine = false;
   showHideButton = false;
   showEndChatButton = false;
   brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
