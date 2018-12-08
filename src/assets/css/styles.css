@@ -51,3 +51,7 @@ body {
 .emoji-mart-anchor-bar {
   background-color: #006fba !important;
 }
+.plain-container .image {
+  width: 170px !important;
+  height: auto;
+}

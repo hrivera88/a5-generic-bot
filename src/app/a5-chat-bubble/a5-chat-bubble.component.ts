@@ -7,6 +7,8 @@ import {
   useAnimation
 } from "@angular/animations";
 import { fadeInAnimation } from "../animations";
+import { Image } from 'angular-modal-gallery';
+import { from } from "rxjs";
 
 @Component({
   selector: "a5-chat-bubble",
@@ -47,7 +49,16 @@ export class A5ChatBubbleComponent implements OnInit, OnChanges {
   @Input() userMessage: boolean;
   @Input() messageContent: string;
   @Input() name: string;
+  @Input() showGallery: boolean;
   bubbleType: string;
+  images: Image[] = [
+    new Image(0, {
+      img : 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
+    }),
+    new Image(1, {
+      img: 'https://www.techstars.com/uploads/alive5-1024x576.jpg'
+    })
+  ];
 
   constructor() {}
 
