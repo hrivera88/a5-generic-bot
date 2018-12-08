@@ -1,3 +1,6 @@
-<div class="message" [ngClass]="{'user': userMessage}" [innerHtml]="messageContent | htmlSanitizer" [@bubbleState]="bubbleType">
+<div class="message" *ngIf="!showGallery" [ngClass]="{'user': userMessage}" [innerHtml]="messageContent | htmlSanitizer" [@bubbleState]="bubbleType">
   <!-- <p class="name" *ngIf="name">{{name}}</p> -->
+</div>
+<div class="message" *ngIf="showGallery">
+  <ks-modal-gallery [modalImages]="images"></ks-modal-gallery>
 </div>
