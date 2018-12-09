@@ -93,23 +93,18 @@ function sendEmail(auth, msg) {
   const gmail = google.gmail({ version: "v1", auth });
   let email_lines = [];
 
-  email_lines.push(`From: "Johnny Bot" <bot@alive5.com>`);
+  email_lines.push(`From: "Alive5 Bot" <bot@alive5.com>`);
   email_lines.push(`To: bot@alive5.com`);
   email_lines.push(`Content-type: text/html;charset=iso-8859-1`);
   email_lines.push(`MIME-Version: 1.0`);
-  email_lines.push(`Subject: Comcast Business Lead`);
+  email_lines.push(`Subject: Alive5 Bot Lead`);
   email_lines.push(``);
   email_lines.push(
-    `<p><strong>Services New Customer is Interested in:</strong> ${
-      msg.servicesChosen
+    `<p><strong>Potential customer's name:</strong> ${
+      msg.name
     }</p>`
   );
-  email_lines.push(`<p><strong>New Customers Email:</strong> ${msg.email}</p>`);
-  email_lines.push(
-    `<p><strong>New Customers Service Details:</strong> ${
-      msg.serviceDetails
-    }</p>`
-  );
+  email_lines.push(`<p><strong>Potential customer's email:</strong> ${msg.email}</p>`);
 
   let email = email_lines.join("\r\n").trim();
 
@@ -136,4 +131,4 @@ function sendEmail(auth, msg) {
 }
 
 //Start the app by listening on the default Heroku Port
-app.listen(8081);
+app.listen(process.env.PORT || 8080);

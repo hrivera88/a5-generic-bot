@@ -25,7 +25,7 @@ import { Option } from "./option";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
-import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from 'angular-modal-gallery';
 
 @Component({
   selector: "a5-chat-window",
@@ -76,9 +76,8 @@ export class A5ChatWindowComponent implements OnInit {
   lastResponseCard = false;
   movieTitle: string;
   botLeadEmailMsg = {
-    servicesChosen: "",
+    name: "",
     email: "",
-    serviceDetails: ""
   };
   customEmojis = [
     {
@@ -148,6 +147,7 @@ export class A5ChatWindowComponent implements OnInit {
     "flags",
     "search"
   ];
+  showGallery : boolean;
 
   // Customizing
   logoImg = '../../assets/img/alive5-logo-plain.svg';
@@ -159,9 +159,22 @@ export class A5ChatWindowComponent implements OnInit {
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = '../../assets/img/featurettes-header.png';
+  showPreviews = {
+    'visible': false
+  };
+  images: Image[] = [
+    new Image(0, {
+      img : 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
+    }),
+    new Image(1, {
+      img: 'https://www.techstars.com/uploads/alive5-1024x576.jpg'
+    })
+  ];
+
   constructor(
     private sendMailService: SendMailService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private galleryService: GalleryService,
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -212,11 +225,10 @@ export class A5ChatWindowComponent implements OnInit {
     this.toggleEmojiPicker();
   }
 
-  sendMail(servicesChosen, email, serviceDetails) {
+  sendMail(name, email) {
     this.botLeadEmailMsg = {
-      servicesChosen: servicesChosen,
+      name: name,
       email: email,
-      serviceDetails: serviceDetails
     };
     this.sendMailService.sendMail(this.botLeadEmailMsg).subscribe(result => {
       console.log(result);
@@ -252,9 +264,17 @@ export class A5ChatWindowComponent implements OnInit {
 
   checkBotIntent(botResponse) {
     console.log("whoaaaaa", botResponse);
-    if (botResponse.intentName === "PortlWatchTrailer") {
-      this.showAlivePayModal = true;
+    if (botResponse.intentName === "AliveFiveLLPhotoGallery") {
+      this.galleryService.openGallery(1, 0);
     }
+    if (botResponse.intentName === "AliveFiveScheduleDemo") {
+      if (botResponse.dialogState === 'Fulfilled') {
+        let servicesNeeded = botResponse.slots.userName;
+        let email = botResponse.slots.email;
+        console.log(botResponse.slots);
+        this.sendMail(servicesNeeded, email);
+      }
+    }    
   }
 
   setBotOptions(botOptions, position) {
@@ -287,7 +307,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
-
+    this.checkBotIntent(botResponse);
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
@@ -339,8 +359,8 @@ export class A5ChatWindowComponent implements OnInit {
     this.userMessageInput = "";
     // Gather needed parameters for Amazon Lex
     let params = {
-      botAlias: "NonTheme",
-      botName: "PortlMediaBot",
+      botAlias: "$LATEST",
+      botName: "AliveFiveBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -359,25 +379,9 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "buy movie") {
-      this.showAlivePayModal = true;
-      this.makePurchase(
-        this.lexBotResponseObj.sessionAttributes.movieForPurchase
-      );
-    } else if (
-      this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
-      optionText !== "menu"
-    ) {
-      this.showAlivePayModal = true;
-      this.makePurchase(optionText);
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
-    } else {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
-    }
+    this.showResponse(true, optionText);
+    this.sendTextMessageToBot(optionText);
+    this.bounceMenu = "button";
   }
 
   chooseMainOption(evt: any) {

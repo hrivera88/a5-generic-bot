@@ -30,6 +30,7 @@
         [messageContent]="message.message"
         [userMessage]="message.userMessage"
         [name]="message.name"
+        [showGallery]="showGallery"
       ></a5-chat-bubble>
     </div>
   </div>
@@ -116,3 +117,4 @@
   (modalHidden)="modalState($event)"
   [movieTitle]="movieTitle"
 ></a5-alivepay-modal>
+<ks-modal-gallery [id]="1" [modalImages]="images" [previewConfig]="showPreviews"></ks-modal-gallery>
