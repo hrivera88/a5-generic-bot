@@ -54,3 +54,6 @@ body {
 .plain-container .image {
   display: none;
 }
+figcaption.inside.description {
+  display: none;
+}
