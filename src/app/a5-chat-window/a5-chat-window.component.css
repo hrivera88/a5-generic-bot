@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #a6caea;
+  border-bottom: 2px solid #600e62;
   font-size: 17px;
   padding: 0.25rem;
   color: #666;
@@ -103,6 +103,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  background-color: #600e62;
 }
 
 .logo-container {
@@ -150,7 +151,7 @@
 .chat-icon {
   margin-right: 7px;
   margin-bottom: 0px;
-  color: #e32526;
+  color: #fff;
 }
 .brand-welcome-line p {
   font-size: 14px;
@@ -173,9 +174,20 @@
   -webkit-box-direction: reverse;
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
+  position: relative;
 }
 #message-list > *:first-child {
   margin-bottom: auto;
+}
+#message-list:before {
+  content: "";
+  background: url("../../assets/img/purp-shatter.jpg");
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: 17% 84%;
 }
 .bot-menu-options {
   display: -webkit-box;
@@ -195,12 +207,24 @@
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
+  position: relative;
+  background-color: #1cc9ad;
+  color: #fff;
 }
-
+.bot-menu-options:before {
+  content: "";
+  background: url("../../assets/img/teal-shatter.jpg");
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: 25% 36%;
+}
 #dialog-options button {
   display: block;
-  border: 1px solid #36b0e2;
-  color: #36b0e2;
+  border: 1px solid #fff;
+  color: #fff;
   border-radius: 16px;
   padding: 0.25rem 1rem;
   letter-spacing: 0.25px;
@@ -238,7 +262,7 @@
 .main-menu-options-title,
 .main-menu-btn-title {
   font-size: 14px;
-  color: #9c9c9c;
+  color: #fff;
   margin-bottom: 10px;
   letter-spacing: 1px;
 }
@@ -258,7 +282,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: #a6caea;
+  color: #cd024d;
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;

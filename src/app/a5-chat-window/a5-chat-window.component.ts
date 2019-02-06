@@ -150,15 +150,15 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = '../../assets/img/portl-logo.png';
+  logoImg = "../../assets/img/pacnet-logo.png";
   brandLine = "Welcome Message!";
   showBrandingLine = true;
   showHideButton = false;
   showEndChatButton = false;
-  brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
+  brandSectionBGImg = "purple";
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = '../../assets/img/featurettes-header.png';
+  botOptionImgSource = "../../assets/img/featurettes-header.png";
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2
@@ -339,8 +339,8 @@ export class A5ChatWindowComponent implements OnInit {
     this.userMessageInput = "";
     // Gather needed parameters for Amazon Lex
     let params = {
-      botAlias: "NonTheme",
-      botName: "PortlMediaBot",
+      botAlias: "$LATEST",
+      botName: "PacNet",
       inputText: textMessage,
       userId: this.lexUserID
     };
