@@ -99,11 +99,11 @@
   position: relative;
   height: 45px;
   min-height: 45px;
-  box-shadow: 0px 6px 4px -6px rgba(0, 0, 0, 0.26);
+  /* box-shadow: 0px 6px 4px -6px rgba(0, 0, 0, 0.26); */
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #600e62;
+  background-color: #1cc9ad;
 }
 
 .logo-container {
@@ -179,15 +179,15 @@
 #message-list > *:first-child {
   margin-bottom: auto;
 }
-#message-list:before {
+#brand-section:after {
   content: "";
-  background: url("../../assets/img/purp-shatter.jpg");
+  background: url("/pacnet/assets/img/teal-shatter.jpg");
   height: 10px;
   width: 100%;
   position: absolute;
-  top: 0;
+  bottom: -10px;
   left: 0;
-  background-position: 17% 84%;
+  background-position: -14% 70%;
 }
 .bot-menu-options {
   display: -webkit-box;
@@ -208,18 +208,18 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: #1cc9ad;
+  background-color: #600e62;
   color: #fff;
 }
 .bot-menu-options:before {
   content: "";
-  background: url("../../assets/img/teal-shatter.jpg");
+  background: url("/pacnet/assets/img/purp-shatter.jpg");
   height: 10px;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-position: 25% 36%;
+  background-position: 32% 16%;
 }
 #dialog-options button {
   display: block;

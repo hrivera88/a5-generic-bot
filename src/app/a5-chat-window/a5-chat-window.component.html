@@ -15,26 +15,30 @@
     </div>
   </div>
 
-  <div id="brand-section" *ngIf="showBrandingLine" [ngStyle]="{'background-image': brandSectionBGImg}">
+  <div
+    id="brand-section"
+    *ngIf="showBrandingLine"
+    [ngStyle]="{ 'background-image': brandSectionBGImg }"
+  >
     <div class="brand-welcome-line">
-      <div class="chat-icon">
+      <!-- <div class="chat-icon">
         <fa-icon *ngIf="notMobileScreen" [icon]="faComment"></fa-icon>
       </div>
       <p>{{ brandLine }}</p>
+    </div> -->
     </div>
-  </div>
 
-  <div id="message-list">
-    <div *ngFor="let message of messages">
-      <a5-chat-bubble
-        [messageContent]="message.message"
-        [userMessage]="message.userMessage"
-        [name]="message.name"
-      ></a5-chat-bubble>
+    <div id="message-list">
+      <div *ngFor="let message of messages">
+        <a5-chat-bubble
+          [messageContent]="message.message"
+          [userMessage]="message.userMessage"
+          [name]="message.name"
+        ></a5-chat-bubble>
+      </div>
     </div>
-  </div>
-  <div id="dialog-options">
-    <!--
+    <div id="dialog-options">
+      <!--
       <div class="main-menu-button">
         <div class="main-menu-btn-title">
           <p>Anything else?</p>
@@ -42,77 +46,74 @@
         <button value="main-menu-button" (click)="sendMail()">Menu</button>
       </div>
     -->
-    <div
-      class="bot-menu-options"
-      [@bounceMenu]="bounceMenu"
-      *ngIf="showBotOptions"
-    >
-      <div class="bot-option-img" *ngIf="botOptionsImg">
-        <img
-          [src]="botOptionImgSource"
-          alt=""
-          srcset=""
-        />
-      </div>
-      <div class="bot-option-title" *ngIf="!botOptionsImg">
-        <p>{{ botOptionsTitle }}</p>
-      </div>
-      <div class="option-buttons-container">
-        <button
-          *ngFor="let option of botMenuOptions"
-          value="{{option.value}}"
-          (click)="chooseBotOption($event)"
-        >
-          {{ option.text }}
-        </button>
-        <button
-          *ngIf="multipleCards"
-          class="more-options-btn"
-          (click)="
-            setBotOptionPagination(currentResponseCardPosition, responseCards)
-          "
-        >
-          <span> More </span>
-          <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+      <div
+        class="bot-menu-options"
+        [@bounceMenu]="bounceMenu"
+        *ngIf="showBotOptions"
+      >
+        <div class="bot-option-img" *ngIf="botOptionsImg">
+          <img [src]="botOptionImgSource" alt="" srcset="" />
+        </div>
+        <div class="bot-option-title" *ngIf="!botOptionsImg">
+          <p>{{ botOptionsTitle }}</p>
+        </div>
+        <div class="option-buttons-container">
+          <button
+            *ngFor="let option of botMenuOptions"
+            value="{{ option.value }}"
+            (click)="chooseBotOption($event)"
+          >
+            {{ option.text }}
+          </button>
+          <button
+            *ngIf="multipleCards"
+            class="more-options-btn"
+            (click)="
+              setBotOptionPagination(currentResponseCardPosition, responseCards)
+            "
+          >
+            <span> More </span>
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div id="message-submission">
-    <div>
-      <div
-        #botMessageInput
-        aria-labelledby="Jot something down"
-        role="textbox"
-        contenteditable="true"
-        aria-multiline="true"
-        id="user-message-input"
-        (keyup.enter)="submitMessageToBot(userMessageInput)"
-        data-ph="Type your message here"
-      ></div>
-      <!--
+    <div id="message-submission">
+      <div>
+        <div
+          #botMessageInput
+          aria-labelledby="Jot something down"
+          role="textbox"
+          contenteditable="true"
+          aria-multiline="true"
+          id="user-message-input"
+          (keyup.enter)="submitMessageToBot(userMessageInput)"
+          data-ph="Type your message here"
+        ></div>
+        <!--
         <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off">
       -->
-      <!--
+        <!--
         <fa-icon [ngClass]="{'recording': isRecording}" [icon]="faMicrophone" (click)="speakToBot()"></fa-icon>
       -->
-      <!--
+        <!--
         <emoji-mart [showPreview]="false" [exclude]="emojiExcludedCategories" *ngIf="emojiPickerShown" (emojiSelect)="selectedEmoji($event)"
           [custom]="customEmojis" [style]="{ position: 'absolute', bottom: '47px', right: '20px' }"></emoji-mart>
         <button (click)="toggleEmojiPicker()">
           <fa-icon [icon]="faGrin"></fa-icon>
         </button>
       -->
-      <button type="submit" (click)="submitMessageToBot(userMessageInput)">
-        Send
-      </button>
+        <button type="submit" (click)="submitMessageToBot(userMessageInput)">
+          Send
+        </button>
+      </div>
     </div>
   </div>
+  <a5-alivepay-modal
+    *ngIf="showAlivePayModal"
+    [showModal]="showAlivePayModal"
+    (modalHidden)="modalState($event)"
+    [movieTitle]="movieTitle"
+  ></a5-alivepay-modal>
 </div>
-<a5-alivepay-modal
-  *ngIf="showAlivePayModal"
-  [showModal]="showAlivePayModal"
-  (modalHidden)="modalState($event)"
-  [movieTitle]="movieTitle"
-></a5-alivepay-modal>
