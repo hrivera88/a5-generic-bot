@@ -150,15 +150,15 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = '../../assets/img/portl-logo.png';
-  brandLine = "Welcome Message!";
+  logoImg = "../../assets/img/arrively_logo_color.svg";
+  brandLine = "Welcome to Arrively!";
   showBrandingLine = true;
   showHideButton = false;
   showEndChatButton = false;
-  brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
+  // brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = '../../assets/img/featurettes-header.png';
+  botOptionImgSource = "../../assets/img/featurettes-header.png";
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2
@@ -339,8 +339,8 @@ export class A5ChatWindowComponent implements OnInit {
     this.userMessageInput = "";
     // Gather needed parameters for Amazon Lex
     let params = {
-      botAlias: "NonTheme",
-      botName: "PortlMediaBot",
+      botAlias: "$LATEST",
+      botName: "ArrivelyBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
