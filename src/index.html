@@ -8,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/pacnet/favicon.ico" />
     <link rel="stylesheet" href="/pacnet/assets/css/styles.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700"
@@ -26,5 +26,18 @@
 
   <body>
     <app-root></app-root>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-131288052-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-131288052-1");
+    </script>
   </body>
 </html>

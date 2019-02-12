@@ -359,11 +359,13 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "buy movie") {
-      this.showAlivePayModal = true;
-      this.makePurchase(
-        this.lexBotResponseObj.sessionAttributes.movieForPurchase
+    if (optionText === "schedule a demo") {
+      window.open(
+        "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
+        "_blank"
       );
+      this.showResponse(true, optionText);
+      this.sendTextMessageToBot(optionText);
     } else if (
       this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
       optionText !== "menu"
