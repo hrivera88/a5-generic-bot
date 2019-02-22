@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #600e62;
+  border-bottom: 2px solid #333;
   font-size: 17px;
   padding: 0.25rem;
   color: #666;
@@ -41,7 +41,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background: #fff;
+  background-image: url('../../assets/img/geometry.png');
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/img/ccsf-campus-sun.jpg"); */
   background-size: cover;
@@ -103,7 +103,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #f1592b;
+  background-color: #5597cc;
 }
 
 .logo-container {
@@ -175,19 +175,20 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
+  background: url('../../assets/img/geometry.png');
 }
 #message-list > *:first-child {
   margin-bottom: auto;
 }
 #brand-section:after {
   content: "";
-  background: url("/assets/img/a5-shatter-orange.png");
+  background: url("../../assets/img/a5-shatter-orange.png");
   height: 10px;
   width: 100%;
   position: absolute;
-  bottom: -10px;
+  bottom: 0px;
   left: 0;
-  background-position: 180% 61%;
+  background-position: -8% 49%;
 }
 .bot-menu-options {
   display: -webkit-box;
@@ -208,18 +209,18 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: #600e62;
+  background-color: #333;
   color: #fff;
 }
 .bot-menu-options:before {
   content: "";
-  background: url("/assets/img/purp-shatter.jpg");
+  background: url("../../assets/img/a5-shatter-black.png");
   height: 10px;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-position: 32% 16%;
+  background-position: 111% 58%;
 }
 #dialog-options button {
   display: block;
@@ -282,7 +283,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: #cd024d;
+  color: #5597cc;
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;

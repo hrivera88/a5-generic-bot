@@ -150,7 +150,7 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "/assets/img-logo.png";
+  logoImg = "../../assets/img/GoGetterLogo.png";
   brandLine = "Welcome Message!";
   showBrandingLine = true;
   showHideButton = false;
@@ -340,7 +340,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "PacNet",
+      botName: "AliveFiveVideoBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

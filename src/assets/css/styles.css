@@ -30,6 +30,7 @@ body {
 .message img {
   width: auto;
   max-width: 247px;
+  vertical-align: middle;
 }
 .emojiImg {
   height: 24px;
