@@ -150,7 +150,7 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "../../assets/img/arrively_logo_color.svg";
+  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
   brandLine = "Welcome to Arrively!";
   showBrandingLine = true;
   showHideButton = false;
