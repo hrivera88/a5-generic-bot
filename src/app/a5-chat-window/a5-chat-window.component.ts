@@ -150,7 +150,7 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "/pacnet/assets/img/pacnet-logo.png";
+  logoImg = "/assets/img-logo.png";
   brandLine = "Welcome Message!";
   showBrandingLine = true;
   showHideButton = false;

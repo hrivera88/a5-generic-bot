@@ -103,7 +103,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #1cc9ad;
+  background-color: #f1592b;
 }
 
 .logo-container {
@@ -181,13 +181,13 @@
 }
 #brand-section:after {
   content: "";
-  background: url("/pacnet/assets/img/teal-shatter.jpg");
+  background: url("/assets/img/a5-shatter-orange.png");
   height: 10px;
   width: 100%;
   position: absolute;
   bottom: -10px;
   left: 0;
-  background-position: -14% 70%;
+  background-position: 180% 61%;
 }
 .bot-menu-options {
   display: -webkit-box;
@@ -213,7 +213,7 @@
 }
 .bot-menu-options:before {
   content: "";
-  background: url("/pacnet/assets/img/purp-shatter.jpg");
+  background: url("/assets/img/purp-shatter.jpg");
   height: 10px;
   width: 100%;
   position: absolute;
