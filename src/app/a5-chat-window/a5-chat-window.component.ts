@@ -150,12 +150,12 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "../../assets/img/GoGetterLogo.png";
-  brandLine = "Welcome Message!";
+  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
+  brandLine = "Welcome to Arrively!";
   showBrandingLine = true;
   showHideButton = false;
   showEndChatButton = false;
-  brandSectionBGImg = "purple";
+  // brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
@@ -340,7 +340,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "AliveFiveVideoBot",
+      botName: "ArrivelyBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

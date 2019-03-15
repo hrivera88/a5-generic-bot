@@ -23,10 +23,10 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #18183d;
   font-size: 17px;
   padding: 0.25rem;
-  color: #666;
+  color: #fdf9f0;
   height: 65px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -103,7 +103,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #5597cc;
+  background-color: #18183d;
 }
 
 .logo-container {
@@ -151,14 +151,14 @@
 .chat-icon {
   margin-right: 7px;
   margin-bottom: 0px;
-  color: #fff;
+  color: #b38f4f;
 }
 .brand-welcome-line p {
   font-size: 14px;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   letter-spacing: 0.45px;
-  color: #fff;
+  color: #b38f4f;
 }
 #message-list {
   overflow: auto;
@@ -208,24 +208,12 @@
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
-  position: relative;
-  background-color: #333;
-  color: #fff;
-}
-.bot-menu-options:before {
-  content: "";
-  background: url("../../assets/img/a5-shatter-black.png");
-  height: 10px;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-position: 111% 58%;
+  background-color: #18183d;
 }
 #dialog-options button {
   display: block;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid #b38f4f;
+  color: #b38f4f;
   border-radius: 16px;
   padding: 0.25rem 1rem;
   letter-spacing: 0.25px;
@@ -263,7 +251,7 @@
 .main-menu-options-title,
 .main-menu-btn-title {
   font-size: 14px;
-  color: #fff;
+  color: #c1c1c1;
   margin-bottom: 10px;
   letter-spacing: 1px;
 }
@@ -276,14 +264,14 @@
   border: none;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
-  color: #9c9c9c;
+  color: #c1c1c1;
 }
 #message-submission button {
   width: 50px;
   background: none;
   border: 0;
   cursor: pointer;
-  color: #5597cc;
+  color: #b38f4f;
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
