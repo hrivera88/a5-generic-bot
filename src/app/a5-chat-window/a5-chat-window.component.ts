@@ -150,9 +150,9 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "../../assets/img/GoGetterLogo.png";
+  logoImg = "/mercury-fund-lilly/assets/img/mercury-logo.svg";
   brandLine = "Welcome Message!";
-  showBrandingLine = true;
+  showBrandingLine = false;
   showHideButton = false;
   showEndChatButton = false;
   brandSectionBGImg = "purple";
@@ -340,7 +340,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "AliveFiveVideoBot",
+      botName: "MercuryFundBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

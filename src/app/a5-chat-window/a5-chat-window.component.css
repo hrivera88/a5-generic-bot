@@ -41,7 +41,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background-image: url('../../assets/img/geometry.png');
+  background: rgba(41, 41, 85,1);
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/img/ccsf-campus-sun.jpg"); */
   background-size: cover;
@@ -180,16 +180,6 @@
 #message-list > *:first-child {
   margin-bottom: auto;
 }
-#brand-section:after {
-  content: "";
-  background: url("../../assets/img/a5-shatter-orange.png");
-  height: 10px;
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  background-position: -8% 49%;
-}
 .bot-menu-options {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -209,18 +199,8 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: #333;
+  background-color: rgba(41, 41, 85,1);
   color: #fff;
-}
-.bot-menu-options:before {
-  content: "";
-  background: url("../../assets/img/a5-shatter-black.png");
-  height: 10px;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-position: 111% 58%;
 }
 #dialog-options button {
   display: block;
@@ -283,7 +263,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: #5597cc;
+  color: rgba(41, 41, 85,1);
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
