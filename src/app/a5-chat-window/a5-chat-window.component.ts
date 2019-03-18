@@ -156,7 +156,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
   showGreetingSection = true;
-  greeetingLine = "Welcome to Arrively!";
+  greetingLine = "Welcome to Arrively!";
   greetingSectionStyle = {
     'background-color': '#eff000'
   };
