@@ -152,13 +152,14 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': 'red'
+    'border-bottom-color': '#e9b258'
   };
-  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
+  logoImg = "/assets/img/welogo_black.png";
+
   showGreetingSection = true;
-  greeetingLine = "Welcome to Arrively!";
+  greetingLine = "Welcome to WeWork!";
   greetingSectionStyle = {
-    'background-color': '#eff000'
+    'background-color': '#252729'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,14 +168,14 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#ff9988'
+    'background-color': '#252729'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
     color: '#fff'
   }
   sendButtonStyle = {
-    color: 'red'
+    color: '#252729'
   };
   constructor(
     private sendMailService: SendMailService,
