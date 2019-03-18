@@ -150,15 +150,32 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
+  windowBannerStyle = {
+    'background-color': '#fff',
+    'border-bottom-color': 'red'
+  };
   logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
-  brandLine = "Welcome to Arrively!";
-  showBrandingLine = true;
-  showHideButton = false;
-  showEndChatButton = false;
-  // brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
+  showGreetingSection = true;
+  greeetingLine = "Welcome to Arrively!";
+  greetingSectionStyle = {
+    'background-color': '#eff000'
+  };
+  greetingFontStyle = {
+    color: '#fff'
+  };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
+  botOptionsStyle = {
+    'background-color': '#ff9988'
+  };
+  botOptionButtonStyle = {
+    'border-color': '#fff',
+    color: '#fff'
+  }
+  sendButtonStyle = {
+    color: 'red'
+  };
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2
