@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
+    'background-color': '#2B1717',
     'border-bottom-color': 'red'
   };
-  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
+  logoImg = "/assets/img/elos 360 small logo.jpg";
   showGreetingSection = true;
   greeetingLine = "Welcome to Arrively!";
   greetingSectionStyle = {
-    'background-color': '#eff000'
+    'background-color': '#2B1717'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#ff9988'
+    'background-color': '#2B1717'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
