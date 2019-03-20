@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': 'red'
+    'border-bottom-color': '#ff8359'
   };
-  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
+  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Arrively!";
+  greetingLine = "Welcome to Doc Juris!";
   greetingSectionStyle = {
-    'background-color': '#eff000'
+    'background-color': '#486290'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,14 +167,18 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#ff9988'
+    'background-color': '#486290'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
     color: '#fff'
   }
+  botOptionTitleStyle = {
+    'color': "#fff"
+
+  }
   sendButtonStyle = {
-    color: 'red'
+    color: '#ff8359'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -357,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "ArrivelyBot",
+      botName: "DocJurisBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -377,10 +381,10 @@ export class A5ChatWindowComponent implements OnInit {
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
     if (optionText === "schedule a demo") {
-      window.open(
-        "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-        "_blank"
-      );
+      // window.open(
+      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
+      //   "_blank"
+      // );
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
     } else if (

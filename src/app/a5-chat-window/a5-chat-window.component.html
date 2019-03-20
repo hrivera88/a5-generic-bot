@@ -33,7 +33,7 @@
       <div class="bot-option-img" *ngIf="botOptionsImg">
         <img [src]="botOptionImgSource" alt="" srcset="" />
       </div>
-      <div class="bot-option-title" *ngIf="!botOptionsImg">
+      <div [ngStyle]="botOptionTitleStyle" class="bot-option-title" *ngIf="!botOptionsImg">
         <p>{{ botOptionsTitle }}</p>
       </div>
       <div class="option-buttons-container">
