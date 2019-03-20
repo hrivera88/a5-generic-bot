@@ -150,19 +150,12 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': 'red'
-  };
-  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
-  showGreetingSection = true;
-  greetingLine = "Welcome to Arrively!";
-  greetingSectionStyle = {
-    'background-color': '#eff000'
-  };
-  greetingFontStyle = {
-    color: '#fff'
-  };
+  logoImg = "/mercury-fund-lilly/assets/img/mercury-logo.svg";
+  brandLine = "Welcome Message!";
+  showBrandingLine = false;
+  showHideButton = false;
+  showEndChatButton = false;
+  brandSectionBGImg = "purple";
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
@@ -357,7 +350,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "ArrivelyBot",
+      botName: "MercuryFundBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

@@ -196,7 +196,9 @@
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
-  background-color: #18183d;
+  position: relative;
+  background-color: rgba(41, 41, 85,1);
+  color: #fff;
 }
 #dialog-options button {
   display: block;
@@ -259,7 +261,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: #b38f4f;
+  color: rgba(41, 41, 85,1);
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
