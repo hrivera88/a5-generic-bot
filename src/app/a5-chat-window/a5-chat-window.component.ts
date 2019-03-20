@@ -172,16 +172,9 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
-    "border-bottom-color": "#000"
+    "border-bottom-color": "#ff8359"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
-  //Contact button
-  showContactButton = true; //Turn to true to show top right Contact Button
-  contactButtonStyle = {
-    "background-color": "red",
-    border: "red",
-    color: "white"
-  };
+  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
   showGreetingSection = true;
   greetingLine = "Welcome to Doc Juris!";
   greetingSectionStyle = {
@@ -197,12 +190,14 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#486290"
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
-    color: "#fff",
-    background: "#f1592b"
+    "border-color": "#fff",
+    color: "#fff"
   };
   botOptionTitleStyle = {
     color: "#fff"
+  };
+  sendButtonStyle = {
+    color: "#ff8359"
   };
   messageListStyle = {
     background: "url(../../assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
@@ -211,10 +206,6 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#fff",
     color: "black"
   };
-  sendButtonStyle = {
-    color: "#ff8359"
-  };
-
   //User info for live chat agent
   fullname = "";
   email = "";
@@ -1163,7 +1154,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "DocJurisBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
