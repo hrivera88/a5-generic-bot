@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <div id="message-submission">
+  <!-- <div id="message-submission">
     <div>
       <div
         #botMessageInput
@@ -90,25 +90,25 @@
         (keyup.enter)="submitMessageToBot(userMessageInput)"
         data-ph="Type your message here"
       ></div>
-      <!--
+      
         <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off">
-      -->
-      <!--
+     
+      
         <fa-icon [ngClass]="{'recording': isRecording}" [icon]="faMicrophone" (click)="speakToBot()"></fa-icon>
-      -->
-      <!--
+     
+      
         <emoji-mart [showPreview]="false" [exclude]="emojiExcludedCategories" *ngIf="emojiPickerShown" (emojiSelect)="selectedEmoji($event)"
           [custom]="customEmojis" [style]="{ position: 'absolute', bottom: '47px', right: '20px' }"></emoji-mart>
         <button (click)="toggleEmojiPicker()">
           <fa-icon [icon]="faGrin"></fa-icon>
         </button>
-      -->
+     
       <button type="submit" (click)="submitMessageToBot(userMessageInput)">
         Send
       </button>
     </div>
-  </div>
+  </div> -->
 </div>
 <a5-alivepay-modal
   *ngIf="showAlivePayModal"
