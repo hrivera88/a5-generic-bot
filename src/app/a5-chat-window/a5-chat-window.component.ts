@@ -154,9 +154,9 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#2B1717',
     'border-bottom-color': 'red'
   };
-  logoImg = "/assets/img/elos 360 small logo.jpg";
+  logoImg = "/elos360/assets/img/elos 360 small logo.jpg";
   showGreetingSection = true;
-  greeetingLine = "Welcome to Arrively!";
+  greetingLine = "Welcome to Elos360!";
   greetingSectionStyle = {
     'background-color': '#2B1717'
   };
@@ -357,7 +357,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "ArrivelyBot",
+      botName: "ElosBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -377,10 +377,10 @@ export class A5ChatWindowComponent implements OnInit {
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
     if (optionText === "schedule a demo") {
-      window.open(
-        "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-        "_blank"
-      );
+      // window.open(
+      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
+      //   "_blank"
+      // );
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
     } else if (
