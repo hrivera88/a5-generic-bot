@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': 'red'
+    'border-bottom-color': 'blue'
   };
-  logoImg = "/arrively-bot/assets/img/arrively_logo_color.svg";
+  logoImg = "/assets/img/COMCAST.jpg";
   showGreetingSection = true;
-  greeetingLine = "Welcome to Arrively!";
+  greetingLine = "Welcome to Comcast/NBCUniversal LIFTLabs Powered by Techstars!";
   greetingSectionStyle = {
-    'background-color': '#eff000'
+    'background-color': '#2eb64e'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#ff9988'
+    'background-color': '#ea6d30'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
