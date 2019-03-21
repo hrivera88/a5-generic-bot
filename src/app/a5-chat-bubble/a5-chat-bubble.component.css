@@ -14,8 +14,8 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-  background: #486290;
-  color: #fdf9f0;
+  background: rgb(33,69,76);
+  color: rgb(238,232,214);
   border-radius: 5px;
   width: auto;
   display: inline-block;
@@ -23,7 +23,7 @@
   font-family: "Nunito", sans-serif;
 }
 .message a {
-  color: #fff;
+  color: rgb(238,232,214);
   text-decoration: none;
 }
 .message p {
@@ -39,9 +39,9 @@
   height: auto;
 }
 .message.user {
-  background: #ff8359;
+  background: #62afa9;
   font-family: "Nunito", sans-serif;
-  color: white;
+  color: rgb(238,232,214);
   -ms-flex-item-align: end;
   align-self: flex-end;
 }

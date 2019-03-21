@@ -151,34 +151,37 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background': '#8dccc7',
+    'border-bottom-color': 'rgb(238,232,214)'
+    
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/smalley_institute/assets/img/SmalleyInstituteLOGO.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Smalley Institute Bot!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': 'rgb(33,69,76)'
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: 'rgb(238,232,214)'
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': 'rgb(33,69,76)'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
+    'border-color': '#8dccc7',
+    'background-color': '#8dccc7',
+    color: 'rgb(238,232,214)',
+    outline: 'none'
   }
   botOptionTitleStyle = {
-    'color': "#fff"
+    'color': "rgb(238,232,214)"
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: 'rgb(70,164,111)'
   };
   constructor(
     private sendMailService: SendMailService,
