@@ -153,7 +153,7 @@ export class A5ChatWindowComponent implements OnInit {
   windowBannerStyle = {
     'background': '#8dccc7',
     'border-bottom-color': 'rgb(238,232,214)'
-    
+
   };
   logoImg = "/smalley_institute/assets/img/SmalleyInstituteLOGO.png";
   showGreetingSection = true;
@@ -364,7 +364,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "smalley_institute",
+      botName: "SmalleyInstituteBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
