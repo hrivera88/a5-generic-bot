@@ -26,6 +26,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from 'angular-modal-gallery';
 
 @Component({
   selector: "a5-chat-window",
@@ -176,9 +177,23 @@ export class A5ChatWindowComponent implements OnInit {
   sendButtonStyle = {
     color: 'red'
   };
+  previewConfig = {
+    visible: false
+  };
+  galleryImages: Image[] = [
+    new Image(0, {
+      img: 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(1, {
+      img: 'https://www.techstars.com/uploads/alive5-1024x576.jpg',
+      // description: 'Description 2'
+    }),
+  ];
   constructor(
     private sendMailService: SendMailService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private galleryService: GalleryService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -373,7 +388,9 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
-
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
+  }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
     if (optionText === "schedule a demo") {
@@ -383,6 +400,8 @@ export class A5ChatWindowComponent implements OnInit {
       );
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
+    } else if (optionText === 'lift labs photo gallery') {
+      this.openGallery();
     } else if (
       this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
       optionText !== "menu"
