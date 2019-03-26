@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background-color': '#4bc0e3',
+    'border-bottom-color': '#000000'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = " /assets/img/gabriel invest logo.jpg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Gabriel Investment!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#4bc0e3'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#4bc0e3'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
