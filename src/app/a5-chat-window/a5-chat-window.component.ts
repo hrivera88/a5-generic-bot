@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#ff8359'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/docjuris-logo.svg";
   showGreetingSection = true;
   greetingLine = "Welcome to Doc Juris!";
   greetingSectionStyle = {
