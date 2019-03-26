@@ -171,6 +171,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
+    'backgroun-color': '#37558C'
     color: '#fff'
   }
   botOptionTitleStyle = {
