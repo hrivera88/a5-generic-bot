@@ -155,7 +155,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': 'blue'
   };
-  logoImg = "/assets/img/COMCAST.jpg";
+  logoImg = "/liftlabsbot/assets/img/COMCAST.jpg";
   showGreetingSection = true;
   greetingLine = "Welcome to Comcast/NBCUniversal LIFTLabs Powered by Techstars!";
   greetingSectionStyle = {
