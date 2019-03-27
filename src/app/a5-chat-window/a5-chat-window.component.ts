@@ -165,7 +165,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = ".../../assets/img/featurettes-header.png";
+  botOptionImgSource = ".../.../assets/img/featurettes-header.png";
   botOptionsStyle = {
     'background-color': '#37558C'
   };
