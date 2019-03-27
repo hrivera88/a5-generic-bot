@@ -24,7 +24,7 @@ body {
 .message iframe {
   border: 0;
   margin: 5px 0;
-  max-width: 247px;
+  max-width: 240px;
   height: auto;
 }
 .message img {
