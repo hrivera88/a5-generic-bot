@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background-color': '#F8F4E1',
+    'border-bottom-color': '#45A040'
   };
-  logoImg = "/ellucian/assets/img/WebsiteAliveLogo.png";
+  logoImg = "/competitive_health/assets/img/competitiveHealthCream.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Ellucian Bot!";
   greetingSectionStyle = {
-    'background-color': '#37558C'
+    'background-color': '#004A99'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,11 +167,11 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ".../.../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#37558C'
+    'background-color': '#004A99'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
-    'backgroun-color': '#37558C',
+    'backgroun-color': '#004A99',
     color: '#fff'
   }
   botOptionTitleStyle = {
@@ -179,7 +179,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#e88a00'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -362,7 +362,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "EllucianBot",
+      botName: "CompetitiveHealthBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
