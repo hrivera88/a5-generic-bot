@@ -156,7 +156,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   logoImg = "/competitive_health/assets/img/competitiveHealthCream.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Ellucian Bot!";
+  greetingLine = "Welcome to Competitive Health Bot!";
   greetingSectionStyle = {
     'background-color': '#004A99'
   };
