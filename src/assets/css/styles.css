@@ -27,7 +27,7 @@ body {
   max-width: 247px;
   height: auto;
 }
-.message iframe {
+.message video {
   border: 0;
   margin: 5px 0;
   max-width: 247px;
