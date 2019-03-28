@@ -153,7 +153,7 @@ export class A5ChatWindowComponent implements OnInit {
   windowBannerStyle = {
     'background': '#8dccc7',
     'border-bottom-color': 'rgb(238,232,214)'
-    
+
   };
   logoImg = "/smalley_institute/assets/img/SmalleyInstituteLOGO.png";
   showGreetingSection = true;
