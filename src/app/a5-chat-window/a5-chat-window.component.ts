@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#4bc0e3',
     'border-bottom-color': '#000000'
   };
-  logoImg = " /assets/img/gabriel invest logo.jpg";
+  logoImg = "https://www.innovationhubusa.com/wp-content/uploads/2018/11/gi-logo-vrt.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Gabriel Investment!";
   greetingSectionStyle = {
