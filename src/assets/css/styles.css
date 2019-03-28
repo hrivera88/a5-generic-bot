@@ -24,18 +24,28 @@ body {
 .message iframe {
   border: 0;
   margin: 5px 0;
-  max-width: 247px;
+  max-width: 100%;
   height: auto;
 }
 .message img {
   width: auto;
-  max-width: 247px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.message video {
+  width: auto;
+  max-width: 100%;
   vertical-align: middle;
 }
 .emojiImg {
   height: 24px;
   width: 24px;
   vertical-align: bottom;
+}
+@media (min-width: 767px) {
+  .message iframe, .message img, .message video {
+    max-width: 247px;
+  }
 }
 /* .message img {
   width: auto;
