@@ -24,20 +24,20 @@ body {
 .message iframe {
   border: 0;
   margin: 5px 0;
-  max-width: 240px;
+  max-width: 100%;
   height: auto;
 }
 
 .message video {
   border: 0;
   margin: 5px 0;
-  max-width: 240px;
+  max-width: 100%;
   height: auto;
 }
 
 .message img {
   width: auto;
-  max-width: 247px;
+  max-width: 100%;
   vertical-align: middle;
 }
 .emojiImg {
