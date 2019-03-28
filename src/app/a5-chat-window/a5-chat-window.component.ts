@@ -189,6 +189,38 @@ export class A5ChatWindowComponent implements OnInit {
       img: 'https://www.techstars.com/uploads/alive5-1024x576.jpg',
       // description: 'Description 2'
     }),
+    new Image(2, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/20180714_143620.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(3, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/PhilliesGame056.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(4, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/alive5-Techstars.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(5, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/TechStars-Group1.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(6, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/20180810_195448_HDR.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(7, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/FB_IMG_1539703071727.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(8, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/IMG-20181013-WA0002.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(9, {
+      img: 'https://s3.amazonaws.com/alive5cdn/ll-images/FB_IMG_1539641696093.jpg',
+      // description: 'Description 2'
+    }),
   ];
   constructor(
     private sendMailService: SendMailService,
