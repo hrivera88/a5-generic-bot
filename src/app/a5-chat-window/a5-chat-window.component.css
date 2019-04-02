@@ -1,5 +1,5 @@
 .window-container {
-  background: #ffffff;
+  background: #000000;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   /*height: 500px;
@@ -42,8 +42,8 @@
   -ms-flex-pack: center;
   justify-content: space-around;
   background: #fff;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../assets/img/ccsf-campus-sun.jpg"); */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/img/carbonFiber.jpg");
   background-size: cover;
 }
 .hide-chat,
@@ -195,6 +195,8 @@
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/img/carbonFiber.jpg");
 }
 
 #dialog-options button {

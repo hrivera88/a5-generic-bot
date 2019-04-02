@@ -147,10 +147,10 @@ export class A5ChatWindowComponent implements OnInit {
     "flags",
     "search"
   ];
-  showGallery : boolean;
+  showGallery: boolean;
 
   // Customizing
-  logoImg = '../../assets/img/alive5-logo-plain.svg';
+  logoImg = '../../alive5/assets/img/alive5-logo-white2.svg';
   brandLine = "Welcome Message!";
   showBrandingLine = false;
   showHideButton = false;
@@ -164,7 +164,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   images: Image[] = [
     new Image(0, {
-      img : 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
+      img: 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
     }),
     new Image(1, {
       img: 'https://www.techstars.com/uploads/alive5-1024x576.jpg'
@@ -274,7 +274,7 @@ export class A5ChatWindowComponent implements OnInit {
         console.log(botResponse.slots);
         this.sendMail(servicesNeeded, email);
       }
-    }    
+    }
   }
 
   setBotOptions(botOptions, position) {
