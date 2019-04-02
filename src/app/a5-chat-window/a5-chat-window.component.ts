@@ -411,7 +411,6 @@ export class A5ChatWindowComponent implements OnInit {
 
   triggerAliveChat() {
     //for Hal's webbot
-    alert(navigator.platform.toUpperCase());
     let alive5_sms_phone_number, alive5_sms_message_question;
 
     if (window.location.pathname == '/alive5') {
@@ -419,13 +418,14 @@ export class A5ChatWindowComponent implements OnInit {
       alive5_sms_message_question = 'I\'d like to connect with alive5 [hit Send>]';
     }
 
-    var alive5_pre_link;
-    var alive5_isDesktop = false;
-    var alive5_platform = navigator.platform.toUpperCase();
-    var alive5_isMobile = true;
+    let alive5_pre_link;
+    let alive5_isDesktop = false;
+    let alive5_platform = navigator.platform.toUpperCase();
+    let alive5_isMobile = true;
+    let alive5_is_alive5_phone_number;
 
     switch (alive5_platform) {
-      case 'MACINTEL', 'IPAD':
+      case 'IPAD':
         alive5_isMobile = false;
         //desktop Apple
         if (alive5_is_alive5_phone_number == 'Y') {
