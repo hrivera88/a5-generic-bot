@@ -12,6 +12,7 @@ body {
 }
 .message {
   letter-spacing: 0.35px;
+  text-align: center;
 }
 .message p {
   margin-bottom: 5px;
@@ -59,9 +60,6 @@ body {
     margin-left: 35%;
     margin-right: 37%;
     max-width: 20em;
-  }
-  .option-buttons-container {
-    width: 30%;
   }
 }
 
