@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background-color': '#000000',
+    'border-bottom-color': '#24678d'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/players impact.jpg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to The Players' Impact!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#080119'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#080119'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "theplayersimpactbot",
       inputText: textMessage,
       userId: this.lexUserID
     };
