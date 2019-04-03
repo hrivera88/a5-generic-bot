@@ -12,7 +12,7 @@ body {
 }
 .message {
   letter-spacing: 0.35px;
-  text-align: center;
+  /* max-width: 20em; */
 }
 .message p {
   margin-bottom: 5px;
@@ -43,7 +43,20 @@ body {
   width: 24px;
   vertical-align: bottom;
 }
+
+@media (min-width:360) and (max-width:766px) {
+  .message {
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 20em;
+  }
+}
 @media (min-width: 767px) {
+  .message {
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 20em;
+  }
   .message iframe, .message img, .message video {
     max-width: 247px;
   }
@@ -59,7 +72,6 @@ body {
   .message {
     margin-left: 35%;
     margin-right: 37%;
-    max-width: 20em;
   }
 }
 

@@ -102,8 +102,8 @@
   -ms-flex-pack: center;
   justify-content: center;
   background-color: #18183d;
-  margin-left: 40px;
-  margin-right: 40px;
+  padding-left: 40px;
+  padding-right:40px;
 }
 
 .logo-container {
@@ -280,7 +280,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 100%;
+  width: 75%;
   flex-wrap: wrap;
 }
 .option-buttons-container button {

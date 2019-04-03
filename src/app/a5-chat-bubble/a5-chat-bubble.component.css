@@ -19,8 +19,9 @@
   border-radius: 5px;
   width: auto;
   display: inline-block;
-  max-width: 75%;
+  max-width: 37em;
   font-family: "Nunito", sans-serif;
+  /* text-align: center; */
 }
 .message a {
   color: #fff;
@@ -37,6 +38,11 @@
   border: 0;
   max-width: 247px;
   height: auto;
+}
+.message video {
+    border: 0;
+    max-width: 247px;
+    height: auto;
 }
 .message.user {
   background: rgb(183,0,60);
