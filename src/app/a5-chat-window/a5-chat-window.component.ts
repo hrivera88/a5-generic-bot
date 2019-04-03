@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'border-bottom-color': '#972e3c'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/tokyo-2020-text.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to the Tokyo Olympics Bot!!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background': 'linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("/assets/img/top-bg.png")'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background': 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),url("/assets/img/bottom-bg.png")'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -179,6 +179,15 @@ export class A5ChatWindowComponent implements OnInit {
   }
   sendButtonStyle = {
     color: '#ff8359'
+  };
+
+  // Olympic Bots Custom Message List Background
+  messageListStyle = {
+    background: 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),url("/assets/img/tokyo-2020-circle-logo.svg")',
+    'background-size': '250px',
+    'background-position-x': '50%',
+    'background-position-y': '50%',
+    'background-repeat': 'no-repeat'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -361,7 +370,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "OlympicsTwentyTwenty",
       inputText: textMessage,
       userId: this.lexUserID
     };
