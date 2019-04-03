@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background-color': '#000',
+    'border-bottom-color': '#f1592b'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/Alive5_white_Logo.svg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Alive5 Start (QR on the box)!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#5f6062'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,18 +167,18 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#f1592b'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
+    'border-color': '#f1592b',
+    color: '#f1592b'
   }
   botOptionTitleStyle = {
     'color': "#fff"
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#f1592b'
   };
   constructor(
     private sendMailService: SendMailService,
