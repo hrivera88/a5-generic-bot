@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#000000',
     'border-bottom-color': '#24678d'
   };
-  logoImg = "/assets/img/players impact.jpg";
+  logoImg = "/theplayersimpact/assets/img/players impact.jpg";
   showGreetingSection = true;
   greetingLine = "Welcome to The Players' Impact!";
   greetingSectionStyle = {
