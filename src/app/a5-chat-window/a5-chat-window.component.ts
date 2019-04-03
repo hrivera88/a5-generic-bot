@@ -170,16 +170,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#fff",
-    "border-bottom-color": "#000"
+    'background-color': '#000',
+    'border-bottom-color': '#f1592b'
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
-  //Contact button
-  showContactButton = false; //Turn to true to show top right Contact Button
+  logoImg = "/assets/img/Alive5_white_Logo.svg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Alive5 Start (QR on the box)!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    'background-color': '#5f6062'
   };
   greetingFontStyle = {
     color: "#fff"
@@ -188,13 +186,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#486290"
+    'background-color': '#f1592b'
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
-    color: "#fff",
-    background: "#f1592b"
-  };
+    'border-color': '#f1592b',
+    color: '#f1592b'
+  }
   botOptionTitleStyle = {
     color: "#fff"
   };
@@ -202,7 +199,7 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#fff"
   };
   sendButtonStyle = {
-    color: "#ff8359"
+    color: '#f1592b'
   };
 
   //User info for live chat agent

@@ -1,7 +1,7 @@
 .window-container {
-  background: #ffffff;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  background: #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
   /*height: 500px;
       width: 320px;*/
   height: 100%;
@@ -41,7 +41,9 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background-image: url("../../assets/img/geometry.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/img/carbonFiber.jpg");
+  /* background-image: url('../../assets/img/geometry.png'); */
   background-size: cover;
 }
 .hide-chat,
@@ -176,7 +178,9 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  background: url("../../assets/img/geometry.png");
+  /* background: url('../../assets/img/geometry.png'); */
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
+  background-color: #000;
 }
 #message-list > *:first-child {
   margin-bottom: auto;
@@ -200,28 +204,17 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: rgba(41, 41, 85, 1);
-  color: #fff;
-}
-.exchange-btn {
-  height: 40px;
-  border-radius: 20px;
-  border: 1px solid #f1592b;
-  background: #f1592b;
-  color: #fff;
-  padding: 5px 10px;
-  font-size: 16px;
-}
-.exchange-btn fa-icon {
-  margin-right: 10px;
-}
-.justify-middle {
-  justify-content: center;
+  /* background-color: rgba(41, 41, 85,1); */
+  /* color: #fff; */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/img/carbonFiber.jpg");
+  background-size: 'cover'; 
+  color: #f1592b;
 }
 #dialog-options button {
   display: block;
-  border: 1px solid #b38f4f;
-  color: #b38f4f;
+  border: 1px solid #f1592b;
+  color: #f1592b;
   border-radius: 16px;
   padding: 0.25rem 1rem;
   letter-spacing: 0.25px;
@@ -236,7 +229,7 @@
   margin-right: 0;
 }
 #message-submission {
-  border-top: 2px solid #f8f8f8;
+  border-top: 2px solid #000;
   padding: 0.52rem 0.25rem;
   height: 50px;
   padding-top: 0;
