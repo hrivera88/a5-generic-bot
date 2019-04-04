@@ -383,9 +383,9 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/budweiser-gardens') {
-      alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+    if (window.location.pathname == '/ellucian') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with Ellucian Concierge [hit Send>]';
     }
 
     let alive5_pre_link;
@@ -445,22 +445,9 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "schedule a demo") {
-      // window.open(
-      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-      //   "_blank"
-      // );
+    if (optionText === "enter drawing") {
+      this.triggerAliveChat();
       this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-    } else if (
-      this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
-      optionText !== "menu"
-    ) {
-      this.showAlivePayModal = true;
-      this.makePurchase(optionText);
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
     } else {
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
