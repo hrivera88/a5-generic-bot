@@ -384,8 +384,8 @@ export class A5ChatWindowComponent implements OnInit {
     let alive5_sms_phone_number, alive5_sms_message_question;
 
     if (window.location.pathname == '/ellucian') {
-      alive5_sms_phone_number = '+17139994636';
-      alive5_sms_message_question = 'I\'d like to connect with Ellucian Concierge [hit Send>]';
+      alive5_sms_phone_number = '+18886964513';
+      alive5_sms_message_question = 'I\'d like to enter the drawing. [hit Send>]';
     }
 
     let alive5_pre_link;
