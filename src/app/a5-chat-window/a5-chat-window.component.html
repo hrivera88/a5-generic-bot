@@ -1,4 +1,4 @@
-<div class="window-container">
+<div class="window-container" [ngStyle]="windowContainerStyle">
   <div id="window-banner" [ngStyle]="windowBannerStyle">
     <div class="logo">
       <img [src]="logoImg" alt="" srcset="" />
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div id="message-list">
+  <div id="message-list" [ngStyle]="messageListStyle">
     <div *ngFor="let message of messages">
       <a5-chat-bubble [messageContent]="message.message" [userMessage]="message.userMessage" [name]="message.name">
       </a5-chat-bubble>
@@ -50,13 +50,13 @@
       </div>
     </div>
   </div>
-  <!-- <div id="message-submission">
+  <div id="message-submission" [ngStyle]="messageSubmissionStyle">
     <div>
       <div #botMessageInput aria-labelledby="Jot something down" role="textbox" contenteditable="true"
         aria-multiline="true" id="user-message-input" (keyup.enter)="submitMessageToBot(userMessageInput)"
         data-ph="Type your message here"></div>
-      
-        <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
+
+      <!-- <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off">
      
       
@@ -67,13 +67,13 @@
           [custom]="customEmojis" [style]="{ position: 'absolute', bottom: '47px', right: '20px' }"></emoji-mart>
         <button (click)="toggleEmojiPicker()">
           <fa-icon [icon]="faGrin"></fa-icon>
-        </button>
-     
+        </button> -->
+
       <button [ngStyle]="sendButtonStyle" type="submit" (click)="submitMessageToBot(userMessageInput)">
         Send
       </button>
     </div>
-  </div> -->
+  </div>
 </div>
 <a5-alivepay-modal *ngIf="showAlivePayModal" [showModal]="showAlivePayModal" (modalHidden)="modalState($event)"
   [movieTitle]="movieTitle"></a5-alivepay-modal>
