@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#000',
     'border-bottom-color': '#f1592b'
   };
-  logoImg = "/assets/img/Alive5_white_Logo.svg";
+  logoImg = "/alive5-start/assets/img/Alive5_white_Logo.svg";
   showGreetingSection = true;
   greetingLine = "Welcome to Alive5 Start (QR on the box)!";
   greetingSectionStyle = {
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "alivestartbot",
       inputText: textMessage,
       userId: this.lexUserID
     };
