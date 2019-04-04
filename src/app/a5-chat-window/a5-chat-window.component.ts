@@ -18,15 +18,15 @@ import {
   faGrin,
   faArrowAltCircleLeft,
   faTimesCircle,
-  faArrowRight
+  faArrowRight,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "./message";
 import { Option } from "./option";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
-import { ReturnStatement } from "@angular/compiler";
-
+import { Image, GalleryService } from 'angular-modal-gallery';
 @Component({
   selector: "a5-chat-window",
   templateUrl: "./a5-chat-window.component.html",
@@ -57,6 +57,7 @@ export class A5ChatWindowComponent implements OnInit {
   faComment = faComment;
   faTimesCircle = faTimesCircle;
   faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faAddressCard = faAddressCard;
   faGrin = faGrin;
   faArrowRight = faArrowRight;
   userMessageInput: string;
@@ -380,6 +381,42 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
+  chooseBotOption(evt: any) {
+    let optionText = evt.target.value;
+    this.showResponse(true, optionText);
+    if (optionText === 'schedule a demo') {
+      this.triggerAliveChat();
+    } else {
+      this.sendTextMessageToBot(optionText);
+    }
+    this.bounceMenu = "button";
+  }
+
+  chooseMainOption(evt: any) {
+    //Get text value from Main Menu Button
+    let optionText = evt.target.value;
+    // Show Main Menu Button text value in Messages UI
+    this.showResponse(true, optionText);
+    this.sendTextMessageToBot(optionText);
+  }
+
+  makePurchase(botResponse) {
+    if (botResponse) {
+      this.movieTitle = botResponse;
+    } else {
+      this.movieTitle = null;
+    }
+    console.log(this.movieTitle);
+  }
+
+  modalState(evt: any) {
+    this.showAlivePayModal = evt;
+  }
+
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
+
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -387,6 +424,16 @@ export class A5ChatWindowComponent implements OnInit {
     if (window.location.pathname == '/budweiser-gardens') {
       alive5_sms_phone_number = '+15196675700';
       alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=dustin@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with dustin@alive5.com [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=glenn@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
     }
 
     let alive5_pre_link;
@@ -444,49 +491,6 @@ export class A5ChatWindowComponent implements OnInit {
     }
   }
 
-  chooseBotOption(evt: any) {
-    let optionText = evt.target.value;
-    if (optionText === "schedule a demo") {
-      // window.open(
-      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-      //   "_blank"
-      // );
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-    } else if (
-      this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
-      optionText !== "menu"
-    ) {
-      this.showAlivePayModal = true;
-      this.makePurchase(optionText);
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
-    } else {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
-    }
-  }
+  
 
-  chooseMainOption(evt: any) {
-    //Get text value from Main Menu Button
-    let optionText = evt.target.value;
-    // Show Main Menu Button text value in Messages UI
-    this.showResponse(true, optionText);
-    this.sendTextMessageToBot(optionText);
-  }
-
-  makePurchase(botResponse) {
-    if (botResponse) {
-      this.movieTitle = botResponse;
-    } else {
-      this.movieTitle = null;
-    }
-    console.log(this.movieTitle);
-  }
-
-  modalState(evt: any) {
-    this.showAlivePayModal = evt;
-  }
 }
