@@ -68,14 +68,15 @@
 .logo {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-left: 10px;
 }
 .logo img,
 .logo svg {
   width: auto;
   height: auto;
-  max-height: 53px;
+  max-height: 40px;
   max-width: 177px;
 }
 .logo svg {
@@ -198,7 +199,18 @@
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/img/carbonFiber.jpg");
 }
-
+.exchange-btn {
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #F1592B;
+  background: #F1592B;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.exchange-btn fa-icon {
+  margin-right: 10px;
+}
 #dialog-options button {
   display: block;
   border: 1px solid #F1592B;
