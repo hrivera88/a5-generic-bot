@@ -41,6 +41,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
+  /* background-image: url('../../assets/img/geometry.png'); */
   background-image: url('../../assets/img/geometry.png');
   background-size: cover;
 }
@@ -173,7 +174,7 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  background: url('../../assets/img/geometry.png');
+  /* background: url('../../assets/img/geometry.png'); */
 }
 #message-list > *:first-child {
   margin-bottom: auto;
@@ -361,6 +362,24 @@ button.more-options-btn span {
     /* width: 88px; */
   }
 }
+
+@media (min-width: 767px) {
+  .option-buttons-container {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1299px) {
+  .option-buttons-container {
+    width: 50%;
+  }
+}
+@media (min-width:1300px) {
+  .option-buttons-container {
+    width: 30%;
+  }
+}
+
 
 @keyframes blink {
   50% {
