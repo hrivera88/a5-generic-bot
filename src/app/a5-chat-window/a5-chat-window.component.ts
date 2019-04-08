@@ -18,7 +18,8 @@ import {
   faGrin,
   faArrowAltCircleLeft,
   faTimesCircle,
-  faArrowRight
+  faArrowRight,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "./message";
 import { Option } from "./option";
@@ -26,7 +27,6 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { Image, GalleryService } from 'angular-modal-gallery';
-import * as $ from 'jquery';
 @Component({
   selector: "a5-chat-window",
   templateUrl: "./a5-chat-window.component.html",
@@ -57,6 +57,7 @@ export class A5ChatWindowComponent implements OnInit {
   faComment = faComment;
   faTimesCircle = faTimesCircle;
   faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faAddressCard = faAddressCard;
   faGrin = faGrin;
   faArrowRight = faArrowRight;
   userMessageInput: string;
@@ -150,7 +151,7 @@ export class A5ChatWindowComponent implements OnInit {
   showGallery: boolean;
 
   // Customizing
-  logoImg = '../../alive5/assets/img/alive5-logo-white2.svg';
+  logoImg = '/assets/img/alive5-logo-white2.svg';
   brandLine = "Welcome Message!";
   showBrandingLine = false;
   showHideButton = false;
@@ -409,6 +410,10 @@ export class A5ChatWindowComponent implements OnInit {
     this.showAlivePayModal = evt;
   }
 
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
+
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -416,6 +421,16 @@ export class A5ChatWindowComponent implements OnInit {
     if (window.location.pathname == '/alive5') {
       alive5_sms_phone_number = '+17139994636';
       alive5_sms_message_question = 'I\'d like to connect with alive5 [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=dustin@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with dustin@alive5.com [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=glenn@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
     }
 
     let alive5_pre_link;

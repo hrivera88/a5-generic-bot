@@ -1,17 +1,13 @@
 <div class="window-container">
   <div id="window-banner">
-    <div class="hide-chat" *ngIf="showHideButton">
-      <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
-      <p>Hide</p>
-    </div>
-
     <div class="logo">
       <img [src]="logoImg" alt="" srcset="" />
     </div>
-
-    <div class="end-chat" *ngIf="showEndChatButton">
-      <fa-icon [icon]="faTimesCircle"></fa-icon>
-      <p>End Chat</p>
+    <div class="exchange-info-button">
+      <button class="btn exchange-btn" (click)="exchangeContact()">
+        <fa-icon [icon]="faAddressCard"></fa-icon>
+        <span>Contact</span>
+      </button>
     </div>
   </div>
 
