@@ -382,6 +382,8 @@ button.more-options-btn span {
     /* width: 88px; */
   }
 }
+
+
 @media (min-width: 767px) {
   .option-buttons-container {
     width: 70%;
