@@ -54,8 +54,27 @@ body {
   }
 }
 @media (min-width: 767px) {
+  .message {
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 20em;
+  }
   .message iframe, .message img, .message video {
     max-width: 247px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1299px){
+  .message {
+    margin-left: 25%;
+    margin-right: 30%;
+    max-width: 20em;
+  }
+} 
+@media (min-width: 1300px){
+  .message {
+    margin-left: 35%;
+    margin-right: 37%;
+    max-width: 20em;
   }
 }
 /* .message img {
