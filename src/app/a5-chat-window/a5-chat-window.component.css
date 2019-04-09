@@ -42,7 +42,7 @@
   -ms-flex-pack: center;
   justify-content: space-around;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/alive5-start/assets/img/carbonFiber.jpg");
+    url("/WebsiteAlive/assets/img/carbonFiber.jpg");
   /* background-image: url('../../assets/img/geometry.png'); */
   background-size: cover;
 }
@@ -177,7 +177,7 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  /* background: url('../../assets/img/geometry.png'); */
+  background: url('/WebsiteAlive/assets/img/blackOrange.jpg');
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
   background-color: #000;
 }
@@ -206,7 +206,7 @@
   /* background-color: rgba(41, 41, 85,1); */
   /* color: #fff; */
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/alive5-start/assets/img/carbonFiber.jpg");
+    url("/WebsiteAlive/assets/img/carbonFiber.jpg");
   background-size: 'cover'; 
   color: #f1592b;
 }
@@ -264,14 +264,14 @@
   border: none;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
-  color: #c1c1c1;
+  color: #000;
 }
 #message-submission button {
   width: 50px;
   background: none;
   border: 0;
   cursor: pointer;
-  color: rgba(41, 41, 85,1);
+  color: rgb(93, 93, 95);
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
@@ -308,6 +308,7 @@
   float: left;
   margin: 0 1px;
   background-color: #fff;
+  color: #000;
   display: block;
   border-radius: 50%;
   opacity: 0.4;
@@ -334,7 +335,7 @@
   font-weight: 300;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
-  color: #888;
+  color: #000;
   border: 0;
 }
 #user-message-input:focus {

@@ -154,9 +154,9 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#000',
     'border-bottom-color': '#f1592b'
   };
-  logoImg = "/alive5-start/assets/img/Alive5_white_Logo.svg";
+  logoImg = "/WebsiteAlive/assets/img/Alive5_white_Logo.svg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Alive5 Start (QR on the box)!";
+  greetingLine = "Welcome to WebsiteAlive!";
   greetingSectionStyle = {
     'background-color': '#5f6062'
   };
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "alivestartbot",
+      botName: "websiteAliveBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -382,9 +382,9 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/alive5-start') {
+    if (window.location.pathname == '/websiteAlive') {
       alive5_sms_phone_number = '+17139994636';
-      alive5_sms_message_question = 'I have a question about the Ai-Powered Business Card. [hit Send>]';
+      alive5_sms_message_question = 'I have a question about WebsiteAlive. [hit Send>]';
     }
 
     let alive5_pre_link;
