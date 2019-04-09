@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#e9b258'
   };
-  logoImg = "/wework-emily/assets/img/welogo_black.png";
+  logoImg = "/wework-labs/assets/img/weworklabs-horiz.png";
 
   showGreetingSection = true;
   greetingLine = "Welcome to WeWork!";
