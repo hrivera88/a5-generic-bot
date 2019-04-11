@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {
   trigger,
   state,
@@ -177,12 +178,36 @@ export class A5ChatWindowComponent implements OnInit {
     'color': "#fff"
 
   }
+  messageSubmissionStyle = {
+    background: '#fff'
+  }
   sendButtonStyle = {
     color: '#e35c02'
   };
+
+  //User info for live chat agent
+  name = '';
+  email = '';
+  showUserInput = false;
+  currentIntentName = '';
+  //elastic search
+  activeFAQDirectory = false;
+  isTyping = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ",
+    }),
+    data: {
+      "org_name": "spectrabg",
+      "search": "",
+      "category_name": "Greetings",
+      }
+  };
+
   constructor(
     private sendMailService: SendMailService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private http: HttpClient
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -305,10 +330,135 @@ export class A5ChatWindowComponent implements OnInit {
       responseCards[this.currentResponseCardPosition].buttons
     );
   }
+  storeFAQAnswersLocalStorage(answers: any) {
+    localStorage.setItem('faq-answers', JSON.stringify(answers));
+  }
+
+  removeFAQAnswersLocalStorage() {
+    localStorage.removeItem('faq-answers');
+  }
+
+  sendAnswerToUser() {
+    let answers = localStorage.getItem('faq-answers');
+    let parsed = JSON.parse(answers);
+    if (parsed) {
+      if (parsed.length === 0) {
+        console.log('parsed equal zeero');
+        this.isTyping = false;
+        this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+        this.removeFAQAnswersLocalStorage();
+        this.activeFAQDirectory = false;
+
+        setTimeout(() => {
+          this.botOptionsTitle = "Speak with a person or go to main menu?"
+          this.botMenuOptions = [
+            {
+              text: 'Text Us Your Question',
+              value: 'text us your question'
+            },
+          {
+            text: 'Main Menu',
+            value: 'go back to main menu'
+          }];
+          this.showBotOptions = true;
+        }, 1000);
+      } else {
+        this.isTyping = false;
+        let answer = parsed.shift();
+        this.storeFAQAnswersLocalStorage(parsed);
+        this.showResponse(false, answer);
+        setTimeout(() => {
+          this.botOptionsTitle = 'Was this helpful?'
+          this.botMenuOptions = [
+            {
+              text: 'Yes',
+              value: 'yes'
+            },
+            {
+              text: 'No',
+              value: 'no'
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      }
+    }
+  }
+
+  sendSuccessFAQMessage() {
+    this.isTyping = false;
+    this.showResponse(false, 'Great, if you have any other questions let us know.');
+    this.removeFAQAnswersLocalStorage();
+    this.activeFAQDirectory = false;
+    setTimeout(() => {
+      this.showBotOptions = true;
+      this.botOptionsTitle = "View Main Menu?"
+      this.botMenuOptions = [
+        {
+          text: 'Main Menu',
+          value: 'menu'
+        }];
+    }, 1000);
+  }
+
+  makeCallToFAQAPI(userMessage: string) {
+    this.isTyping = true;
+    if(userMessage) {
+      this.httpOptions.data.search = userMessage;
+      this.http.get("https://api-v2.alive5.com/1.0/kb-article/search-external" , {
+        headers: this.httpOptions.headers,
+        params: this.httpOptions.data
+      })
+      .subscribe((data: any) => {
+        if(data.error) {
+          console.log('subscribe error');
+          this.isTyping = false;
+          this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+          this.showBotOptions = true;
+          this.botMenuOptions = [
+            {
+              text: 'Text Us Your Question',
+              value: 'text us your question'
+            },
+            {
+              text: 'Main Menu',
+              value: 'go back to main menu'
+            }];
+        } else {
+          let faqAnswersData = data.data;
+          this.storeFAQAnswersLocalStorage(faqAnswersData);
+          this.isTyping = false;
+          this.sendAnswerToUser();
+          this.activeFAQDirectory = true;
+        }
+        console.log(data);
+      })
+    
+    } else {
+      this.isTyping = false;
+      console.log('no user message');
+      this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+      this.showBotOptions = true;
+      this.botMenuOptions = [
+        {
+          text: 'Text Us Your Question',
+          value: 'text us your question'
+        },
+        {
+          text: 'Main Menu',
+          value: 'go back to main menu'
+        }];   
+    }
+  }
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
-
+    this.currentIntentName = botResponse.intentName;
+    if (this.currentIntentName === 'askQuestion' || this.currentIntentName === 'humanChat') {
+      this.showUserInput = true;
+    } else {
+      this.showUserInput = false;
+    }
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
@@ -330,6 +480,11 @@ export class A5ChatWindowComponent implements OnInit {
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
+        if (botResponse.slots.name && botResponse.slots.email) {
+          this.name = botResponse.slots.name;
+          this.email = botResponse.slots.email;
+        }
+        console.log('botResponses *****', this.name, this.email)
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
         this.showBotOptions = true;
@@ -343,17 +498,42 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   submitMessageToBot(message: any) {
-    let usersMessage = this.botMessageInput.nativeElement.innerHTML;
-    usersMessage = usersMessage.replace(/<\s*div[^>]*>(.*?)<\s*\/\s*div>/g, "");
-    this.showResponse(true, usersMessage);
-    let noEmojisMsg = usersMessage.replace(/<\s*img[^>]*>/g, " ");
-    let noSpanTags = noEmojisMsg.replace(
-      /<\s*span[^>]*>(.*?)<\s*\/\s*span>/g,
-      ""
-    );
-    let cleanMessage = noSpanTags.replace(/&(nbsp|amp|quot|lt|gt);/g, " ");
-    this.sendTextMessageToBot(cleanMessage);
-    this.botMessageInput.nativeElement.innerHTML = "";
+    let messageUserTyped = this.botMessageInput.nativeElement.innerText;
+    messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "");
+    if(messageUserTyped === '') {
+      return;
+    }
+    this.showResponse(true, messageUserTyped);
+    this.botMessageInput.nativeElement.innerText = "";
+    this.multipleCards = false;
+    if (this.activeFAQDirectory === false) {
+      this.showBotOptions = false;
+      if (this.currentIntentName === 'askQuestion') {
+        this.makeCallToFAQAPI(messageUserTyped);
+      } else if (this.currentIntentName === 'humanChat') {
+        this.sendTextMessageToBot(messageUserTyped);
+      }
+    } else {
+      if (messageUserTyped.toLowerCase() === 'yes') {
+        this.isTyping = true;
+        this.showBotOptions = false;
+        this.sendSuccessFAQMessage();
+      } else if (messageUserTyped.toLowerCase() === 'no') {
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      } else if (messageUserTyped.toLowerCase() === 'go back to main menu') {
+        this.sendTextMessageToBot(messageUserTyped.toLowerCase());
+        this.activeFAQDirectory = false;
+        this.removeFAQAnswersLocalStorage();
+      } else {
+        this.showResponse(false, 'Let me search for that real quick');
+        this.removeFAQAnswersLocalStorage();
+        this.showBotOptions = false;
+        setTimeout(()=> {
+          this.makeCallToFAQAPI(messageUserTyped);
+        }, 1000);
+      }
+    }
   }
 
   sendTextMessageToBot(textMessage) {
@@ -436,6 +616,7 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
+      window.location.href = `https://go.websitealive.com/?name=${this.name}&email=${this.email}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       document.location.href = alive5_pre_link;
@@ -444,27 +625,37 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "schedule a demo") {
-      // window.open(
-      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-      //   "_blank"
-      // );
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-    } else if (
-      this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
-      optionText !== "menu"
-    ) {
-      this.showAlivePayModal = true;
-      this.makePurchase(optionText);
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
+    if(this.activeFAQDirectory === true){
+      if (optionText === 'yes'){
+        this.isTyping = true;
+        this.sendSuccessFAQMessage();
+        this.showBotOptions = false;
+      } else if (optionText === 'go back to main menu') {
+        this.isTyping = true;
+        this.sendTextMessageToBot(optionText);
+        this.showBotOptions = false;
+        this.activeFAQDirectory = false;
+      } else {
+        this.isTyping = true;
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      }
     } else {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
-    }
+      if (optionText === "text us your question") {
+        this.triggerAliveChat();
+
+      } else {
+        if (optionText === "agent") {
+          this.showResponse(true, optionText);
+          // this.sendTextMessageToBot(optionText);
+          this.triggerAliveChat();
+        }  else {
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+        }
+      }
+    } 
   }
 
   chooseMainOption(evt: any) {
