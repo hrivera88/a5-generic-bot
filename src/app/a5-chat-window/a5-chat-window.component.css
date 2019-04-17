@@ -232,6 +232,11 @@
   padding: 0.25rem;
   height: 100%;
 }
+[contenteditable="true"]:empty:not(:focus) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 [contenteditable="true"]:empty:not(:focus):before {
   content: attr(data-ph);
   font-size: 14px;
