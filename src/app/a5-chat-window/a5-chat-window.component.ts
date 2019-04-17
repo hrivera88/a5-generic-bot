@@ -623,7 +623,11 @@ export class A5ChatWindowComponent implements OnInit {
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.name}&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
-      document.location.href = alive5_pre_link;
+      if (this.currentIntentName === 'humanChat') {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.name}&email=${this.email}&question=${this.question}`;
+      } else {
+        document.location.href = alive5_pre_link;
+      }
     }
   }
 
