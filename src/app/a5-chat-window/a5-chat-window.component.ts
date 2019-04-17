@@ -190,6 +190,7 @@ export class A5ChatWindowComponent implements OnInit {
   //User info for live chat agent
   name = '';
   email = '';
+  question = '';
   showUserInput = false;
   currentIntentName = '';
   //elastic search
@@ -203,7 +204,7 @@ export class A5ChatWindowComponent implements OnInit {
       "org_name": "spectrabg",
       "search": "",
       "category_name": "Greetings",
-      }
+    }
   };
 
   constructor(
@@ -358,10 +359,10 @@ export class A5ChatWindowComponent implements OnInit {
               text: 'Text Us Your Question',
               value: 'text us your question'
             },
-          {
-            text: 'Main Menu',
-            value: 'go back to main menu'
-          }];
+            {
+              text: 'Main Menu',
+              value: 'go back to main menu'
+            }];
           this.showBotOptions = true;
         }, 1000);
       } else {
@@ -405,37 +406,37 @@ export class A5ChatWindowComponent implements OnInit {
 
   makeCallToFAQAPI(userMessage: string) {
     this.isTyping = true;
-    if(userMessage) {
+    if (userMessage) {
       this.httpOptions.data.search = userMessage;
-      this.http.get("https://api-v2.alive5.com/1.0/kb-article/search-external" , {
+      this.http.get("https://api-v2.alive5.com/1.0/kb-article/search-external", {
         headers: this.httpOptions.headers,
         params: this.httpOptions.data
       })
-      .subscribe((data: any) => {
-        if(data.error) {
-          console.log('subscribe error');
-          this.isTyping = false;
-          this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
-          this.showBotOptions = true;
-          this.botMenuOptions = [
-            {
-              text: 'Text Us Your Question',
-              value: 'text us your question'
-            },
-            {
-              text: 'Main Menu',
-              value: 'go back to main menu'
-            }];
-        } else {
-          let faqAnswersData = data.data;
-          this.storeFAQAnswersLocalStorage(faqAnswersData);
-          this.isTyping = false;
-          this.sendAnswerToUser();
-          this.activeFAQDirectory = true;
-        }
-        console.log(data);
-      })
-    
+        .subscribe((data: any) => {
+          if (data.error) {
+            console.log('subscribe error');
+            this.isTyping = false;
+            this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+            this.showBotOptions = true;
+            this.botMenuOptions = [
+              {
+                text: 'Text Us Your Question',
+                value: 'text us your question'
+              },
+              {
+                text: 'Main Menu',
+                value: 'go back to main menu'
+              }];
+          } else {
+            let faqAnswersData = data.data;
+            this.storeFAQAnswersLocalStorage(faqAnswersData);
+            this.isTyping = false;
+            this.sendAnswerToUser();
+            this.activeFAQDirectory = true;
+          }
+          console.log(data);
+        })
+
     } else {
       this.isTyping = false;
       console.log('no user message');
@@ -449,7 +450,7 @@ export class A5ChatWindowComponent implements OnInit {
         {
           text: 'Main Menu',
           value: 'go back to main menu'
-        }];   
+        }];
     }
   }
 
@@ -479,13 +480,15 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.bounceMenu = "botResponse";
     } else {
+      if (botResponse.slots.name && botResponse.slots.email && botResponse.slots.question) {
+        this.name = botResponse.slots.name;
+        this.email = botResponse.slots.email;
+        this.question = botResponse.slots.question;
+        this.triggerAliveChat();
+      }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
-        if (botResponse.slots.name && botResponse.slots.email) {
-          this.name = botResponse.slots.name;
-          this.email = botResponse.slots.email;
-        }
         console.log('botResponses *****', this.name, this.email)
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
@@ -502,7 +505,7 @@ export class A5ChatWindowComponent implements OnInit {
   submitMessageToBot(message: any) {
     let messageUserTyped = this.botMessageInput.nativeElement.innerText;
     messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "");
-    if(messageUserTyped === '') {
+    if (messageUserTyped === '') {
       return;
     }
     this.showResponse(true, messageUserTyped);
@@ -531,7 +534,7 @@ export class A5ChatWindowComponent implements OnInit {
         this.showResponse(false, 'Let me search for that real quick');
         this.removeFAQAnswersLocalStorage();
         this.showBotOptions = false;
-        setTimeout(()=> {
+        setTimeout(() => {
           this.makeCallToFAQAPI(messageUserTyped);
         }, 1000);
       }
@@ -614,11 +617,10 @@ export class A5ChatWindowComponent implements OnInit {
         }
         break;
     }
-
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
-      window.location.href = `https://go.websitealive.com/?name=${this.name}&email=${this.email}`;
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.name}&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       document.location.href = alive5_pre_link;
@@ -627,8 +629,8 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if(this.activeFAQDirectory === true){
-      if (optionText === 'yes'){
+    if (this.activeFAQDirectory === true) {
+      if (optionText === 'yes') {
         this.isTyping = true;
         this.sendSuccessFAQMessage();
         this.showBotOptions = false;
@@ -646,18 +648,17 @@ export class A5ChatWindowComponent implements OnInit {
       if (optionText === "text us your question") {
         this.triggerAliveChat();
 
+      } else if (optionText === "chat with a human") {
+        let botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
+        this.showResponse(false, botQuote);
+        this.sendTextMessageToBot(optionText);
+        this.bounceMenu = "button";
       } else {
-        if (optionText === "agent") {
-          this.showResponse(true, optionText);
-          // this.sendTextMessageToBot(optionText);
-          this.triggerAliveChat();
-        }  else {
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
-          this.bounceMenu = "button";
-        }
+        this.showResponse(true, optionText);
+        this.sendTextMessageToBot(optionText);
+        this.bounceMenu = "button";
       }
-    } 
+    }
   }
 
   chooseMainOption(evt: any) {
