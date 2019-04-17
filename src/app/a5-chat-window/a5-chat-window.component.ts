@@ -151,14 +151,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background-color': '#272E4F',
+    'border-bottom-color': '#F73859'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/abc-logoo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to ABC University!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#272E4F'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#272E4F'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -383,8 +383,8 @@ export class A5ChatWindowComponent implements OnInit {
     let alive5_sms_phone_number, alive5_sms_message_question;
 
     if (window.location.pathname == '/budweiser-gardens') {
-      alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+      alive5_sms_phone_number = '+18886964513';
+      alive5_sms_message_question = 'I would like to donate to ABC University [hit Send>]';
     }
 
     let alive5_pre_link;

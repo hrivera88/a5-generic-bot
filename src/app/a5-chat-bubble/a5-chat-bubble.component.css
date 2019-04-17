@@ -14,7 +14,7 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-  background: #486290;
+  background: #272E4F;
   color: #fdf9f0;
   border-radius: 5px;
   width: auto;
@@ -51,7 +51,7 @@
   height: auto;
 }
 .message.user {
-  background: #ff8359;
+  background: #F73859;
   font-family: "Nunito", sans-serif;
   text-align: center;
   color: white;
