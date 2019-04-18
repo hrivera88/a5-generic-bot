@@ -151,7 +151,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#272E4F',
+    'background': '#272E4F',
     'border-bottom-color': '#F73859'
   };
   logoImg = "/assets/img/abc-logoo.png";
