@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "Edubot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -382,7 +382,7 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/budweiser-gardens') {
+    if (window.location.pathname == '/edubot') {
       alive5_sms_phone_number = '+18886964513';
       alive5_sms_message_question = 'I would like to donate to ABC University [hit Send>]';
     }
