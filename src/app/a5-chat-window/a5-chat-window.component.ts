@@ -149,16 +149,16 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  // Customizing
+  // Customizing *******************
   windowBannerStyle = {
-    'background-color': '#F8F4E1',
-    'border-bottom-color': '#45A040'
+    'background-color': '#fff',
+    'border-bottom-color': '#F7C733'
   };
-  logoImg = "/competitive_health/assets/img/competitiveHealthCream.png";
+  logoImg = "/competitive_health/assets/img/CompetetiveHealthLogo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Competitive Health Bot!";
   greetingSectionStyle = {
-    'background-color': '#004A99'
+    'background-color': '#4774BA'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,11 +167,11 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ".../.../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#004A99'
+    'background-color': '#4774BA'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
-    'backgroun-color': '#004A99',
+    'backgroun-color': '#4774BA',
     color: '#fff'
   }
   botOptionTitleStyle = {
@@ -179,7 +179,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#e88a00'
+    color: '#F7C733'
   };
   constructor(
     private sendMailService: SendMailService,

@@ -41,7 +41,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background-image: url('../../assets/img/geometry.png');
+  /* background-image: url('../../assets/img/geometry.png'); */
   background-size: cover;
 }
 .hide-chat,
@@ -197,7 +197,7 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: rgba(41, 41, 85,1);
+  background-color: #4774BA;
   color: #fff;
 }
 #dialog-options button {
