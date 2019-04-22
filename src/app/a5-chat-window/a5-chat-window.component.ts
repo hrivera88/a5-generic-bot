@@ -154,27 +154,27 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/switchboard_logo_fullColor_dark.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Hi! Welcome to Switchboard Bot!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#66CC33'
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: '#000'
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#66CC33'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
+    'border-color': '#000',
+    color: '#000'
   }
   botOptionTitleStyle = {
-    'color': "#fff"
+    'color': "#000"
 
   }
   sendButtonStyle = {
