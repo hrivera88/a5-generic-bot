@@ -5,7 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import {
   trigger,
   state,
@@ -27,6 +27,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { ReturnStatement } from "@angular/compiler";
+// import { Image, GalleryService } from 'angular-modal-gallery';
 
 @Component({
   selector: "a5-chat-window",
@@ -207,10 +208,14 @@ export class A5ChatWindowComponent implements OnInit {
     }
   };
 
+  //Check whether an agent is online for Live Chat
+  agentOnline: any;
+
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    // private galleryService: GalleryService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -225,6 +230,17 @@ export class A5ChatWindowComponent implements OnInit {
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
+    //Making request to API to retrieve info on whether an live chat agent is online or not.
+    const params = new HttpParams()
+      .set('action', 'groupstatus')
+      .set('groupid', '9');
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    this.http
+      .get(
+        "https://www.websitealive3.com/9/status.asp", { headers: headers, params: params, responseType: 'text' }
+      ).subscribe((data) => {
+        this.agentOnline = data;
+      })
   }
 
   toggleEmojiPicker() {
@@ -295,7 +311,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   loopThroughBotResponseCardButtons(responseCardButtons) {
     _.map(responseCardButtons, opt => {
-      this.botMenuOptions.push(opt);
+      //Check to see if an agent is online to shoow Chat With A Human button
+      if (opt.value === 'chat with a human') {
+        if (this.agentOnline === 'online') {
+          this.botMenuOptions.push(opt);
+        }
+      } else {
+        this.botMenuOptions.push(opt);
+      }
     });
   }
 
@@ -620,16 +643,24 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
-      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.name}&email=${this.email}&question=${this.question}`;
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+        this.name
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
-      if (this.currentIntentName === 'humanChat') {
-        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.name}&email=${this.email}&question=${this.question}`;
+      if (this.currentIntentName === "humanChat") {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+          this.name
+          }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
     }
   }
+
+  // openGallery() {
+  //   this.galleryService.openGallery(1, 0);
+  // }
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
@@ -649,18 +680,22 @@ export class A5ChatWindowComponent implements OnInit {
         this.showBotOptions = false;
       }
     } else {
-      if (optionText === "text us your question") {
-        this.triggerAliveChat();
-
-      } else if (optionText === "chat with a human") {
-        let botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
-        this.showResponse(false, botQuote);
-        this.sendTextMessageToBot(optionText);
-        this.bounceMenu = "button";
-      } else {
-        this.showResponse(true, optionText);
-        this.sendTextMessageToBot(optionText);
-        this.bounceMenu = "button";
+      let botQuote;
+      switch (optionText) {
+        //Check if special action is required by certain button pressed
+        case "text us your question":
+          this.triggerAliveChat();
+          break;
+        case "chat with a human":
+          botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        default:
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
       }
     }
   }
