@@ -28,6 +28,7 @@ import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { BotReportingService } from "../bot-reporting.service";
 import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from "angular-modal-gallery";
 
 @Component({
   selector: "a5-chat-window",
@@ -329,7 +330,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   loopThroughBotResponseCardButtons(responseCardButtons) {
     _.map(responseCardButtons, opt => {
-      this.botMenuOptions.push(opt);
+      //Check to see if an agent is online to shoow Chat With A Human button
+      if (opt.value === "chat with a human") {
+        if (this.agentOnline === "online") {
+          this.botMenuOptions.push(opt);
+        }
+      } else {
+        this.botMenuOptions.push(opt);
+      }
     });
   }
 
@@ -704,10 +712,23 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+        this.name
+      }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
-      document.location.href = alive5_pre_link;
+      if (this.currentIntentName === "humanChat") {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+          this.name
+        }&email=${this.email}&question=${this.question}`;
+      } else {
+        document.location.href = alive5_pre_link;
+      }
     }
+  }
+
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
   }
 
   chooseBotOption(evt: any) {
@@ -740,6 +761,17 @@ export class A5ChatWindowComponent implements OnInit {
           this.showResponse(false, botQuote);
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
+          break;
+        case "our story":
+          botQuote = `<p>WebsiteAlive is a forward thinking online communications provider dedicated to creating innovative, customizable, and unique experiences for businesses and consumers.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case "customization":
+          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
           break;
         default:
           this.showResponse(true, optionText);
