@@ -151,14 +151,16 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'background': `url('../../assets/img/texans-header.jpg')`,
+    'background-position': '50% 50%',
+    'background-size': 'auto 65px',
+    'border-bottom-color': '#c51230'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to the Texans Bot";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#01143f'
   };
   greetingFontStyle = {
     color: '#fff'
