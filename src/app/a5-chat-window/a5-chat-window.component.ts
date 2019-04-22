@@ -169,7 +169,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#01143f'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -179,6 +179,11 @@ export class A5ChatWindowComponent implements OnInit {
     'color': "#fff"
 
   }
+  messageListStyle = {
+    'background': `url('../../assets/img/nrg-stadium.png')`,
+    'background-size': 'cover',
+    'background-position': '50% 50%'
+  };
   sendButtonStyle = {
     color: '#ff8359'
   };
