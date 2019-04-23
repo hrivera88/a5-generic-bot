@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#1E7F7C'
   };
-  logoImg = "/assets/img/GDheader-logo.png";
+  logoImg = "/gunderson-dettmer-naveen/assets/img/GDheader-logo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Gunderson Dettmer Lawfirm!";
   greetingSectionStyle = {
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: " GunderDettmerBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
