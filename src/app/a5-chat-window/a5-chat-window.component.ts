@@ -152,33 +152,33 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing ************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'border-bottom-color': '#1E7F7C'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/GDheader-logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Gunderson Dettmer Lawfirm!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#AFD0CF'
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: '#231F20'
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#AFD0CF'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
+    'border-color': '#231F20',
+    color: '#231F20'
   }
   botOptionTitleStyle = {
-    'color': "#fff"
+    'color': "#231F20"
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#1E7F7C'
   };
   constructor(
     private sendMailService: SendMailService,
