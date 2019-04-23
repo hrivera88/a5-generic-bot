@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#ff8359'
+    'border-bottom-color': '#a4c907'
   };
-  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/logo-scrum-ventures.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Scrum Ventures!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#499fcf'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#499fcf'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
