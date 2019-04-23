@@ -153,13 +153,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': 'blue'
+    'border-bottom-color': 'rgb(84,68,152)'
   };
   logoImg = "/liftlabsbot/assets/img/COMCAST.jpg";
   showGreetingSection = true;
   greetingLine = "Welcome to Comcast/NBCUniversal LIFTLabs Powered by Techstars!";
   greetingSectionStyle = {
-    'background-color': '#2eb64e'
+    'background-image': 'linear-gradient(to right, rgb(47,150,192) , rgb(50,168,107))'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -168,14 +168,14 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#ea6d30'
+    'background-image': 'linear-gradient(to right, rgb(183,0,60), rgb(84,68,152))'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
     color: '#fff'
   }
   sendButtonStyle = {
-    color: 'red'
+    color: 'rgb(183,0,60)'
   };
   previewConfig = {
     visible: false

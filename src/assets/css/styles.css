@@ -12,6 +12,7 @@ body {
 }
 .message {
   letter-spacing: 0.35px;
+  /* max-width: 20em; */
 }
 .message p {
   margin-bottom: 5px;
@@ -24,12 +25,17 @@ body {
 .message iframe {
   border: 0;
   margin: 5px 0;
-  max-width: 247px;
+  max-width: 100%;
   height: auto;
 }
 .message img {
   width: auto;
-  max-width: 247px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.message video {
+  width: auto;
+  max-width: 100%;
   vertical-align: middle;
 }
 .emojiImg {
@@ -37,6 +43,38 @@ body {
   width: 24px;
   vertical-align: bottom;
 }
+
+@media (min-width:360) and (max-width:766px) {
+  .message {
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 20em;
+  }
+}
+@media (min-width: 767px) {
+  .message {
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 20em;
+  }
+  .message iframe, .message img, .message video {
+    max-width: 247px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1299px){
+  .message {
+    margin-left: 25%;
+    margin-right: 30%;
+    max-width: 20em;
+  }
+} 
+@media (min-width: 1300px){
+  .message {
+    margin-left: 35%;
+    margin-right: 37%;
+  }
+}
+
 /* .message img {
   width: auto;
   height: auto;

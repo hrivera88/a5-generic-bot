@@ -14,13 +14,14 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-  background: #685ba9;
+  background: rgb(47,150,192) ;
   color: #fdf9f0;
   border-radius: 5px;
   width: auto;
   display: inline-block;
-  max-width: 75%;
+  max-width: 37em;
   font-family: "Nunito", sans-serif;
+  /* text-align: center; */
 }
 .message a {
   color: #fff;
@@ -38,8 +39,13 @@
   max-width: 247px;
   height: auto;
 }
+.message video {
+    border: 0;
+    max-width: 247px;
+    height: auto;
+}
 .message.user {
-  background: #3485c7;
+  background: rgb(183,0,60);
   font-family: "Nunito", sans-serif;
   color: white;
   -ms-flex-item-align: end;
