@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background': '#272E4F',
     'border-bottom-color': '#F73859'
   };
-  logoImg = "/assets/img/abc-logoo.png";
+  logoImg = "/abcuniversity/assets/img/abc-logoo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to ABC University!";
   greetingSectionStyle = {
@@ -382,7 +382,7 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/edubot') {
+    if (window.location.pathname == '/abcuniversity') {
       alive5_sms_phone_number = '+18886964513';
       alive5_sms_message_question = 'I would like to donate to ABC University [hit Send>]';
     }
