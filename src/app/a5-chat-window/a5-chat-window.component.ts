@@ -26,6 +26,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from 'angular-modal-gallery';
 
 @Component({
   selector: "a5-chat-window",
@@ -151,7 +152,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background': `url('../../assets/img/texans-header.jpg')`,
+    'background': `url('/texans/assets/img/texans-header.jpg')`,
     'background-position': '50% 50%',
     'background-size': 'auto 65px',
     'border-bottom-color': '#c51230'
@@ -167,7 +168,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = "../../assets/img/featurettes-header.png";
+  botOptionImgSource = "/texans/assets/img/featurettes-header.png";
   botOptionsStyle = {
     'background-color': '#01143f'
   };
@@ -180,16 +181,63 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   messageListStyle = {
-    'background': `url('../../assets/img/nrg-stadium.png')`,
+    'background': `url('/texans/assets/img/nrg-stadium.png')`,
     'background-size': 'cover',
     'background-position': '50% 50%'
   };
   sendButtonStyle = {
     color: '#ff8359'
   };
+  //Gallery Images
+  previewConfig = {
+    visible: false
+  };
+  galleryImages: Image[] = [
+    new Image(0, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/dqj8hfmbodqvykgvrom0.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(1, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/yuqofy0qypaydamdgqvj.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(2, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/rsdd61monjycy8chticd.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(3, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/gdptjjtec0pauh7kzxvd.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(4, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/cq3qf4hxbkizcqmoxldo.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(5, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/chosuk1cyhevfx05avaa.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(6, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/qco2almeoofgy7vxtl9h.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(7, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/quwpekjhgsmotbhcygcr.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(8, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/fzw9bmzvmtbm5zeikcof.jpg',
+      // description: 'Description 2'
+    }),
+    new Image(9, {
+      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/axhoajkj4eaon7cu0lue.jpg',
+      // description: 'Description 2'
+    }),
+  ];
   constructor(
     private sendMailService: SendMailService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private galleryService: GalleryService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -448,25 +496,15 @@ export class A5ChatWindowComponent implements OnInit {
       document.location.href = alive5_pre_link;
     }
   }
-
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
+  }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "schedule a demo") {
-      // window.open(
-      //   "https://s3.amazonaws.com/alive5cdn/chat_window.html?wid=b0c58e09-4d41-4d7f-8595-18d05beee94e",
-      //   "_blank"
-      // );
+    if (optionText === "photo gallery") {
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
-    } else if (
-      this.lexBotResponseObj.intentName === "PortlBuyAMovie" &&
-      optionText !== "menu"
-    ) {
-      this.showAlivePayModal = true;
-      this.makePurchase(optionText);
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
+      this.openGallery();
     } else {
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
