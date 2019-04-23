@@ -193,7 +193,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   ngOnInit() {
     this.sendTextMessageToBot("menu");
-    console.log(screen.width);
+    // console.log(screen.width);
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
@@ -205,9 +205,9 @@ export class A5ChatWindowComponent implements OnInit {
 
   selectedEmoji(event: any) {
     let evt = event;
-    console.log(event);
-    console.log(this.userMessageInput);
-    console.log(this.botMessageInput);
+    // console.log(event);
+    // console.log(this.userMessageInput);
+    // console.log(this.botMessageInput);
     if (evt.emoji.custom) {
       let customEmojiElem = this.renderer.createElement("img");
       this.renderer.addClass(customEmojiElem, "emojiImg");
@@ -240,7 +240,7 @@ export class A5ChatWindowComponent implements OnInit {
       serviceDetails: serviceDetails
     };
     this.sendMailService.sendMail(this.botLeadEmailMsg).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -272,15 +272,15 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   checkBotIntent(botResponse) {
-    console.log("whoaaaaa", botResponse);
+    // console.log("whoaaaaa", botResponse);
     if (botResponse.intentName === "PortlWatchTrailer") {
       this.showAlivePayModal = true;
     }
   }
 
   setBotOptions(botOptions, position) {
-    console.log("rawrBotOption: ", botOptions);
-    console.log("rwarPosition: ", position);
+    // console.log("rawrBotOption: ", botOptions);
+    // console.log("rwarPosition: ", position);
     if (botOptions.length > 1) {
       this.multipleCards = true;
     } else {
@@ -312,7 +312,7 @@ export class A5ChatWindowComponent implements OnInit {
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
-      console.log("RAWRWRWRWRWRW");
+      // console.log("RAWRWRWRWRWRW");
       this.showMainMenuButton = false;
       this.showBotOptions = false;
       this.showMainMenuOptions = false;
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: " GunderDettmerBot",
+      botName: "GunderDettmerBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -371,7 +371,7 @@ export class A5ChatWindowComponent implements OnInit {
         console.log(err, err.stack);
       }
       if (data) {
-        console.log("boooottttttttt: ", data);
+        // console.log("boooottttttttt: ", data);
         this.lexBotResponseObj = data;
         this.showBotResponseToUser(data);
       }
@@ -481,7 +481,7 @@ export class A5ChatWindowComponent implements OnInit {
     } else {
       this.movieTitle = null;
     }
-    console.log(this.movieTitle);
+    // console.log(this.movieTitle);
   }
 
   modalState(evt: any) {
