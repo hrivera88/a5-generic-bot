@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#a4c907'
   };
-  logoImg = "/assets/img/logo-scrum-ventures.png";
+  logoImg = "/scrumventures/assets/img/logo-scrum-ventures.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Scrum Ventures!";
   greetingSectionStyle = {
