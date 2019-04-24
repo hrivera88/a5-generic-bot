@@ -240,7 +240,7 @@ export class A5ChatWindowComponent implements OnInit {
       serviceDetails: serviceDetails
     };
     this.sendMailService.sendMail(this.botLeadEmailMsg).subscribe(result => {
-      // console.log(result);
+      console.log(result);
     });
   }
 
