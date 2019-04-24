@@ -154,11 +154,11 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/chick.jpg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Chick-fil-a!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#dd0031'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#dd0031'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "chickfilabot",
       inputText: textMessage,
       userId: this.lexUserID
     };
