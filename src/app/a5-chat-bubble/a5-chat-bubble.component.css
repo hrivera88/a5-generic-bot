@@ -25,13 +25,16 @@
 }
 .message a {
   color: #231F20;
+  border-radius: 5px;
   text-decoration: none;
   margin-left: auto;
   margin-left: auto;
   width: 20em;
 }
+
 .message p {
   letter-spacing: 0.55px;
+  border-radius: 5px;
   margin-left: auto;
   margin-left: auto;
   width: 20em;
