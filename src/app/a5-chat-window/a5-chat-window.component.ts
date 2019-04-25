@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/chick.jpg";
+  logoImg = "/chickfila/assets/img/chick.jpg";
   showGreetingSection = true;
   greetingLine = "Welcome to Chick-fil-a!";
   greetingSectionStyle = {
