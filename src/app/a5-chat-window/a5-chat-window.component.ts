@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing ************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'border-bottom-color': '#f02475'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/dentsu_head_logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Dentsu Bot!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#999'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,10 +167,11 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#999'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
+    'background-color': '#f02475',
+    'border-color': '#f02475',
     color: '#fff'
   }
   botOptionTitleStyle = {
@@ -178,7 +179,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#f02475'
   };
   constructor(
     private sendMailService: SendMailService,
