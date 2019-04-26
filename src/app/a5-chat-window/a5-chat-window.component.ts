@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {
   trigger,
   state,
@@ -81,6 +82,20 @@ export class A5ChatWindowComponent implements OnInit {
     email: "",
     serviceDetails: ""
   };
+  showUserInput = false;
+  currentIntentName = "";
+  isTyping = false;
+  activeFAQDirectory = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ",
+    }),
+    data: {
+      "org_name": "spectrabg",
+      "search": "",
+      "category_name": "Greetings",
+    }
+};
   customEmojis = [
     {
       name: "Computer Guy",
@@ -237,7 +252,8 @@ export class A5ChatWindowComponent implements OnInit {
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private http: HttpClient
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -360,10 +376,123 @@ export class A5ChatWindowComponent implements OnInit {
       responseCards[this.currentResponseCardPosition].buttons
     );
   }
+  storeFAQAnswersLocalStorage(answers: any) {
+    localStorage.setItem('faq-answers', JSON.stringify(answers));
+  }
+
+  removeFAQAnswersLocalStorage() {
+    localStorage.removeItem('faq-answers');
+  }
+  sendAnswerToUser() {
+    let answers = localStorage.getItem('faq-answers');
+    let parsed = JSON.parse(answers);
+    if (parsed) {
+      if (parsed.length === 0) {
+        console.log('parsed equal zeero');
+        this.isTyping = false;
+        this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+        this.removeFAQAnswersLocalStorage();
+        this.activeFAQDirectory = false;
+
+        setTimeout(() => {
+          this.botOptionsTitle = "Speak with a person?"
+          this.botMenuOptions = [
+            {
+              text: 'Text Us Your Question',
+              value: 'text us your question'
+            }];
+          this.showBotOptions = true;
+        }, 1000);
+      } else {
+        this.isTyping = false;
+        let answer = parsed.shift();
+        this.storeFAQAnswersLocalStorage(parsed);
+        this.showResponse(false, answer);
+        setTimeout(() => {
+          this.botOptionsTitle = 'Was this helpful?'
+          this.botMenuOptions = [
+            {
+              text: 'Yes',
+              value: 'yes'
+            },
+            {
+              text: 'No',
+              value: 'no'
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      }
+    }
+  }
+  sendSuccessFAQMessage() {
+    this.isTyping = false;
+    this.showResponse(false, 'Great, if you have any other questions let us know.');
+    this.removeFAQAnswersLocalStorage();
+    this.activeFAQDirectory = false;
+    setTimeout(() => {
+      this.showBotOptions = true;
+      this.botOptionsTitle = "View Main Menu?"
+      this.botMenuOptions = [
+        {
+          text: 'Main Menu',
+          value: 'menu'
+        }];
+    }, 1000);
+
+  }
+  makeCallToFAQAPI(userMessage: string) {
+    this.isTyping = true;
+    if (userMessage) {
+      this.httpOptions.data.search = userMessage;
+      this.http.get("https://api-v2.alive5.com/1.0/kb-article/search-external", {
+        headers: this.httpOptions.headers,
+        params: this.httpOptions.data
+      })
+        .subscribe((data: any) => {
+          if (data.error) {
+            console.log('subscride error');
+            this.isTyping = false;
+            this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+            this.showBotOptions = true;
+            this.botMenuOptions = [
+              {
+                text: 'Text Us Your Question',
+                value: 'text us your question'
+              }];
+          } else {
+            let faqAnswersData = data.data;
+            this.storeFAQAnswersLocalStorage(faqAnswersData);
+            this.isTyping = false;
+            this.sendAnswerToUser();
+            this.activeFAQDirectory = true;
+          }
+          console.log(data);
+        });
+    } else {
+      this.isTyping = false;
+      console.log('no userMessage');
+      this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+      this.showBotOptions = true;
+      this.botMenuOptions = [
+        {
+          text: 'Text Us Your Question',
+          value: 'text us your question'
+        }];
+    }
+}
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
-
+    this.currentIntentName = botResponse.intentName;
+    if (
+      this.currentIntentName === "askQuestion" ||
+      this.currentIntentName === "humanChat"
+    ) {
+      this.showUserInput = true;
+    } else {
+      this.showUserInput = false;
+    }
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
@@ -398,17 +527,35 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   submitMessageToBot(message: any) {
-    let usersMessage = this.botMessageInput.nativeElement.innerHTML;
-    usersMessage = usersMessage.replace(/<\s*div[^>]*>(.*?)<\s*\/\s*div>/g, "");
-    this.showResponse(true, usersMessage);
-    let noEmojisMsg = usersMessage.replace(/<\s*img[^>]*>/g, " ");
-    let noSpanTags = noEmojisMsg.replace(
-      /<\s*span[^>]*>(.*?)<\s*\/\s*span>/g,
-      ""
-    );
-    let cleanMessage = noSpanTags.replace(/&(nbsp|amp|quot|lt|gt);/g, " ");
-    this.sendTextMessageToBot(cleanMessage);
-    this.botMessageInput.nativeElement.innerHTML = "";
+    let messageUserTyped = this.botMessageInput.nativeElement.innerText;
+    messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "")
+    if (messageUserTyped === '') {
+      return;
+    }
+    this.showResponse(true, messageUserTyped);
+    this.botMessageInput.nativeElement.innerText = "";
+    this.multipleCards = false;
+    if (this.activeFAQDirectory === false) {
+      this.showBotOptions = false;
+      this.makeCallToFAQAPI(messageUserTyped);
+    } else {
+      // do stuff if theres a active local stored faq list
+      if (messageUserTyped.toLowerCase() === 'yes') {
+        this.isTyping = true;
+        this.showBotOptions = false;
+        this.sendSuccessFAQMessage();
+      } else if (messageUserTyped.toLowerCase() === 'no') {
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      } else {
+        this.showResponse(false, 'Let me search for that real quick');
+        this.removeFAQAnswersLocalStorage();
+        this.showBotOptions = false;
+        setTimeout(() => {
+          this.makeCallToFAQAPI(messageUserTyped);
+        }, 1000);
+      }
+    }
   }
 
   sendTextMessageToBot(textMessage) {
@@ -437,9 +584,9 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/budweiser-gardens') {
+    if (window.location.pathname == '/texans') {
       alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+      alive5_sms_message_question = 'I\'d like to connect with the Houston Texans Concierge [hit Send>]';
     }
 
     let alive5_pre_link;
@@ -501,14 +648,32 @@ export class A5ChatWindowComponent implements OnInit {
   }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    if (optionText === "photo gallery") {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.openGallery();
+    if (this.activeFAQDirectory === true) {
+      if (optionText === 'yes') {
+        this.isTyping = true;
+        this.sendSuccessFAQMessage();
+        this.showBotOptions = false;
+      } else {
+        this.isTyping = true;
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      }
     } else {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
+      switch (optionText) {
+        case 'photo gallery':
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.openGallery();
+          break;
+
+      }
+      if (optionText === "photo gallery") {
+
+      } else {
+        this.showResponse(true, optionText);
+        this.sendTextMessageToBot(optionText);
+        this.bounceMenu = "button";
+      }
     }
   }
 
