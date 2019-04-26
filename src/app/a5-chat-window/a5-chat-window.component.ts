@@ -151,12 +151,12 @@ export class A5ChatWindowComponent implements OnInit {
   showGallery: boolean;
 
   // Customizing
-  logoImg = '/assets/img/alive5-logo-white2.svg';
+  logoImg = '/alive5/assets/img/alive5-logo-white2.svg';
   brandLine = "Welcome Message!";
   showBrandingLine = false;
   showHideButton = false;
   showEndChatButton = false;
-  brandSectionBGImg = 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../assets/img/cssf-science_bldg_background.jpg)';
+  brandSectionBGImg = '';
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = '../../assets/img/featurettes-header.png';
