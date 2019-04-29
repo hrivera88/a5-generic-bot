@@ -357,7 +357,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   loopThroughBotResponseCardButtons(responseCardButtons) {
     _.map(responseCardButtons, opt => {
-      this.botMenuOptions.push(opt);
+      //Check to see if an agent is online to shoow Chat With A Human button
+      if (opt.value === 'chat with a human') {
+        if (this.agentOnline === 'online') {
+          this.botMenuOptions.push(opt);
+        }
+      } else {
+        this.botMenuOptions.push(opt);
+      }
     });
   }
 
@@ -396,9 +403,154 @@ export class A5ChatWindowComponent implements OnInit {
     );
   }
 
+  storeFAQAnswersLocalStorage(answers: any) {
+    localStorage.setItem("faq-answers", JSON.stringify(answers));
+  }
+
+  removeFAQAnswersLocalStorage() {
+    localStorage.removeItem("faq-answers");
+  }
+
+  sendAnswerToUser() {
+    let answers = localStorage.getItem("faq-answers");
+    let parsed = JSON.parse(answers);
+    if (parsed) {
+      if (parsed.length === 0) {
+        console.log("parsed equal zeero");
+        this.isTyping = false;
+        this.showResponse(
+          false,
+          "Sorry, I couldn't help you out. Would you like to ask a human?"
+        );
+        this.removeFAQAnswersLocalStorage();
+        this.activeFAQDirectory = false;
+
+        setTimeout(() => {
+          this.botOptionsTitle = "Speak with a person or go to main menu?";
+          this.botMenuOptions = [
+            {
+              text: "Text Us Your Question",
+              value: "text us your question"
+            },
+            {
+              text: "Main Menu",
+              value: "go back to main menu"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      } else {
+        this.isTyping = false;
+        let answer = parsed.shift();
+        this.storeFAQAnswersLocalStorage(parsed);
+        this.showResponse(false, answer);
+        setTimeout(() => {
+          this.botOptionsTitle = "Was this helpful?";
+          this.botMenuOptions = [
+            {
+              text: "Yes",
+              value: "yes"
+            },
+            {
+              text: "No",
+              value: "no"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      }
+    }
+  }
+
+  sendSuccessFAQMessage() {
+    this.isTyping = false;
+    this.showResponse(
+      false,
+      "Great, if you have any other questions let us know."
+    );
+    this.removeFAQAnswersLocalStorage();
+    this.activeFAQDirectory = false;
+    setTimeout(() => {
+      this.showBotOptions = true;
+      this.botOptionsTitle = "View Main Menu?";
+      this.botMenuOptions = [
+        {
+          text: "Main Menu",
+          value: "menu"
+        }
+      ];
+    }, 1000);
+  }
+
+  makeCallToFAQAPI(userMessage: string) {
+    this.isTyping = true;
+    if (userMessage) {
+      this.httpOptions.data.search = userMessage;
+      this.http
+        .get("https://api-v2.alive5.com/1.0/kb-article/search-external", {
+          headers: this.httpOptions.headers,
+          params: this.httpOptions.data
+        })
+        .subscribe((data: any) => {
+          if (data.error) {
+            console.log("subscribe error");
+            this.isTyping = false;
+            this.showResponse(
+              false,
+              "Sorry, I couldn't help you out. Would you like to ask a human?"
+            );
+            this.showBotOptions = true;
+            this.botMenuOptions = [
+              {
+                text: "Text Us Your Question",
+                value: "text us your question"
+              },
+              {
+                text: "Main Menu",
+                value: "go back to main menu"
+              }
+            ];
+          } else {
+            let faqAnswersData = data.data;
+            this.storeFAQAnswersLocalStorage(faqAnswersData);
+            this.isTyping = false;
+            this.sendAnswerToUser();
+            this.activeFAQDirectory = true;
+          }
+          console.log(data);
+        });
+    } else {
+      this.isTyping = false;
+      console.log("no user message");
+      this.showResponse(
+        false,
+        "Sorry, I couldn't help you out. Would you like to ask a human?"
+      );
+      this.showBotOptions = true;
+      this.botMenuOptions = [
+        {
+          text: "Text Us Your Question",
+          value: "text us your question"
+        },
+        {
+          text: "Main Menu",
+          value: "go back to main menu"
+        }
+      ];
+    }
+  }
+
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
-
+    this.currentIntentName = botResponse.intentName;
+    if (
+      this.currentIntentName === "askQuestion" ||
+      this.currentIntentName === "humanChat"
+    ) {
+      this.showUserInput = true;
+    } else {
+      this.showUserInput = false;
+    }
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
@@ -417,6 +569,16 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.bounceMenu = "botResponse";
     } else {
+      if (
+        botResponse.slots.name &&
+        botResponse.slots.email &&
+        botResponse.slots.scheduleQuestion
+      ) {
+        this.name = botResponse.slots.name;
+        this.email = botResponse.slots.email;
+        this.question = botResponse.slots.scheduleQuestion;
+        this.triggerAliveChat();
+      }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
@@ -433,17 +595,42 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   submitMessageToBot(message: any) {
-    let usersMessage = this.botMessageInput.nativeElement.innerHTML;
-    usersMessage = usersMessage.replace(/<\s*div[^>]*>(.*?)<\s*\/\s*div>/g, "");
-    this.showResponse(true, usersMessage);
-    let noEmojisMsg = usersMessage.replace(/<\s*img[^>]*>/g, " ");
-    let noSpanTags = noEmojisMsg.replace(
-      /<\s*span[^>]*>(.*?)<\s*\/\s*span>/g,
-      ""
-    );
-    let cleanMessage = noSpanTags.replace(/&(nbsp|amp|quot|lt|gt);/g, " ");
-    this.sendTextMessageToBot(cleanMessage);
-    this.botMessageInput.nativeElement.innerHTML = "";
+    let messageUserTyped = this.botMessageInput.nativeElement.innerText;
+    messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "");
+    if (messageUserTyped === "") {
+      return;
+    }
+    this.showResponse(true, messageUserTyped);
+    this.botMessageInput.nativeElement.innerText = "";
+    this.multipleCards = false;
+    if (this.activeFAQDirectory === false) {
+      this.showBotOptions = false;
+      if (this.currentIntentName === "askQuestion") {
+        this.makeCallToFAQAPI(messageUserTyped);
+      } else if (this.currentIntentName === "humanChat") {
+        this.sendTextMessageToBot(messageUserTyped);
+      }
+    } else {
+      if (messageUserTyped.toLowerCase() === "yes") {
+        this.isTyping = true;
+        this.showBotOptions = false;
+        this.sendSuccessFAQMessage();
+      } else if (messageUserTyped.toLowerCase() === "no") {
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      } else if (messageUserTyped.toLowerCase() === "go back to main menu") {
+        this.sendTextMessageToBot(messageUserTyped.toLowerCase());
+        this.activeFAQDirectory = false;
+        this.removeFAQAnswersLocalStorage();
+      } else {
+        this.showResponse(false, "Let me search for that real quick");
+        this.removeFAQAnswersLocalStorage();
+        this.showBotOptions = false;
+        setTimeout(() => {
+          this.makeCallToFAQAPI(messageUserTyped);
+        }, 1000);
+      }
+    }
   }
 
   sendTextMessageToBot(textMessage) {
@@ -467,16 +654,18 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
+
   triggerAliveDial() {
 
   }
+
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/budweiser-gardens') {
+    if (window.location.pathname == '/texans') {
       alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+      alive5_sms_message_question = 'I\'d like to connect with Texans Concierge [hit Send>]';
     }
 
     let alive5_pre_link;
@@ -528,16 +717,71 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+        this.name
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
-      document.location.href = alive5_pre_link;
+      if (this.currentIntentName === "humanChat") {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+          this.name
+          }&email=${this.email}&question=${this.question}`;
+      } else {
+        document.location.href = alive5_pre_link;
+      }
     }
   }
+
   openGallery() {
     this.galleryService.openGallery(1, 0);
   }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
+    if (this.activeFAQDirectory === true) {
+      if (optionText === "yes") {
+        this.isTyping = true;
+        this.sendSuccessFAQMessage();
+        this.showBotOptions = false;
+      } else if (optionText === "go back to main menu") {
+        this.isTyping = true;
+        this.sendTextMessageToBot(optionText);
+        this.showBotOptions = false;
+        this.activeFAQDirectory = false;
+      } else {
+        this.isTyping = true;
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      }
+    } else {
+      let botQuote;
+      switch (optionText) {
+        //Check if special action is required by certain button pressed
+        case "text us your question":
+          this.triggerAliveChat();
+          break;
+        case "chat with a human":
+          botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case "our story":
+          botQuote = `<p>WebsiteAlive is a forward thinking online communications provider dedicated to creating innovative, customizable, and unique experiences for businesses and consumers.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case 'customization':
+          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
+          break;
+        default:
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+      }
+    }
     if (optionText === "photo gallery") {
       this.showResponse(true, optionText);
       this.sendTextMessageToBot(optionText);
