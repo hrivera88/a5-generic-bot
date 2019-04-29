@@ -50,7 +50,7 @@
       </div>
     </div>
   </div>
-  <div id="message-submission">
+  <div id="message-submission" *ngIf="showUserInput">
     <div>
       <div #botMessageInput aria-labelledby="Jot something down" role="textbox" contenteditable="true"
         aria-multiline="true" id="user-message-input" (keyup.enter)="submitMessageToBot(userMessageInput)"
