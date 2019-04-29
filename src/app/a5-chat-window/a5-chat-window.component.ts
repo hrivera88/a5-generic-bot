@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
+import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import {
   trigger,
   state,
@@ -188,6 +189,28 @@ export class A5ChatWindowComponent implements OnInit {
   sendButtonStyle = {
     color: '#ff8359'
   };
+  //User info for live chat agent
+  name = "";
+  email = "";
+  question = "";
+  showUserInput = false;
+  currentIntentName = "";
+  //elastic search
+  activeFAQDirectory = false;
+  isTyping = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ"
+    }),
+    data: {
+      org_name: "spectrabg",
+      search: "",
+      category_name: "Greetings"
+    }
+  };
+  //Check whether an agent is online for Live Chat
+  agentOnline: any;
   //Gallery Images
   previewConfig = {
     visible: false
@@ -237,6 +260,7 @@ export class A5ChatWindowComponent implements OnInit {
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
+    private http: HttpClient,
     private galleryService: GalleryService
   ) {
     AWS.config.region = "us-east-1";
@@ -252,6 +276,17 @@ export class A5ChatWindowComponent implements OnInit {
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
+    //Making request to API to retrieve info on whether an live chat agent is online or not.
+    const params = new HttpParams()
+      .set('action', 'groupstatus')
+      .set('groupid', '9');
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    this.http
+      .get(
+        "https://www.websitealive3.com/9/status.asp", { headers: headers, params: params, responseType: 'text' }
+      ).subscribe((data) => {
+        this.agentOnline = data;
+      })
   }
 
   toggleEmojiPicker() {
@@ -432,7 +467,9 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
+  triggerAliveDial() {
 
+  }
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
