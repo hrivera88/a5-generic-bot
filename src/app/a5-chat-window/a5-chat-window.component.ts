@@ -831,10 +831,10 @@ export class A5ChatWindowComponent implements OnInit {
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
           break;
-        case "our story":
-          botQuote = `<p>WebsiteAlive is a forward thinking online communications provider dedicated to creating innovative, customizable, and unique experiences for businesses and consumers.</p>`;
+        case "call the texans":
           this.showResponse(false, botQuote);
           this.sendTextMessageToBot(optionText);
+          this.triggerAliveDial();
           this.bounceMenu = "button";
           break;
         case "customization":
