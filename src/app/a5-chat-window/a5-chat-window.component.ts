@@ -152,7 +152,7 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing ************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'border-bottom-color': '#fad21c'
   };
   logoImg = "/assets/img/octobo-logo.png";
   showGreetingSection = true;
