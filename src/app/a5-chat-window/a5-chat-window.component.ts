@@ -666,39 +666,7 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
-
-  // chooseBotOption(evt: any) {
-  //   let optionText = evt.target.value;
-  //   this.showResponse(true, optionText);
-  //   if (optionText === 'schedule a demo') {
-  //     this.triggerAliveChat();
-  //   } else {
-  //     this.sendTextMessageToBot(optionText);
-  //   }
-  //   this.bounceMenu = "button";
-  // }
-
-  chooseMainOption(evt: any) {
-    //Get text value from Main Menu Button
-    let optionText = evt.target.value;
-    // Show Main Menu Button text value in Messages UI
-    this.showResponse(true, optionText);
-    this.sendTextMessageToBot(optionText);
-  }
-
-  makePurchase(botResponse) {
-    if (botResponse) {
-      this.movieTitle = botResponse;
-    } else {
-      this.movieTitle = null;
-    }
-    console.log(this.movieTitle);
-  }
-
-  exchangeContact() {
-    this.triggerAliveChat();
-  }
-
+  triggerAliveDial() {}
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -841,6 +809,10 @@ export class A5ChatWindowComponent implements OnInit {
           botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
           this.showResponse(false, botQuote);
           this.openGallery();
+          break;
+        case "call the texans":
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
           break;
         default:
           this.showResponse(true, optionText);
