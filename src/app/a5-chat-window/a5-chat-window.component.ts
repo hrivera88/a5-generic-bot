@@ -579,7 +579,9 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
-
+  triggerAliveDial() {
+    
+  }
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -665,14 +667,15 @@ export class A5ChatWindowComponent implements OnInit {
           this.sendTextMessageToBot(optionText);
           this.openGallery();
           break;
+        case 'call the texans':
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          break;
+        default:
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
 
-      }
-      if (optionText === "photo gallery") {
-
-      } else {
-        this.showResponse(true, optionText);
-        this.sendTextMessageToBot(optionText);
-        this.bounceMenu = "button";
       }
     }
   }
