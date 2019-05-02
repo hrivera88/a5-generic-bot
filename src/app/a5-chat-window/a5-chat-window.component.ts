@@ -379,8 +379,8 @@ export class A5ChatWindowComponent implements OnInit {
           this.botOptionsTitle = "Speak with a person or go to main menu?"
           this.botMenuOptions = [
             {
-              text: 'Text Us Your Question',
-              value: 'text us your question'
+              text: "Chat with a human",
+              value: "chat with a human"
             },
             {
               text: 'Main Menu',
@@ -443,8 +443,8 @@ export class A5ChatWindowComponent implements OnInit {
             this.showBotOptions = true;
             this.botMenuOptions = [
               {
-                text: 'Text Us Your Question',
-                value: 'text us your question'
+                text: "Chat with a human",
+                value: "chat with a human"
               },
               {
                 text: 'Main Menu',
@@ -467,8 +467,8 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.botMenuOptions = [
         {
-          text: 'Text Us Your Question',
-          value: 'text us your question'
+          text: "Chat with a human",
+          value: "chat with a human"
         },
         {
           text: 'Main Menu',
@@ -683,9 +683,6 @@ export class A5ChatWindowComponent implements OnInit {
       let botQuote;
       switch (optionText) {
         //Check if special action is required by certain button pressed
-        case "text us your question":
-          this.triggerAliveChat();
-          break;
         case "chat with a human":
           botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
           this.showResponse(false, botQuote);
