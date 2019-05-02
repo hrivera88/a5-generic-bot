@@ -356,9 +356,26 @@ button.more-options-btn span {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   }
 }
+
 @media screen and (max-width: 500px) {
   .logo img {
     /* width: 88px; */
+  }
+}
+@media (min-width: 767px) {
+  .option-buttons-container {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1299px) {
+  .option-buttons-container {
+    width: 50%;
+  }
+}
+@media (min-width:1300px) {
+  .option-buttons-container {
+    width: 30%;
   }
 }
 

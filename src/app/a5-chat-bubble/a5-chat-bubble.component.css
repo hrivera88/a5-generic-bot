@@ -25,17 +25,27 @@
 .message a {
   color: #fff;
   text-decoration: none;
+  margin-left: auto;
+  margin-left: auto;
+  width: 20em;
 }
 .message p {
   letter-spacing: 0.55px;
+  margin-left: auto;
+  margin-left: auto;
+  width: 20em;
 }
 .meesage img {
   width: auto;
+  margin-left: auto;
+  margin-left: auto;
   max-width: 250px;
 }
 .message iframe {
   border: 0;
   max-width: 247px;
+  margin-left: auto;
+  margin-left: auto;
   height: auto;
 }
 .message.user {
