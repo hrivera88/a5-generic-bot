@@ -12,6 +12,7 @@ body {
 }
 .message {
   letter-spacing: 0.35px;
+  word-break: break-word;
 }
 .message p {
   margin-bottom: 5px;
