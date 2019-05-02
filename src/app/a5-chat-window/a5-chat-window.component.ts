@@ -150,35 +150,44 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing ************
-  windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#000'
+  windowContainerStyle = {
+    background: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/assets/img/bud-center.jpg') center center no-repeat`,
+    "border-left": `1px solid #ccc`,
+    "border-right": "1px solid #ccc",
+    "background-size": "cover"
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+
+  windowBannerStyle = {
+    background: "#000",
+    "border-bottom-color": "#000"
+  };
+  logoImg = "/assets/img/bec-logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Budweiser Events Center!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    "background-color": "#D7191F"
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: "#fff"
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    "background-color": "#D7191F"
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
-  }
+    "border-color": "#fff",
+    color: "#fff"
+  };
   botOptionTitleStyle = {
-    'color': "#fff"
-
-  }
+    color: "#fff"
+  };
+  messageListStyle = {
+    background: "none"
+  };
   sendButtonStyle = {
-    color: '#ff8359'
+    color: "#ff8359"
   };
   constructor(
     private sendMailService: SendMailService,
@@ -382,9 +391,10 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/budweiser-gardens') {
-      alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+    if (window.location.pathname == "/budweiser-gardens") {
+      alive5_sms_phone_number = "+15196675700";
+      alive5_sms_message_question =
+        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
     }
 
     let alive5_pre_link;
@@ -394,29 +404,40 @@ export class A5ChatWindowComponent implements OnInit {
     let alive5_is_alive5_phone_number;
 
     switch (alive5_platform) {
-      case 'IPAD':
+      case "IPAD":
         alive5_isMobile = false;
         //desktop Apple
-        if (alive5_is_alive5_phone_number == 'Y') {
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
+        if (alive5_is_alive5_phone_number == "Y") {
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
           alive5_isDesktop = true;
         } else {
-          alive5_pre_link = 'javascript:void()';
+          alive5_pre_link = "javascript:void()";
         }
         break;
-      case 'IPHONE':
+      case "IPHONE":
         //see if 5, 6, or 7
         //mobile
-        var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-          navigator.userAgent && !navigator.userAgent.match('CriOS');
+        var isSafari =
+          navigator.vendor &&
+          navigator.vendor.indexOf("Apple") > -1 &&
+          navigator.userAgent &&
+          !navigator.userAgent.match("CriOS");
 
-        if (isSafari && (window.self !== window.top)) {
+        if (isSafari && window.self !== window.top) {
           //if safari AND in iframe. If in iframe, iMessages does not trigger, so open a new web page with a hack to run the SMS via redirect when page loads.
           //mainly for WIX embed widget issue.
-          alive5_pre_link = "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" + alive5_sms_phone_number + "');";
+          alive5_pre_link =
+            "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" +
+            alive5_sms_phone_number +
+            "');";
           alive5_isDesktop = true;
         } else {
-          alive5_pre_link = 'sms:' + alive5_sms_phone_number + '&body=' + alive5_sms_message_question;
+          alive5_pre_link =
+            "sms:" +
+            alive5_sms_phone_number +
+            "&body=" +
+            alive5_sms_message_question;
         }
         break;
       default:
@@ -424,10 +445,15 @@ export class A5ChatWindowComponent implements OnInit {
         //3/6/19 - chrome (72.0.3626.121) on android does not populate SMS
         if (/Mobi/.test(navigator.userAgent)) {
           //alive5_pre_link = 'sms:' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
-          alive5_pre_link = 'sms://' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
+          alive5_pre_link =
+            "sms://" +
+            alive5_sms_phone_number +
+            "?body=" +
+            alive5_sms_message_question;
         } else {
           alive5_isMobile = false;
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
           alive5_isDesktop = true;
         }
         break;
