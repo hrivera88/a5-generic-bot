@@ -76,13 +76,25 @@
       </div>
     </div>
   </div>
-  <!-- <div id="message-submission">
+  <div
+    id="message-submission"
+    *ngIf="showUserInput"
+    [ngStyle]="messageSubmissionStyle"
+  >
     <div>
-      <div #botMessageInput aria-labelledby="Jot something down" role="textbox" contenteditable="true"
-        aria-multiline="true" id="user-message-input" (keyup.enter)="submitMessageToBot(userMessageInput)"
-        data-ph="Type your message here"></div>
-      
-        <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
+      <div
+        #botMessageInput
+        aria-labelledby="Jot something down"
+        role="textbox"
+        contenteditable="true"
+        aria-multiline="true"
+        id="user-message-input"
+        (keyup.enter)="submitMessageToBot(userMessageInput)"
+        data-ph="Type your message here"
+        autofocus
+      ></div>
+
+      <!-- <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off">
      
       
@@ -93,13 +105,17 @@
           [custom]="customEmojis" [style]="{ position: 'absolute', bottom: '47px', right: '20px' }"></emoji-mart>
         <button (click)="toggleEmojiPicker()">
           <fa-icon [icon]="faGrin"></fa-icon>
-        </button>
-     
-      <button [ngStyle]="sendButtonStyle" type="submit" (click)="submitMessageToBot(userMessageInput)">
+        </button> -->
+
+      <button
+        [ngStyle]="sendButtonStyle"
+        type="submit"
+        (click)="submitMessageToBot(userMessageInput)"
+      >
         Send
       </button>
     </div>
-  </div> -->
+  </div>
 </div>
 <a5-alivepay-modal
   *ngIf="showAlivePayModal"
