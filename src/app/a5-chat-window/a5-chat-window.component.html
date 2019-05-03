@@ -76,7 +76,11 @@
       </div>
     </div>
   </div>
-  <div id="message-submission">
+  <div
+    id="message-submission"
+    *ngIf="showUserInput"
+    [ngStyle]="messageSubmissionStyle"
+  >
     <div>
       <div
         #botMessageInput
@@ -87,9 +91,10 @@
         id="user-message-input"
         (keyup.enter)="submitMessageToBot(userMessageInput)"
         data-ph="Type your message here"
+        autofocus
       ></div>
-      <!--       
-        <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
+
+      <!-- <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off">
      
       
