@@ -151,14 +151,15 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing ************
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'background-color': '#EBEBEB',
+    'border-bottom-color': '#666'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/property-data-cloud/assets/img/pdcBigLogo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Property Data Cloud!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    // 'background-color': ''#449dd7'
+    'background-image': 'linear-gradient(78deg,#449dd7 0%,#4064b0)'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,10 +168,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    // 'background-color': '#486290'
+    'background-image': 'linear-gradient(78deg,#449dd7 0%,#4064b0)',
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
+    // 'background-image': 'linear-gradient(78deg,#449dd7 0%,#4064b0)',
     color: '#fff'
   }
   botOptionTitleStyle = {
@@ -178,7 +181,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#fecf55'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -361,7 +364,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "PropertyDataCloudBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

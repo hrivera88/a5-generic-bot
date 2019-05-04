@@ -67,7 +67,7 @@ body {
     margin-right: 30%;
     max-width: 20em;
   }
-} 
+}
 @media (min-width: 1300px){
   .message {
     margin-left: 35%;
