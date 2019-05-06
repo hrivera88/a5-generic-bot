@@ -441,7 +441,7 @@ export class A5ChatWindowComponent implements OnInit {
     }
 
     if (window.location.pathname == '/alive5?u=baonguyen1982@gmail.com') {
-      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_phone_number = '19095004624';
       alive5_sms_message_question = 'I\'d like to connect with baonguyen1982@gmail.com [hit Send>]';
     }
     
