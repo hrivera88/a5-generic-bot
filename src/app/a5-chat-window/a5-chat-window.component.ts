@@ -181,7 +181,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#e35c02'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -435,6 +435,16 @@ export class A5ChatWindowComponent implements OnInit {
       alive5_sms_phone_number = '+17139994636';
       alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
     }
+    if (window.location.pathname == '/alive5?u=KRoss@TeamitsAllGood.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with KRoss@TeamitsAllGood.com [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=baonguyen1982@gmail.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with baonguyen1982@gmail.com [hit Send>]';
+    }
+    
 
     let alive5_pre_link;
     let alive5_isDesktop = false;
