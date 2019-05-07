@@ -436,7 +436,7 @@ export class A5ChatWindowComponent implements OnInit {
       alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
     }
     if (window.location.pathname == '/bemer-distributor?u=KRoss@TeamitsAllGood.com') {
-      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_phone_number = '+19495284767';
       alive5_sms_message_question = 'I\'d like to connect with KRoss@TeamitsAllGood.com [hit Send>]';
     }
 
