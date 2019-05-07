@@ -206,7 +206,7 @@ export class A5ChatWindowComponent implements OnInit {
     data: {
       org_name: "spectrabec",
       search: "",
-      category_name: "AliveChat Support"
+      category_name: "Greetings"
     }
   };
 
@@ -414,7 +414,7 @@ export class A5ChatWindowComponent implements OnInit {
             this.botMenuOptions = [
               {
                 text: "Chat with a human",
-                value: "chat with a human"
+                value: "text us your question"
               }
             ];
           } else {
@@ -437,7 +437,7 @@ export class A5ChatWindowComponent implements OnInit {
       this.botMenuOptions = [
         {
           text: "Chat with a human",
-          value: "chat with a human"
+          value: "text us your question"
         }
       ];
     }
@@ -462,7 +462,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.botMenuOptions = [
             {
               text: "Chat with a human",
-              value: "chat with a human"
+              value: "text us your question"
             }
           ];
           this.showBotOptions = true;
@@ -699,7 +699,9 @@ export class A5ChatWindowComponent implements OnInit {
       switch (optionText) {
         //Check if special action is required by certain button pressed
         case "report problem":
-          this.showResponse(false, botQuote);
+          this.triggerAliveChat();
+          break;
+        case 'text us your question':
           this.triggerAliveChat();
           break;
         case "chat with a human":
