@@ -155,7 +155,7 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing ************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#e35c02'
+    'border-bottom-color': '#FA760A'
   };
   logoImg = "/bemer-distributor/assets/img/bemer2GROUPlogo.png"; //edit
   showGreetingSection = true;
@@ -181,7 +181,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#e35c02'
+    color: '#FA760A'
   };
   constructor(
     private sendMailService: SendMailService,

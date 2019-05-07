@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #18183d;
+  border-bottom: 2px solid #FA760A;
   font-size: 17px;
   padding: 0.25rem;
   color: #fdf9f0;
@@ -210,8 +210,8 @@
 .exchange-btn {
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #F1592B;
-  background: #F1592B;
+  border: 1px solid #FA760A;
+  background: #FA760A;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;
@@ -360,8 +360,8 @@
   font-size: 16px;
 }
 #dialog-options .option-buttons-container button.more-options-btn {
-  border: 1px solid #e32526;
-  color: #e32526;
+  border: 1px solid #e35c02;
+  color: #e35c02;
 }
 button.more-options-btn span {
   margin-right: 4px;
