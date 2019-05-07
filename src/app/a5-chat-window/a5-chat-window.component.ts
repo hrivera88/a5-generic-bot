@@ -157,7 +157,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#e35c02'
   };
-  logoImg = "/assets/img/bemer2GROUPlogo.png"; //edit
+  logoImg = "/bemer-distributor/assets/img/bemer2GROUPlogo.png"; //edit
   showGreetingSection = true;
   greetingLine = "Welcome to BEMER Bot!";
   greetingSectionStyle = {
@@ -418,29 +418,15 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   triggerAliveChat() {
+    console.log("Hello Trigger");
+    console.log((window.location.pathname + window.location.search).substr(1));
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
-
-    if (window.location.pathname == '/budweiser-gardens') {
-      alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
-    }
-
-    if (window.location.pathname == '/alive5?u=dustin@alive5.com') {
-      alive5_sms_phone_number = '+17139994636';
-      alive5_sms_message_question = 'I\'d like to connect with dustin@alive5.com [hit Send>]';
-    }
-
-    if (window.location.pathname == '/alive5?u=glenn@alive5.com') {
-      alive5_sms_phone_number = '+17139994636';
-      alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
-    }
-    if (window.location.pathname == '/bemer-distributor?u=KRoss@TeamitsAllGood.com') {
+    if ((window.location.pathname + window.location.search).substr(1) == 'bemer-distributor?u=KRoss@teamitsallgood.com') {
       alive5_sms_phone_number = '+19495284767';
-      alive5_sms_message_question = 'I\'d like to connect with KRoss@TeamitsAllGood.com [hit Send>]';
+      alive5_sms_message_question = 'I\'d like to connect with KRoss@teamitsallgood.com [hit Send>]';
     }
-
-    if (window.location.pathname == '/bemer-distributor?u=baonguyen1982@gmail.com') {
+    if ((window.location.pathname + window.location.search).substr(1)== 'bemer-distributor?u=baonguyen1982@gmail.com') {
       alive5_sms_phone_number = '+19095004624';
       alive5_sms_message_question = 'I\'d like to connect with baonguyen1982@gmail.com [hit Send>]';
     }
