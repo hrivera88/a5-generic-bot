@@ -14,7 +14,7 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-  background: #66CC33;
+  background: #66cc33;
   color: #000;
   border-radius: 5px;
   width: auto;
@@ -23,6 +23,7 @@
   max-width: 75%;
   font-family: "Nunito", sans-serif;
 }
+
 .message a {
   color: #000;
   text-decoration: none;
@@ -35,7 +36,6 @@
   margin-left: auto;
   margin-left: auto;
   width: 20em;
-
 }
 .meesage img {
   width: auto;
@@ -54,7 +54,7 @@
   background: rgb(51, 49, 49);
   font-family: "Nunito", sans-serif;
   text-align: center;
-  color: #66CC33;
+  color: #66cc33;
   -ms-flex-item-align: end;
   align-self: flex-end;
 }
