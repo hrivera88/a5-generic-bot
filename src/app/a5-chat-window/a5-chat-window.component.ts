@@ -179,10 +179,12 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   messageSubmissionStyle = {
-    background: '#fff'
+    background: '#fff',
+    'border-top-color': '#535353',
+    color: '#e35c02'
   }
   sendButtonStyle = {
-    color: '#e35c02'
+    color: '535353'
   };
 
   //User info for live chat agent

@@ -67,13 +67,13 @@
           [custom]="customEmojis" [style]="{ position: 'absolute', bottom: '47px', right: '20px' }"></emoji-mart> -->
         <!-- <button (click)="toggleEmojiPicker()">
           <fa-icon [icon]="faGrin"></fa-icon>
-        </button>
+        </button> -->
      
       <button [ngStyle]="sendButtonStyle" type="submit" (click)="submitMessageToBot(userMessageInput)">
         Send
       </button>
     </div>
-  </div> -->
+  </div>
 </div>
 <a5-alivepay-modal *ngIf="showAlivePayModal" [showModal]="showAlivePayModal" (modalHidden)="modalState($event)"
   [movieTitle]="movieTitle"></a5-alivepay-modal>
