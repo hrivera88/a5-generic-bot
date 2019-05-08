@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/switchboard_logo_fullColor_dark.png";
+  logoImg = "/switchboard-rudy/assets/img/switchboard_logo_fullColor_dark.png";
   showGreetingSection = true;
   greetingLine = "Hi! Welcome to Switchboard Bot!";
   greetingSectionStyle = {
