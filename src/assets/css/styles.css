@@ -13,6 +13,9 @@ body {
 .message {
   letter-spacing: 0.35px;
 }
+.message ul {
+  padding-left: 1.5rem;
+}
 .message p {
   margin-bottom: 5px;
   font-weight: 300;

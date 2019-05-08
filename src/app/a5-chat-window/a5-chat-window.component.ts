@@ -152,13 +152,13 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing ************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'border-bottom-color': '#e35c02'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/bemer2GROUPlogo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to BEMER Bot!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#535353'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#535353'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
@@ -178,7 +178,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#e35c02'
   };
   constructor(
     private sendMailService: SendMailService,
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "DocJurisBot",
+      botName: "bemerUserBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
