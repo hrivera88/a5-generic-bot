@@ -168,9 +168,9 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/walter-bond-logo-1.jpg";  //EDIT with s3 bucket file name
+  logoImg = "/bemer-user/assets/img/bemer2GROUPlogo.png";  //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome Walter Bond KeyNote Speaker!"; 
+  greetingLine = "Welcome to BEMER Bot!"; 
   greetingSectionStyle = {
     'background-color': '#486290'
   };
