@@ -149,6 +149,16 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
+  //EDITS: add the following:
+// HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
+// HAL: update master branch with changes:
+// * Contact button with on/off
+// * aliveDial on/off
+// * Word wrapping to chat bubbles
+// * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
+// * Style.css add. Message ul paddding-left: 1.5rem
+
+
   // Customizing **************
   windowBannerStyle = {
     'background-color': '#fff',
