@@ -151,30 +151,30 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing ************
   windowBannerStyle = {
-    background: "#0A1860",
-    "border-bottom-color": "#B9BABC"
+    background: "#fff",
+    "border-bottom-color": "#4B6D81"
   };
-  logoImg = "/endeavorAdvisors/assets/img/endeavor.png";
+  logoImg = "/assets/img/elastique_primary_logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Endeavor Advisors!";
+  greetingLine = "Welcome to Elastique Athletics!";
   greetingSectionStyle = {
-    "background-color": "#0A1860"
+    "background-color": "#F6AEBD"
   };
   greetingFontStyle = {
-    color: "#fff"
+    color: "#4B6D81"
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#0A1860"
+    "background-color": "#F6AEBD"
   };
   botOptionButtonStyle = {
-    "border-color": "#fff",
-    color: "#fff"
+    "border-color": "#4B6D81",
+    color: "#4B6D81"
   };
   botOptionTitleStyle = {
-    color: "#fff"
+    color: "#4B6D81"
   };
   sendButtonStyle = {
     color: "#ff8359"
@@ -360,7 +360,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "EndeavorAdvisorsBot",
+      botName: "ElastiqueAthleticsBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
