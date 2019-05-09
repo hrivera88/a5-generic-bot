@@ -149,14 +149,14 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  // Customizing ************
+  // Customizing **************
   windowBannerStyle = {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/docjuris-logo.svg";  //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Doc Juris!"; 
   greetingSectionStyle = {
     'background-color': '#486290'
   };
