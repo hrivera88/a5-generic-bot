@@ -213,9 +213,9 @@ export class A5ChatWindowComponent implements OnInit {
       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ",
     }),
     data: {
-      "org_name": "spectrabg",
+      "org_name": "bemer",
       "search": "",
-      "category_name": "Greetings",
+      "category_name": "FAQs",
     }
   };
 
@@ -223,39 +223,39 @@ export class A5ChatWindowComponent implements OnInit {
   agentOnline: any;
 
   galleryImages: Image[] = [
-    new Image(0, {
-      img: 'https://www.websitealive.com/images/chatwindow-1.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(1, {
-      img: 'https://www.websitealive.com/images/chatwindow-2.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(2, {
-      img: 'https://www.websitealive.com/images/chatwindow-3.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(3, {
-      img: 'https://www.websitealive.com/images/chatwindow-4.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(4, {
-      img: 'https://www.websitealive.com/images/cta-example-1.png',
-      description: 'Add a welcoming face to your engagement efforts.'
-    }),
-    new Image(5, {
-      img: 'https://www.websitealive.com/images/cta-example-4.png',
-      description: 'Use shortlinks for easy social media or website engagements.'
-    }),
-    new Image(6, {
-      img: 'https://www.websitealive.com/images/cta-example-3.png',
-      description: 'Customize call-to-action to suit your website\'s look and feel.'
-    }),
-    new Image(7, {
-      img: 'https://www.websitealive.com/images/cta-example-2.png',
-      description: 'Communicate in your customer\'s language.'
-    })
-  ];
+  //   new Image(0, {
+  //     img: 'https://www.websitealive.com/images/chatwindow-1.png',
+  //     description: 'Customized Chat Windows'
+  //   }),
+  //   new Image(1, {
+  //     img: 'https://www.websitealive.com/images/chatwindow-2.png',
+  //     description: 'Customized Chat Windows'
+  //   }),
+  //   new Image(2, {
+  //     img: 'https://www.websitealive.com/images/chatwindow-3.png',
+  //     description: 'Customized Chat Windows'
+  //   }),
+  //   new Image(3, {
+  //     img: 'https://www.websitealive.com/images/chatwindow-4.png',
+  //     description: 'Customized Chat Windows'
+  //   }),
+  //   new Image(4, {
+  //     img: 'https://www.websitealive.com/images/cta-example-1.png',
+  //     description: 'Add a welcoming face to your engagement efforts.'
+  //   }),
+  //   new Image(5, {
+  //     img: 'https://www.websitealive.com/images/cta-example-4.png',
+  //     description: 'Use shortlinks for easy social media or website engagements.'
+  //   }),
+  //   new Image(6, {
+  //     img: 'https://www.websitealive.com/images/cta-example-3.png',
+  //     description: 'Customize call-to-action to suit your website\'s look and feel.'
+  //   }),
+  //   new Image(7, {
+  //     img: 'https://www.websitealive.com/images/cta-example-2.png',
+  //     description: 'Communicate in your customer\'s language.'
+  //   })
+   ];
 
   constructor(
     private sendMailService: SendMailService,
