@@ -158,21 +158,21 @@ export class A5ChatWindowComponent implements OnInit {
 // HAL: update master branch with changes:
 // * Contact button with on/off
 // * aliveDial on/off
-// * Word wrapping to chat bubbles
+// * Word wrapping to chat bubbles done
 // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
-// * Style.css add. Message ul paddding-left: 1.5rem
+// * Style.css add. Message ul paddding-left: 1.5rem done
 
 
   // Customizing **************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#000'
+    'border-bottom-color': '#198CCC'
   };
   logoImg = "/assets/img/walter-bond-logo-1.jpg";  //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!"; 
+  greetingLine = "Welcome to Walter Bond Keynote Speaker Bot!"; 
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#000'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -181,22 +181,24 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#000',
+    'border-top-color': '#8300E9'
   };
   botOptionButtonStyle = {
-    'border-color': '#f1592b',
+    'border-color': '#8300E9',
     color: '#fff',
-    background: '#f1592b'
+    background: '#8300E9'
   }
   botOptionTitleStyle = {
     'color': "#fff"
 
   }
   messageSubmissionStyle = {
-    background: '#fff'
+    background: '#fff',
+    'border-top-color': '#8300E9'
   }
   sendButtonStyle = {
-    color: '#ff8359'
+    color: '#8300E9'
   };
 
   //User info for live chat agent
@@ -223,38 +225,38 @@ export class A5ChatWindowComponent implements OnInit {
   agentOnline: any;
 
   galleryImages: Image[] = [
-    new Image(0, {
-      img: 'https://www.websitealive.com/images/chatwindow-1.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(1, {
-      img: 'https://www.websitealive.com/images/chatwindow-2.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(2, {
-      img: 'https://www.websitealive.com/images/chatwindow-3.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(3, {
-      img: 'https://www.websitealive.com/images/chatwindow-4.png',
-      description: 'Customized Chat Windows'
-    }),
-    new Image(4, {
-      img: 'https://www.websitealive.com/images/cta-example-1.png',
-      description: 'Add a welcoming face to your engagement efforts.'
-    }),
-    new Image(5, {
-      img: 'https://www.websitealive.com/images/cta-example-4.png',
-      description: 'Use shortlinks for easy social media or website engagements.'
-    }),
-    new Image(6, {
-      img: 'https://www.websitealive.com/images/cta-example-3.png',
-      description: 'Customize call-to-action to suit your website\'s look and feel.'
-    }),
-    new Image(7, {
-      img: 'https://www.websitealive.com/images/cta-example-2.png',
-      description: 'Communicate in your customer\'s language.'
-    })
+    // new Image(0, {
+    //   img: 'https://www.websitealive.com/images/chatwindow-1.png',
+    //   description: 'Customized Chat Windows'
+    // }),
+    // new Image(1, {
+    //   img: 'https://www.websitealive.com/images/chatwindow-2.png',
+    //   description: 'Customized Chat Windows'
+    // }),
+    // new Image(2, {
+    //   img: 'https://www.websitealive.com/images/chatwindow-3.png',
+    //   description: 'Customized Chat Windows'
+    // }),
+    // new Image(3, {
+    //   img: 'https://www.websitealive.com/images/chatwindow-4.png',
+    //   description: 'Customized Chat Windows'
+    // }),
+    // new Image(4, {
+    //   img: 'https://www.websitealive.com/images/cta-example-1.png',
+    //   description: 'Add a welcoming face to your engagement efforts.'
+    // }),
+    // new Image(5, {
+    //   img: 'https://www.websitealive.com/images/cta-example-4.png',
+    //   description: 'Use shortlinks for easy social media or website engagements.'
+    // }),
+    // new Image(6, {
+    //   img: 'https://www.websitealive.com/images/cta-example-3.png',
+    //   description: 'Customize call-to-action to suit your website\'s look and feel.'
+    // }),
+    // new Image(7, {
+    //   img: 'https://www.websitealive.com/images/cta-example-2.png',
+    //   description: 'Communicate in your customer\'s language.'
+    // })
   ];
 
   constructor(
@@ -615,7 +617,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "bemerUserBot",
+      botName: "WalterBondBotOptA",
       inputText: textMessage,
       userId: this.lexUserID
     };
