@@ -19,7 +19,8 @@ import {
   faGrin,
   faArrowAltCircleLeft,
   faTimesCircle,
-  faArrowRight
+  faArrowRight,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "./message";
 import { Option } from "./option";
@@ -27,7 +28,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { ReturnStatement } from "@angular/compiler";
-// import { Image, GalleryService } from 'angular-modal-gallery';
+import { Image, GalleryService } from 'angular-modal-gallery';
 
 @Component({
   selector: "a5-chat-window",
@@ -59,6 +60,7 @@ export class A5ChatWindowComponent implements OnInit {
   faComment = faComment;
   faTimesCircle = faTimesCircle;
   faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faAddressCard = faAddressCard;
   faGrin = faGrin;
   faArrowRight = faArrowRight;
   userMessageInput: string;
@@ -151,16 +153,26 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  // Customizing ************
+  //EDITS: add the following:
+// HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
+// HAL: update master branch with changes:
+// * Contact button with on/off
+// * aliveDial on/off
+// * Word wrapping to chat bubbles
+// * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
+// * Style.css add. Message ul paddding-left: 1.5rem
+
+
+  // Customizing **************
   windowBannerStyle = {
     'background-color': '#fff',
-    'border-bottom-color': '#e35c02'
+    'border-bottom-color': '#000'
   };
-  logoImg = "/bemer-user/assets/img/bemer2GROUPlogo.png";
+  logoImg = "/assets/img/walter-bond-logo-1.jpg";  //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to BEMER Bot!";
+  greetingLine = "Welcome Walter Bond KeyNote Speaker!"; 
   greetingSectionStyle = {
-    'background-color': '#535353'
+    'background-color': '#486290'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -169,23 +181,22 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#535353'
+    'background-color': '#486290'
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
+    'border-color': '#f1592b',
+    color: '#fff',
+    background: '#f1592b'
   }
   botOptionTitleStyle = {
     'color': "#fff"
 
   }
   messageSubmissionStyle = {
-    background: '#fff',
-    'border-top-color': '#535353',
-    color: '#e35c02'
+    background: '#fff'
   }
   sendButtonStyle = {
-    color: '#e35c02'
+    color: '#ff8359'
   };
 
   //User info for live chat agent
@@ -202,20 +213,55 @@ export class A5ChatWindowComponent implements OnInit {
       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ",
     }),
     data: {
-      "org_name": "bemer",
+      "org_name": "spectrabg",
       "search": "",
-      "category_name": "FAQs",
+      "category_name": "Greetings",
     }
   };
 
   //Check whether an agent is online for Live Chat
   agentOnline: any;
 
+  galleryImages: Image[] = [
+    new Image(0, {
+      img: 'https://www.websitealive.com/images/chatwindow-1.png',
+      description: 'Customized Chat Windows'
+    }),
+    new Image(1, {
+      img: 'https://www.websitealive.com/images/chatwindow-2.png',
+      description: 'Customized Chat Windows'
+    }),
+    new Image(2, {
+      img: 'https://www.websitealive.com/images/chatwindow-3.png',
+      description: 'Customized Chat Windows'
+    }),
+    new Image(3, {
+      img: 'https://www.websitealive.com/images/chatwindow-4.png',
+      description: 'Customized Chat Windows'
+    }),
+    new Image(4, {
+      img: 'https://www.websitealive.com/images/cta-example-1.png',
+      description: 'Add a welcoming face to your engagement efforts.'
+    }),
+    new Image(5, {
+      img: 'https://www.websitealive.com/images/cta-example-4.png',
+      description: 'Use shortlinks for easy social media or website engagements.'
+    }),
+    new Image(6, {
+      img: 'https://www.websitealive.com/images/cta-example-3.png',
+      description: 'Customize call-to-action to suit your website\'s look and feel.'
+    }),
+    new Image(7, {
+      img: 'https://www.websitealive.com/images/cta-example-2.png',
+      description: 'Communicate in your customer\'s language.'
+    })
+  ];
+
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
     private http: HttpClient,
-    // private galleryService: GalleryService
+    private galleryService: GalleryService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -586,6 +632,42 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
+  // chooseBotOption(evt: any) {
+  //   let optionText = evt.target.value;
+  //   this.showResponse(true, optionText);
+  //   if (optionText === 'schedule a demo') {
+  //     this.triggerAliveChat();
+  //   } else {
+  //     this.sendTextMessageToBot(optionText);
+  //   }
+  //   this.bounceMenu = "button";
+  // }
+
+  chooseMainOption(evt: any) {
+    //Get text value from Main Menu Button
+    let optionText = evt.target.value;
+    // Show Main Menu Button text value in Messages UI
+    this.showResponse(true, optionText);
+    this.sendTextMessageToBot(optionText);
+  }
+
+  makePurchase(botResponse) {
+    if (botResponse) {
+      this.movieTitle = botResponse;
+    } else {
+      this.movieTitle = null;
+    }
+    console.log(this.movieTitle);
+  }
+
+  modalState(evt: any) {
+    this.showAlivePayModal = evt;
+  }
+
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
+
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -593,6 +675,16 @@ export class A5ChatWindowComponent implements OnInit {
     if (window.location.pathname == '/budweiser-gardens') {
       alive5_sms_phone_number = '+15196675700';
       alive5_sms_message_question = 'I\'d like to connect with Budweiser Gardens Concierge [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=dustin@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with dustin@alive5.com [hit Send>]';
+    }
+
+    if (window.location.pathname == '/alive5?u=glenn@alive5.com') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I\'d like to connect with glenn@alive5.com [hit Send>]';
     }
 
     let alive5_pre_link;
@@ -658,6 +750,9 @@ export class A5ChatWindowComponent implements OnInit {
     }
   }
 
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
+  }
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
@@ -686,6 +781,17 @@ export class A5ChatWindowComponent implements OnInit {
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
           break;
+        case "our story":
+          botQuote = `<p>WebsiteAlive is a forward thinking online communications provider dedicated to creating innovative, customizable, and unique experiences for businesses and consumers.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case 'customization':
+          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
+          break;
         default:
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
@@ -693,25 +799,6 @@ export class A5ChatWindowComponent implements OnInit {
       }
     }
   }
+  
 
-  chooseMainOption(evt: any) {
-    //Get text value from Main Menu Button
-    let optionText = evt.target.value;
-    // Show Main Menu Button text value in Messages UI
-    this.showResponse(true, optionText);
-    this.sendTextMessageToBot(optionText);
-  }
-
-  makePurchase(botResponse) {
-    if (botResponse) {
-      this.movieTitle = botResponse;
-    } else {
-      this.movieTitle = null;
-    }
-    console.log(this.movieTitle);
-  }
-
-  modalState(evt: any) {
-    this.showAlivePayModal = evt;
-  }
 }
