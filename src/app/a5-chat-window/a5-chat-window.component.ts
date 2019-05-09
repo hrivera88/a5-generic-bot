@@ -168,7 +168,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";  //EDIT with s3 bucket file name
+  logoImg = "/assets/img/walter-bond-logo-1.jpg";  //EDIT with s3 bucket file name
   showGreetingSection = true;
   greetingLine = "Welcome to Doc Juris!"; 
   greetingSectionStyle = {
