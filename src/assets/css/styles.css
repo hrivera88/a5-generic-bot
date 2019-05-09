@@ -21,6 +21,9 @@ body {
   color: #fff;
   text-decoration: underline;
 }
+.message ul {
+  padding-left: 1.5rem;
+}
 .message iframe {
   border: 0;
   margin: 5px 0;
