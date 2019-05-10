@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#fff",
     "border-bottom-color": "#4B6D81"
   };
-  logoImg = "/assets/img/elastique_primary_logo.png";
+  logoImg = "/elastiqueAthletics/assets/img/elastique_primary_logo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Elastique Athletics!";
   greetingSectionStyle = {
