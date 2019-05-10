@@ -23,7 +23,7 @@ body {
   color: #fff;
   text-decoration: underline;
 }
-.message ul {
+.message ul , ol{
   padding-left: 1.5rem;
 }
 .message iframe {
