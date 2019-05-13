@@ -154,11 +154,11 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/assets/img/traction logo.jpg";
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Traction!";
   greetingSectionStyle = {
-    'background-color': '#486290'
+    'background-color': '#000000'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#486290'
+    'background-color': '#000000'
   };
   botOptionButtonStyle = {
     'border-color': '#fff',
