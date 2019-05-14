@@ -213,6 +213,8 @@ export class A5ChatWindowComponent implements OnInit {
   previewConfig = {
     visible: false
   };
+  // aliveDial 
+  showAliveDialModal = false;
   galleryImages: Image[] = [
     new Image(0, {
       img:
@@ -751,6 +753,7 @@ export class A5ChatWindowComponent implements OnInit {
   }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
+    console.log('hello button ', this.showAliveDialModal);
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
@@ -780,42 +783,13 @@ export class A5ChatWindowComponent implements OnInit {
           this.bounceMenu = "button";
           break;
         case "call the texans":
-          this.showResponse(false, botQuote);
-          this.sendTextMessageToBot(optionText);
-          this.triggerAliveDial();
+          this.showAliveDialModal = true;
           this.bounceMenu = "button";
-          break;
-        case "customization":
-          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
-          this.showResponse(false, botQuote);
-          this.openGallery();
           break;
         default:
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
-      }
-    }
-    if (optionText === "photo gallery") {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.openGallery();
-    } else {
-      switch (optionText) {
-        case "photo gallery":
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
-          this.openGallery();
-          break;
-        case 'call the texans':
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
-          break;
-        default:
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
-          this.bounceMenu = "button";
-
       }
     }
   }
@@ -838,6 +812,54 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   modalState(evt: any) {
-    this.showAlivePayModal = evt;
+    console.log('hide modal :', evt);
+    let userQuote;
+    let botQuote;
+    switch(evt.triggeredBy) {
+      case 'alivedial-cancel-btn':
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Don't call me right now.`;
+        this.showResponse(true, userQuote);
+        botQuote = `Anything else I can help you with?`;
+        this.bounceMenu = "button";
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: 'View other ticket options',
+              value: 'buy tickets'
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+      case "alivedial-make-call":
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Yes, I'm ready for a call.`;
+        this.showResponse(true, userQuote);
+        botQuote = 'Ok, one of our agents should reach out to you soon. Can I help you with anything else?';
+        this.showResponse(false, botQuote);
+        this.bounceMenu = 'button';
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: 'View other ticket options',
+              value: 'buy tickets'
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+    }
+    // this.showAlivePayModal = evt;
   }
 }
