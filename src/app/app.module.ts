@@ -18,7 +18,6 @@ import { A5AlivepayModalComponent } from "./a5-alive5-modal/a5-alive5-modal.comp
 import "hammerjs";
 import "mousetrap";
 import { ModalGalleryModule } from "angular-modal-gallery";
-import { AutofocusDirective } from "./autofocus.directive";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-modal.component";
 
@@ -29,7 +28,6 @@ import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-mod
     A5ChatBubbleComponent,
     HtmlSanitizerPipe,
     A5AlivepayModalComponent,
-    AutofocusDirective,
     A5AlivedialModalComponent
   ],
   imports: [

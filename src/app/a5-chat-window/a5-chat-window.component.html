@@ -49,7 +49,7 @@
       [@bounceMenu]="bounceMenu"
       *ngIf="showBotOptions"
     >
-      <!-- <div class="bot-option-img" *ngIf="botOptionsImg">
+      <div class="bot-option-img" *ngIf="botOptionsImg">
         <img [src]="botOptionImgSource" alt="" srcset="" />
       </div>
       <div
@@ -79,8 +79,7 @@
           <span> More </span>
           <fa-icon [icon]="faArrowRight"></fa-icon>
         </button>
-      </div> -->
-      <section id="alive-dial-setup"></section>
+      </div>
     </div>
   </div>
   <div id="message-submission" *ngIf="showUserInput">
@@ -126,3 +125,6 @@
   [movieTitle]="movieTitle"
 ></a5-alivepay-modal>
 <ks-modal-gallery [id]="1" [modalImages]="galleryImages"></ks-modal-gallery>
+<a5-alivedial-modal   *ngIf="showAliveDialModal"
+[showModal]="showAliveDialModal"
+(modalHidden)="modalState($event)"></a5-alivedial-modal>

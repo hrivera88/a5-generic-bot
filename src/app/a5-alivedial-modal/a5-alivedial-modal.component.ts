@@ -68,8 +68,7 @@ export class A5AlivedialModalComponent implements OnInit {
       phone_customer: "",
       phone_agent: "+18886964513",
       phone_number_extension: "2",
-      caller_id: "+18886964513",
-      src: "alive5"
+      caller_id: "+18886964513"
     }
   };
   phone_customer = new FormControl("");
@@ -85,7 +84,7 @@ export class A5AlivedialModalComponent implements OnInit {
   makeAliveDialRequest() {
     this.http
       .get(
-        "https://api-v1.websitealive.com/alivedial/makecall/?format=json&callback=",
+        "https://api-v1.websitealive.com/alivedial/makecall/?format=json&callback=?",
         {
           params: this.httpOptions.data
         }
