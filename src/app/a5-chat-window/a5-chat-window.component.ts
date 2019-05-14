@@ -774,6 +774,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
+    console.log("hello button ", this.showAliveDialModal);
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
@@ -800,19 +801,8 @@ export class A5ChatWindowComponent implements OnInit {
           this.bounceMenu = "button";
           break;
         case "call the texans":
-          this.showResponse(false, botQuote);
-          this.sendTextMessageToBot(optionText);
-          this.triggerAliveDial();
+          this.showAliveDialModal = true;
           this.bounceMenu = "button";
-          break;
-        case "customization":
-          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
-          this.showResponse(false, botQuote);
-          this.openGallery();
-          break;
-        case "call the texans":
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
           break;
         default:
           this.showResponse(true, optionText);
@@ -823,6 +813,7 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   modalState(evt: any) {
+    console.log("hide modal :", evt);
     let userQuote;
     let botQuote;
     switch (evt.triggeredBy) {
