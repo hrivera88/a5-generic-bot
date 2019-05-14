@@ -27,7 +27,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { ReturnStatement } from "@angular/compiler";
-import { Image, GalleryService } from 'angular-modal-gallery';
+import { Image, GalleryService } from "angular-modal-gallery";
 
 @Component({
   selector: "a5-chat-window",
@@ -81,6 +81,21 @@ export class A5ChatWindowComponent implements OnInit {
     servicesChosen: "",
     email: "",
     serviceDetails: ""
+  };
+  showUserInput = false;
+  currentIntentName = "";
+  isTyping = false;
+  activeFAQDirectory = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ"
+    }),
+    data: {
+      org_name: "spectrabg",
+      search: "",
+      category_name: "Greetings"
+    }
   };
   customEmojis = [
     {
@@ -153,62 +168,45 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing
   windowBannerStyle = {
-    'background': `url('/texans/assets/img/texans-header.jpg')`,
-    'background-position': '50% 50%',
-    'background-size': 'auto 65px',
-    'border-bottom-color': '#c51230'
+    background: `url('/texans/assets/img/texans-header.jpg')`,
+    "background-position": "50% 50%",
+    "background-size": "auto 65px",
+    "border-bottom-color": "#c51230"
   };
   logoImg = "";
   showGreetingSection = true;
   greetingLine = "Welcome to the Texans Bot";
   greetingSectionStyle = {
-    'background-color': '#01143f'
+    "background-color": "#01143f"
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: "#fff"
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "/texans/assets/img/featurettes-header.png";
   botOptionsStyle = {
-    'background-color': '#01143f'
+    "background-color": "#01143f"
   };
   botOptionButtonStyle = {
-    'border-color': '#fff',
-    color: '#fff'
-  }
+    "border-color": "#fff",
+    color: "#fff"
+  };
   botOptionTitleStyle = {
-    'color': "#fff"
-
-  }
+    color: "#fff"
+  };
   messageListStyle = {
-    'background': `url('/texans/assets/img/nrg-stadium.png')`,
-    'background-size': 'cover',
-    'background-position': '50% 50%'
+    background: `url('/texans/assets/img/nrg-stadium.png')`,
+    "background-size": "cover",
+    "background-position": "50% 50%"
   };
   sendButtonStyle = {
-    color: '#ff8359'
+    color: "#ff8359"
   };
   //User info for live chat agent
   name = "";
   email = "";
   question = "";
-  showUserInput = false;
-  currentIntentName = "";
-  //elastic search
-  activeFAQDirectory = false;
-  isTyping = false;
-  httpOptions = {
-    headers: new HttpHeaders({
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ"
-    }),
-    data: {
-      org_name: "spectrabg",
-      search: "",
-      category_name: "Greetings"
-    }
-  };
   //Check whether an agent is online for Live Chat
   agentOnline: any;
   //Gallery Images
@@ -217,45 +215,55 @@ export class A5ChatWindowComponent implements OnInit {
   };
   galleryImages: Image[] = [
     new Image(0, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/dqj8hfmbodqvykgvrom0.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/dqj8hfmbodqvykgvrom0.jpg"
       // description: 'Description 2'
     }),
     new Image(1, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/yuqofy0qypaydamdgqvj.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/yuqofy0qypaydamdgqvj.jpg"
       // description: 'Description 2'
     }),
     new Image(2, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/rsdd61monjycy8chticd.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/rsdd61monjycy8chticd.jpg"
       // description: 'Description 2'
     }),
     new Image(3, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/gdptjjtec0pauh7kzxvd.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/gdptjjtec0pauh7kzxvd.jpg"
       // description: 'Description 2'
     }),
     new Image(4, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/cq3qf4hxbkizcqmoxldo.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/cq3qf4hxbkizcqmoxldo.jpg"
       // description: 'Description 2'
     }),
     new Image(5, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/chosuk1cyhevfx05avaa.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/chosuk1cyhevfx05avaa.jpg"
       // description: 'Description 2'
     }),
     new Image(6, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/qco2almeoofgy7vxtl9h.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/qco2almeoofgy7vxtl9h.jpg"
       // description: 'Description 2'
     }),
     new Image(7, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/quwpekjhgsmotbhcygcr.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/quwpekjhgsmotbhcygcr.jpg"
       // description: 'Description 2'
     }),
     new Image(8, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/fzw9bmzvmtbm5zeikcof.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/fzw9bmzvmtbm5zeikcof.jpg"
       // description: 'Description 2'
     }),
     new Image(9, {
-      img: 'https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/axhoajkj4eaon7cu0lue.jpg',
+      img:
+        "https://static.clubs.nfl.com/image/private/t_photo_album/f_auto/texans/axhoajkj4eaon7cu0lue.jpg"
       // description: 'Description 2'
-    }),
+    })
   ];
   constructor(
     private sendMailService: SendMailService,
@@ -278,15 +286,21 @@ export class A5ChatWindowComponent implements OnInit {
     }
     //Making request to API to retrieve info on whether an live chat agent is online or not.
     const params = new HttpParams()
-      .set('action', 'groupstatus')
-      .set('groupid', '9');
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+      .set("action", "groupstatus")
+      .set("groupid", "9");
+    const headers = new HttpHeaders().set(
+      "Content-Type",
+      "text/plain; charset=utf-8"
+    );
     this.http
-      .get(
-        "https://www.websitealive3.com/9/status.asp", { headers: headers, params: params, responseType: 'text' }
-      ).subscribe((data) => {
-        this.agentOnline = data;
+      .get("https://www.websitealive3.com/9/status.asp", {
+        headers: headers,
+        params: params,
+        responseType: "text"
       })
+      .subscribe(data => {
+        this.agentOnline = data;
+      });
   }
 
   toggleEmojiPicker() {
@@ -358,8 +372,8 @@ export class A5ChatWindowComponent implements OnInit {
   loopThroughBotResponseCardButtons(responseCardButtons) {
     _.map(responseCardButtons, opt => {
       //Check to see if an agent is online to shoow Chat With A Human button
-      if (opt.value === 'chat with a human') {
-        if (this.agentOnline === 'online') {
+      if (opt.value === "chat with a human") {
+        if (this.agentOnline === "online") {
           this.botMenuOptions.push(opt);
         }
       } else {
@@ -402,7 +416,6 @@ export class A5ChatWindowComponent implements OnInit {
       responseCards[this.currentResponseCardPosition].buttons
     );
   }
-
   storeFAQAnswersLocalStorage(answers: any) {
     localStorage.setItem("faq-answers", JSON.stringify(answers));
   }
@@ -410,7 +423,6 @@ export class A5ChatWindowComponent implements OnInit {
   removeFAQAnswersLocalStorage() {
     localStorage.removeItem("faq-answers");
   }
-
   sendAnswerToUser() {
     let answers = localStorage.getItem("faq-answers");
     let parsed = JSON.parse(answers);
@@ -426,15 +438,11 @@ export class A5ChatWindowComponent implements OnInit {
         this.activeFAQDirectory = false;
 
         setTimeout(() => {
-          this.botOptionsTitle = "Speak with a person or go to main menu?";
+          this.botOptionsTitle = "Speak with a person?";
           this.botMenuOptions = [
             {
               text: "Text Us Your Question",
               value: "text us your question"
-            },
-            {
-              text: "Main Menu",
-              value: "go back to main menu"
             }
           ];
           this.showBotOptions = true;
@@ -461,7 +469,6 @@ export class A5ChatWindowComponent implements OnInit {
       }
     }
   }
-
   sendSuccessFAQMessage() {
     this.isTyping = false;
     this.showResponse(
@@ -481,7 +488,6 @@ export class A5ChatWindowComponent implements OnInit {
       ];
     }, 1000);
   }
-
   makeCallToFAQAPI(userMessage: string) {
     this.isTyping = true;
     if (userMessage) {
@@ -493,7 +499,7 @@ export class A5ChatWindowComponent implements OnInit {
         })
         .subscribe((data: any) => {
           if (data.error) {
-            console.log("subscribe error");
+            console.log("subscride error");
             this.isTyping = false;
             this.showResponse(
               false,
@@ -504,10 +510,6 @@ export class A5ChatWindowComponent implements OnInit {
               {
                 text: "Text Us Your Question",
                 value: "text us your question"
-              },
-              {
-                text: "Main Menu",
-                value: "go back to main menu"
               }
             ];
           } else {
@@ -521,7 +523,7 @@ export class A5ChatWindowComponent implements OnInit {
         });
     } else {
       this.isTyping = false;
-      console.log("no user message");
+      console.log("no userMessage");
       this.showResponse(
         false,
         "Sorry, I couldn't help you out. Would you like to ask a human?"
@@ -531,14 +533,11 @@ export class A5ChatWindowComponent implements OnInit {
         {
           text: "Text Us Your Question",
           value: "text us your question"
-        },
-        {
-          text: "Main Menu",
-          value: "go back to main menu"
         }
       ];
     }
   }
+  b;
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
@@ -655,17 +654,16 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
-  triggerAliveDial() {
-
-  }
+  triggerAliveDial() {}
 
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/texans') {
-      alive5_sms_phone_number = '+15196675700';
-      alive5_sms_message_question = 'I\'d like to connect with Texans Concierge [hit Send>]';
+    if (window.location.pathname == "/texans") {
+      alive5_sms_phone_number = "+15196675700";
+      alive5_sms_message_question =
+        "I'd like to connect with the Houston Texans Concierge [hit Send>]";
     }
 
     let alive5_pre_link;
@@ -675,29 +673,40 @@ export class A5ChatWindowComponent implements OnInit {
     let alive5_is_alive5_phone_number;
 
     switch (alive5_platform) {
-      case 'IPAD':
+      case "IPAD":
         alive5_isMobile = false;
         //desktop Apple
-        if (alive5_is_alive5_phone_number == 'Y') {
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
+        if (alive5_is_alive5_phone_number == "Y") {
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
           alive5_isDesktop = true;
         } else {
-          alive5_pre_link = 'javascript:void()';
+          alive5_pre_link = "javascript:void()";
         }
         break;
-      case 'IPHONE':
+      case "IPHONE":
         //see if 5, 6, or 7
         //mobile
-        var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-          navigator.userAgent && !navigator.userAgent.match('CriOS');
+        var isSafari =
+          navigator.vendor &&
+          navigator.vendor.indexOf("Apple") > -1 &&
+          navigator.userAgent &&
+          !navigator.userAgent.match("CriOS");
 
-        if (isSafari && (window.self !== window.top)) {
+        if (isSafari && window.self !== window.top) {
           //if safari AND in iframe. If in iframe, iMessages does not trigger, so open a new web page with a hack to run the SMS via redirect when page loads.
           //mainly for WIX embed widget issue.
-          alive5_pre_link = "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" + alive5_sms_phone_number + "');";
+          alive5_pre_link =
+            "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" +
+            alive5_sms_phone_number +
+            "');";
           alive5_isDesktop = true;
         } else {
-          alive5_pre_link = 'sms:' + alive5_sms_phone_number + '&body=' + alive5_sms_message_question;
+          alive5_pre_link =
+            "sms:" +
+            alive5_sms_phone_number +
+            "&body=" +
+            alive5_sms_message_question;
         }
         break;
       default:
@@ -705,10 +714,15 @@ export class A5ChatWindowComponent implements OnInit {
         //3/6/19 - chrome (72.0.3626.121) on android does not populate SMS
         if (/Mobi/.test(navigator.userAgent)) {
           //alive5_pre_link = 'sms:' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
-          alive5_pre_link = 'sms://' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
+          alive5_pre_link =
+            "sms://" +
+            alive5_sms_phone_number +
+            "?body=" +
+            alive5_sms_message_question;
         } else {
           alive5_isMobile = false;
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
           alive5_isDesktop = true;
         }
         break;
@@ -719,13 +733,13 @@ export class A5ChatWindowComponent implements OnInit {
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
         this.name
-        }&email=${this.email}&question=${this.question}`;
+      }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
           this.name
-          }&email=${this.email}&question=${this.question}`;
+        }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
@@ -771,7 +785,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.triggerAliveDial();
           this.bounceMenu = "button";
           break;
-        case 'customization':
+        case "customization":
           botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
           this.showResponse(false, botQuote);
           this.openGallery();
@@ -787,9 +801,19 @@ export class A5ChatWindowComponent implements OnInit {
       this.sendTextMessageToBot(optionText);
       this.openGallery();
     } else {
-      this.showResponse(true, optionText);
-      this.sendTextMessageToBot(optionText);
-      this.bounceMenu = "button";
+      switch (optionText) {
+        case "photo gallery":
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.openGallery();
+          break;
+      }
+      if (optionText === "photo gallery") {
+      } else {
+        this.showResponse(true, optionText);
+        this.sendTextMessageToBot(optionText);
+        this.bounceMenu = "button";
+      }
     }
   }
 
