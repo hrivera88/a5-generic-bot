@@ -107,7 +107,6 @@ export class A5AlivedialModalComponent implements OnInit {
     this.phone_customer.setValue("");
   }
   hideModal(trigger: string) {
-    // console.log('hide modal :', evt.target.classList.contains('cancel-modal-btn'));
     //Checking what button was pressed
 
     if (trigger === "cancel-button") {
