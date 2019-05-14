@@ -422,9 +422,13 @@ export class A5ChatWindowComponent implements OnInit {
     console.log((window.location.pathname + window.location.search).substr(1));
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
-    if ((window.location.pathname + window.location.search).substr(1) == 'bemer-distributor?u=KRoss@teamitsallgood.com') {
+    if ((window.location.pathname + window.location.search).substr(1) == 'bemer-distributor') {
+      alive5_sms_phone_number = '+17139994636';
+      alive5_sms_message_question = 'I have a question about BEMER Concept by alive5 [hit Send>]';
+    }
+    if ((window.location.pathname + window.location.search).substr(1) == 'bemer-distributor?u=kross@teamitsallgood.com') {
       alive5_sms_phone_number = '+19495284767';
-      alive5_sms_message_question = 'I\'d like to connect with KRoss@teamitsallgood.com [hit Send>]';
+      alive5_sms_message_question = 'I\'d like to connect with kross@teamitsallgood.com [hit Send>]';
     }
     if ((window.location.pathname + window.location.search).substr(1)== 'bemer-distributor?u=baonguyen1982@gmail.com') {
       alive5_sms_phone_number = '+19095004624';
