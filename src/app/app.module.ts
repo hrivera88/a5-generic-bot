@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule ,ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -18,6 +18,8 @@ import { A5AlivepayModalComponent } from "./a5-alive5-modal/a5-alive5-modal.comp
 import 'hammerjs';
 import 'mousetrap';
 import { ModalGalleryModule } from 'angular-modal-gallery';
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { A5AlivedialModalComponent } from './a5-alivedial-modal/a5-alivedial-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,17 +27,20 @@ import { ModalGalleryModule } from 'angular-modal-gallery';
     A5ChatWindowComponent,
     A5ChatBubbleComponent,
     HtmlSanitizerPipe,
-    A5AlivepayModalComponent
+    A5AlivepayModalComponent,
+    A5AlivedialModalComponent
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
     LottieAnimationViewModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     PickerModule,
     EmojiModule,
+    NgxIntlTelInputModule,
     ModalGalleryModule.forRoot()
   ],
   providers: [],

@@ -10,6 +10,9 @@ body {
   margin: 0;
   padding: 0;
 }
+p {
+  margin-bottom: 0 !important;
+}
 .message {
   letter-spacing: 0.35px;
 }
@@ -43,7 +46,10 @@ body {
   width: 24px;
   vertical-align: bottom;
 }
-
+/*  intl-tel-input overrides */
+.intl-tel-input {
+  width: 100%;
+}
 @media (min-width:360) and (max-width:766px) {
   .message {
     margin-left: 20%;
