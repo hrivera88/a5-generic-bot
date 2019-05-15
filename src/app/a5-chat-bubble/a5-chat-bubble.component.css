@@ -14,13 +14,8 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-<<<<<<< HEAD
-  background: #486290;
-  color: #fdf9f0;
-=======
   background: #0a00cd;
   color: #fff;
->>>>>>> 0aff205d... updated TDC theme
   border-radius: 5px;
   width: auto;
   /* text-align: center; */
@@ -59,11 +54,7 @@
   background: #ff8359;
   font-family: "Nunito", sans-serif;
   text-align: center;
-<<<<<<< HEAD
-  color: white;
-=======
   color: #fff;
->>>>>>> 0aff205d... updated TDC theme
   -ms-flex-item-align: end;
   align-self: flex-end;
 }
