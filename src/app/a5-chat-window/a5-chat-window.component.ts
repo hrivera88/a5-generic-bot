@@ -806,7 +806,6 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    console.log("hello button ", this.showAliveDialModal);
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
@@ -852,7 +851,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   modalState(evt: any) {
-    console.log("hide modal :", evt);
     let userQuote;
     let botQuote;
     switch (evt.triggeredBy) {
