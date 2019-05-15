@@ -214,6 +214,9 @@ export class A5ChatWindowComponent implements OnInit {
   showUserInput = false;
   currentIntentName = "";
 
+  // Email that User submits to register
+  submittedEmail = "";
+
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
@@ -284,13 +287,18 @@ export class A5ChatWindowComponent implements OnInit {
     this.toggleEmojiPicker();
   }
 
-  sendMail(servicesChosen, email, serviceDetails) {
-    this.botLeadEmailMsg = {
-      servicesChosen: servicesChosen,
-      email: email,
-      serviceDetails: serviceDetails
-    };
-    this.sendMailService.sendMail(this.botLeadEmailMsg).subscribe(result => {});
+  sendMail(email) {
+    let toEmail = `halbert@alive5.com`;
+    let replyToEmail = `halbert@alive5.com`;
+    let subject = `thinker-tinker QR Chatbot Lead`;
+    let emailBody = `<p>Hi! this email was submitted through your thinker-tinker bot : ${email}</p>`;
+    this.http
+      .get(
+        `https://api-v1.websitealive.com/email/?action=sendemail&email_to=${toEmail}&email_from=outbox@websitealive.com&email_replyto=${replyToEmail}&subject=${subject}&textorhtml=html&body=${emailBody}`
+      )
+      .subscribe(data => {
+        console.log("HYuting ", data);
+      });
   }
 
   showResponse(isUserMessage: boolean, message: string) {
@@ -492,6 +500,8 @@ export class A5ChatWindowComponent implements OnInit {
       botResponse.dialogState == "Fulfilled"
     ) {
       this.showUserInput = false;
+      this.submittedEmail = botResponse.slots.emailAddress;
+      this.sendMail(this.submittedEmail);
     } else {
       this.showUserInput = false;
     }
