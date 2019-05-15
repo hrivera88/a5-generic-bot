@@ -213,7 +213,7 @@ export class A5ChatWindowComponent implements OnInit {
   previewConfig = {
     visible: false
   };
-  // aliveDial 
+  // aliveDial
   showAliveDialModal = false;
   galleryImages: Image[] = [
     new Image(0, {
@@ -539,7 +539,6 @@ export class A5ChatWindowComponent implements OnInit {
       ];
     }
   }
-  b;
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
@@ -753,7 +752,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    console.log('hello button ', this.showAliveDialModal);
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
@@ -812,11 +810,10 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   modalState(evt: any) {
-    console.log('hide modal :', evt);
     let userQuote;
     let botQuote;
-    switch(evt.triggeredBy) {
-      case 'alivedial-cancel-btn':
+    switch (evt.triggeredBy) {
+      case "alivedial-cancel-btn":
         this.showAliveDialModal = evt.dialogState;
         userQuote = `Don't call me right now.`;
         this.showResponse(true, userQuote);
@@ -827,8 +824,8 @@ export class A5ChatWindowComponent implements OnInit {
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
             {
-              text: 'View other ticket options',
-              value: 'buy tickets'
+              text: "View other ticket options",
+              value: "buy tickets"
             },
             {
               text: "Main Menu",
@@ -841,16 +838,17 @@ export class A5ChatWindowComponent implements OnInit {
         this.showAliveDialModal = evt.dialogState;
         userQuote = `Yes, I'm ready for a call.`;
         this.showResponse(true, userQuote);
-        botQuote = 'Ok, one of our agents should reach out to you soon. Can I help you with anything else?';
+        botQuote =
+          "Ok, one of our agents should reach out to you soon. Can I help you with anything else?";
         this.showResponse(false, botQuote);
-        this.bounceMenu = 'button';
+        this.bounceMenu = "button";
         setTimeout(() => {
           this.showBotOptions = true;
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
             {
-              text: 'View other ticket options',
-              value: 'buy tickets'
+              text: "View other ticket options",
+              value: "buy tickets"
             },
             {
               text: "Main Menu",
