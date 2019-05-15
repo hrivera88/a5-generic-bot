@@ -154,7 +154,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#fff',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/traction1.jpg";
+  logoImg = "/traction/assets/img/traction1.jpg";
   showGreetingSection = true;
   greetingLine = "Welcome to Traction!";
   greetingSectionStyle = {
