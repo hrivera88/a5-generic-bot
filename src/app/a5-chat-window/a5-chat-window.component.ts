@@ -154,11 +154,11 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing ************
   windowBannerStyle = {
-    "background-color": "#59C7F0",
+    "background-color": "#fff",
     "border-bottom-color": "#0E9CB0"
   };
-  logoImg = "/thinker-tinker/assets/img/thinker-tinker_logo.png";
-  showGreetingSection = true;
+  logoImg = "/assets/img/thinker-tinker-logo.svg";
+  showGreetingSection = false;
   greetingLine = "Welcome to Thinker-Tinker!";
   greetingSectionStyle = {
     "background-color": "#75BA69"
@@ -230,7 +230,7 @@ export class A5ChatWindowComponent implements OnInit {
     this.sendTextMessageToBot("menu");
     setTimeout(() => {
       this.sendTextMessageToBot("email");
-    }, 800);
+    }, 1000);
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
@@ -475,6 +475,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   showBotResponseToUser(botResponse) {
     //Display Bot's response to Chat UI
+    console.log(botResponse);
     this.currentIntentName = botResponse.intentName;
     if (
       this.currentIntentName === "askQuestion" ||
@@ -575,7 +576,7 @@ export class A5ChatWindowComponent implements OnInit {
     this.userMessageInput = "";
     // Gather needed parameters for Amazon Lex
     let params = {
-      botAlias: "$LATEST",
+      botAlias: "versionOne",
       botName: "thinkerTinker",
       inputText: textMessage,
       userId: this.lexUserID
