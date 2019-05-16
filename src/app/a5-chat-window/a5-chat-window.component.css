@@ -41,7 +41,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background-image: url('../../assets/img/geometry.png');
+  background: #111111;
   background-size: cover;
 }
 .hide-chat,
@@ -173,7 +173,7 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  background: url('../../assets/img/geometry.png');
+  background: #111111;
 }
 #message-list > *:first-child {
   margin-bottom: auto;
@@ -197,7 +197,7 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   position: relative;
-  background-color: rgba(41, 41, 85,1);
+  background-color: rgba(41, 41, 85, 1);
   color: #fff;
 }
 #dialog-options button {
@@ -261,7 +261,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: rgba(41, 41, 85,1);
+  color: rgba(41, 41, 85, 1);
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
@@ -372,7 +372,7 @@ button.more-options-btn span {
     width: 50%;
   }
 }
-@media (min-width:1300px) {
+@media (min-width: 1300px) {
   .option-buttons-container {
     width: 30%;
   }

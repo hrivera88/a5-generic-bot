@@ -151,33 +151,33 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing ************
   windowBannerStyle = {
-    background: "#0A1860",
-    "border-bottom-color": "#B9BABC"
+    background: "#050505",
+    "border-bottom-color": "#38B54A"
   };
-  logoImg = "/endeavorAdvisors/assets/img/endeavor.png";
+  logoImg = "/assets/img/";
   showGreetingSection = true;
-  greetingLine = "Welcome to Endeavor Advisors!";
+  greetingLine = "Welcome to my personal chatbot!";
   greetingSectionStyle = {
-    "background-color": "#0A1860"
+    "background-color": "#2C2C2C"
   };
   greetingFontStyle = {
-    color: "#fff"
+    color: "#38B54A"
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#0A1860"
+    "background-color": "#050505"
   };
   botOptionButtonStyle = {
-    "border-color": "#fff",
-    color: "#fff"
+    "border-color": "#38B54A",
+    color: "#38B54A"
   };
   botOptionTitleStyle = {
-    color: "#fff"
+    color: "#38B54A"
   };
   sendButtonStyle = {
-    color: "#ff8359"
+    color: "#38B54A"
   };
   constructor(
     private sendMailService: SendMailService,
@@ -360,7 +360,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "EndeavorAdvisorsBot",
+      botName: "joshFrasierChatBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
