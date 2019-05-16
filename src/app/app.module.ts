@@ -18,6 +18,7 @@ import { A5AlivepayModalComponent } from "./a5-alive5-modal/a5-alive5-modal.comp
 import 'hammerjs';
 import 'mousetrap';
 import { ModalGalleryModule } from 'angular-modal-gallery';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModalGalleryModule } from 'angular-modal-gallery';
     A5ChatWindowComponent,
     A5ChatBubbleComponent,
     HtmlSanitizerPipe,
-    A5AlivepayModalComponent
+    A5AlivepayModalComponent,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,
