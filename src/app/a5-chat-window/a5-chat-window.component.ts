@@ -157,7 +157,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#0E9CB0"
   };
-  logoImg = "/assets/img/thinker-tinker-logo.svg";
+  logoImg = "/thinker-tinker/assets/img/thinker-tinker-logo.svg";
   showGreetingSection = false;
   greetingLine = "Welcome to Thinker-Tinker!";
   greetingSectionStyle = {
@@ -288,17 +288,15 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   sendMail(email) {
-    let toEmail = `halbert@alive5.com`;
-    let replyToEmail = `halbert@alive5.com`;
+    let toEmail = `yuting@gmail.com`;
+    let replyToEmail = `yuting@gmail.com`;
     let subject = `thinker-tinker QR Chatbot Lead`;
     let emailBody = `<p>Hi! this email was submitted through your thinker-tinker bot : ${email}</p>`;
     this.http
       .get(
         `https://api-v1.websitealive.com/email/?action=sendemail&email_to=${toEmail}&email_from=outbox@websitealive.com&email_replyto=${replyToEmail}&subject=${subject}&textorhtml=html&body=${emailBody}`
       )
-      .subscribe(data => {
-        console.log("HYuting ", data);
-      });
+      .subscribe(data => {});
   }
 
   showResponse(isUserMessage: boolean, message: string) {
