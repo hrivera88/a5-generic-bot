@@ -43,7 +43,7 @@
   justify-content: space-around;
   background-color: white;
   /* background-image: url('../../assets/img/geometry.png'); */
-  background-size: cover;
+  background: cover;
 }
 .hide-chat,
 .end-chat {
@@ -176,10 +176,11 @@
   flex-direction: column-reverse;
   position: relative;
   /* background-image: url('../../assets/img/la-rams-logo-featured1.jpg'); */
+  /* background-image: url('../../assets/img/St-Louis-Rams-01.png'); */
   background-image: url('../../assets/img/geometry.png');
   background: cover;
-  /* background-repeat: no-repeat;
-  background-position: center; */
+  /* background-repeat: no-repeat; */
+  /* background-position: bottom; */
 }
 #message-list > *:first-child {
   margin-bottom: auto;
