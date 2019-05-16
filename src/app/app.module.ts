@@ -14,6 +14,7 @@ import { HtmlSanitizerPipe } from "./html-sanitizer.pipe";
 import { PickerModule } from "@ctrl/ngx-emoji-mart";
 import { EmojiModule } from "@ctrl/ngx-emoji-mart/ngx-emoji";
 import { A5AlivepayModalComponent } from "./a5-alive5-modal/a5-alive5-modal.component";
+import { AutofocusDirective } from "./autofocus.directive";
 
 import "hammerjs";
 import "mousetrap";
@@ -28,7 +29,8 @@ import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-mod
     A5ChatBubbleComponent,
     HtmlSanitizerPipe,
     A5AlivepayModalComponent,
-    A5AlivedialModalComponent
+    A5AlivedialModalComponent,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,
