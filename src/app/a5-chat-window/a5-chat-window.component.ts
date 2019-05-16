@@ -856,4 +856,7 @@ export class A5ChatWindowComponent implements OnInit {
     }
     // this.showAlivePayModal = evt;
   }
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
 }
