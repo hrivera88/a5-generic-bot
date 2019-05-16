@@ -177,8 +177,8 @@
   position: relative;
   /* background-image: url('../../assets/img/la-rams-logo-featured1.jpg'); */
   /* background-image: url('../../assets/img/St-Louis-Rams-01.png'); */
-  background-image: url('../../assets/img/geometry.png');
-  background: cover;
+  background: url('../../assets/img/geometry.png');
+  /* background: cover; */
   /* background-repeat: no-repeat; */
   /* background-position: bottom; */
 }

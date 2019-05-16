@@ -183,7 +183,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Connect with Dan August, VP of Strategy for the LA Rams!"; 
+  greetingLine = "Connect"; 
   greetingSectionStyle = {
     'background-color': '#002244'
   };
@@ -1205,7 +1205,7 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/LARams/dan_august') {
+    if (window.location.pathname == '/rams_dan_august') {
       alive5_sms_phone_number = '+18185404509';
       alive5_sms_message_question = 'I\'d like to connect with Dan August, the VP of Strategy at LA Rams. [hit Send>]';
     }
