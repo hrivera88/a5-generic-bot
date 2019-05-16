@@ -151,33 +151,33 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing ************
   windowBannerStyle = {
-    background: "#050505",
-    "border-bottom-color": "#38B54A"
+    background: "#333F48",
+    "border-bottom-color": "#BF5700"
   };
-  logoImg = "/assets/img/";
+  logoImg = "/assets/img/longhorns-logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to my personal chatbot!";
+  greetingLine = "Welcome to UT Austin!";
   greetingSectionStyle = {
-    "background-color": "#2C2C2C"
+    "background-color": "#333F48"
   };
   greetingFontStyle = {
-    color: "#38B54A"
+    color: "#FFFFFF"
   };
   botOptionsImg = false;
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#050505"
+    "background-color": "#333F48"
   };
   botOptionButtonStyle = {
-    "border-color": "#38B54A",
-    color: "#38B54A"
+    "border-color": "#BF5700",
+    color: "#BF5700"
   };
   botOptionTitleStyle = {
-    color: "#38B54A"
+    color: "#BF5700"
   };
   sendButtonStyle = {
-    color: "#38B54A"
+    color: "#BF5700"
   };
   constructor(
     private sendMailService: SendMailService,
@@ -360,7 +360,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "joshFrasierChatBot",
+      botName: "UTAustinBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
