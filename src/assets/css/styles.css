@@ -10,8 +10,12 @@ body {
   margin: 0;
   padding: 0;
 }
+p {
+  margin-bottom: 0 !important;
+}
 .message {
   letter-spacing: 0.35px;
+  word-break: break-word;
 }
 .message p {
   margin-bottom: 5px;
@@ -20,6 +24,9 @@ body {
 .message a {
   color: #fff;
   text-decoration: underline;
+}
+.message ul {
+  padding-left: 1.5rem;
 }
 .message iframe {
   border: 0;
@@ -43,7 +50,10 @@ body {
   width: 24px;
   vertical-align: bottom;
 }
-
+/*  intl-tel-input overrides */
+.intl-tel-input {
+  width: 100%;
+}
 @media (min-width:360) and (max-width:766px) {
   .message {
     margin-left: 20%;
@@ -91,7 +101,9 @@ body {
 .emoji-mart-anchor-bar {
   background-color: #006fba !important;
 }
-.plain-container .image {
-  width: 170px !important;
-  height: auto;
+.plain-container .image{
+  display: none;
 }
+figcaption.inside.description {
+  position: relative;
+} 
