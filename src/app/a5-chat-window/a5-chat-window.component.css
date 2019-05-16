@@ -41,7 +41,8 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background: white;
+  background-color: white;
+  /* background-image: url('../../assets/img/geometry.png'); */
   background-size: cover;
 }
 .hide-chat,
@@ -174,7 +175,11 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  /* background: url("../../assets/img/geometry.png"); */
+  /* background-image: url('../../assets/img/la-rams-logo-featured1.jpg'); */
+  background-image: url('../../assets/img/geometry.png');
+  background: cover;
+  /* background-repeat: no-repeat;
+  background-position: center; */
 }
 #message-list > *:first-child {
   margin-bottom: auto;
@@ -204,8 +209,8 @@
 .exchange-btn {
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #f1592b;
-  background: #f1592b;
+  border: 1px solid #866D4B;
+  background: #866D4B;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;
@@ -362,8 +367,8 @@
   font-size: 16px;
 }
 #dialog-options .option-buttons-container button.more-options-btn {
-  border: 1px solid #e32526;
-  color: #e32526;
+  border: 1px solid #866D4B;
+  color: #866D4B;
 }
 button.more-options-btn span {
   margin-right: 4px;

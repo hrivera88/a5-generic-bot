@@ -171,10 +171,10 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#fff",
-    "border-bottom-color": "#000"
+    'background-color': '#fff',
+    'border-bottom-color': '#866D4B'
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/rams_dan_august/assets/img/Los_Angeles_Rams_logo-300x214.jpg";  //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -183,9 +183,9 @@ export class A5ChatWindowComponent implements OnInit {
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Connect with Dan August, VP of Strategy for the LA Rams!"; 
   greetingSectionStyle = {
-    "background-color": "#486290"
+    'background-color': '#002244'
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,13 +194,13 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    "background-color": "#486290"
+    'background-color': '#002244'
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
-    color: "#fff",
-    background: "#f1592b"
-  };
+    'border-color': ' #866D4B',
+    color: '#fff',
+    background: ' #866D4B'
+  }
   botOptionTitleStyle = {
     color: "#fff"
   };
@@ -212,7 +212,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "black"
   };
   sendButtonStyle = {
-    color: "#ff8359"
+    color: '#866D4B'
   };
 
   //User info for live chat agent
@@ -1163,7 +1163,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "LARamsDanAugustBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -1205,23 +1205,12 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == "/budweiser-gardens") {
-      alive5_sms_phone_number = "+15196675700";
-      alive5_sms_message_question =
-        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+    if (window.location.pathname == '/LARams/dan_august') {
+      alive5_sms_phone_number = '+18185404509';
+      alive5_sms_message_question = 'I\'d like to connect with Dan August, the VP of Strategy at LA Rams. [hit Send>]';
     }
 
-    if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with dustin@alive5.com [hit Send>]";
-    }
-
-    if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with glenn@alive5.com [hit Send>]";
-    }
+  
 
     let alive5_pre_link;
     let alive5_isDesktop = false;
