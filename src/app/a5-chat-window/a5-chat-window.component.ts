@@ -170,14 +170,15 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#333F48"
   };
   botOptionButtonStyle = {
-    "border-color": "#BF5700",
-    color: "#BF5700"
+    background: "#BF5700",
+    "border-color": "whitesmoke",
+    color: "whitesmoke"
   };
   botOptionTitleStyle = {
-    color: "#BF5700"
+    color: "whitesmoke"
   };
   sendButtonStyle = {
-    color: "#BF5700"
+    color: "whitesmoke"
   };
   constructor(
     private sendMailService: SendMailService,
