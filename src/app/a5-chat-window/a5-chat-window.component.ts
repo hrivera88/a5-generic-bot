@@ -182,7 +182,7 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#333F48",
     "border-bottom-color": "#BF5700"
   };
-  logoImg = "/assets/img/longhorns-logo.png";
+  logoImg = "/ut-austin-opt-in/assets/img/longhorns-logo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to UT Austin!";
   greetingSectionStyle = {
@@ -793,7 +793,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
           break;
-        case "call the texans":
+        case "get started":
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
@@ -820,10 +820,6 @@ export class A5ChatWindowComponent implements OnInit {
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
             {
-              text: "View other ticket options",
-              value: "buy tickets"
-            },
-            {
               text: "Main Menu",
               value: "menu"
             }
@@ -842,10 +838,6 @@ export class A5ChatWindowComponent implements OnInit {
           this.showBotOptions = true;
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
-            {
-              text: "View other ticket options",
-              value: "buy tickets"
-            },
             {
               text: "Main Menu",
               value: "menu"

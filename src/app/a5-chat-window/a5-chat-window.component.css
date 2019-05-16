@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #18183d;
+  border-bottom: 2px solid #BF5700;
   font-size: 17px;
   padding: 0.25rem;
   color: #fdf9f0;
@@ -40,8 +40,7 @@
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: space-around;
-  background: #111111;
+  justify-content: center;
   background-size: cover;
 }
 .hide-chat,
@@ -66,7 +65,7 @@
 .logo {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-left: 10px;
 }
@@ -204,8 +203,8 @@
 .exchange-btn {
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #F1592B;
-  background: #F1592B;
+  border: 1px solid #f1592b;
+  background: #f1592b;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;

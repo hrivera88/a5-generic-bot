@@ -54,7 +54,8 @@ export class A5AlivedialModalComponent implements OnInit {
   modalAnimation: string;
   // AliveDial Form Field
   aliveDialForm = new FormGroup({
-    "alivedial-number": new FormControl(undefined, [Validators.required])
+    "alivedial-number": new FormControl(undefined, [Validators.required]),
+    'alivedialTerms': new FormControl(undefined, [Validators.required])
   });
   faPhone = faPhone;
   clientIP: string;
@@ -73,6 +74,7 @@ export class A5AlivedialModalComponent implements OnInit {
     }
   };
   phone_customer = new FormControl("");
+  terms_checkbox = new FormControl();
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
@@ -81,6 +83,9 @@ export class A5AlivedialModalComponent implements OnInit {
       this.httpOptions.data["client_ip"] = data["ip"];
       this.makeAliveDialRequest();
     });
+  }
+  onSubmit() {
+    console.log('submitttted' ,this.aliveDialForm);
   }
   makeAliveDialRequest() {
     this.http
@@ -95,6 +100,7 @@ export class A5AlivedialModalComponent implements OnInit {
       });
   }
   makeCall(trigger: string) {
+    console.log('RAWR ', this.phone_customer.value, ' and ', this.terms_checkbox.value);
     let userSubmittedNumber = this.phone_customer.value;
     //Updating User's phone number to API Request
     this.httpOptions.data[

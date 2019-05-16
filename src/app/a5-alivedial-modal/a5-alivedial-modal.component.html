@@ -1,25 +1,55 @@
 <div id="alivedial-modal" [ngClass]="{ show: showModal }">
   <div class="modal-wrapper">
     <div class="modal-image">
-      <img src="" alt="" srcset="">
+      <img src="" alt="" srcset="" />
     </div>
     <div class="modal-title">
-      <h5>Call the Texans</h5>
+      <h5>Get Text Alerts</h5>
     </div>
     <div class="modal-description">
       <p>
-        Enter your number below and we'll have a Rep reach out to you.
+        Enter your number below and we'll send you text alerts.
       </p>
     </div>
-    <form id="alivedial-form" #alideDialForm="ngForm" [formGroup]="aliveDialForm">
-      <ngx-intl-tel-input [formControl]="phone_customer" [preferredCountries]="['us']" enablePlaceholder="true" [enableAutoCountrySelect]="true" name="alivedial-number"></ngx-intl-tel-input>
+    <form
+      id="alivedial-form"
+      #alideDialForm="ngForm"
+      [formGroup]="aliveDialForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <ngx-intl-tel-input
+        [formControl]="phone_customer"
+        [preferredCountries]="['us']"
+        enablePlaceholder="true"
+        [enableAutoCountrySelect]="true"
+      ></ngx-intl-tel-input>
+      <div class="terms">
+        <input
+          type="checkbox"
+          name="terms"
+          id="terms-checkbox"
+          [formControl]="terms_checkbox"
+        />
+        <p>
+          Agree to
+          <a href="https://alive5.com/terms-of-service/"
+            >Terms and Conditions</a
+          >
+        </p>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn cancel-modal-btn" type="button" (click)="hideModal('cancel-button')">
+          Cancel
+        </button>
+        <button
+          class="btn make-call-btn"
+          (click)="makeCall('make-call-button')"
+          [disabled]="phone_customer.value === '' || terms_checkbox.value === null"
+        >
+          <fa-icon [icon]="faPhone"></fa-icon>
+          <span>Enroll</span>
+        </button>
+      </div>
     </form>
-    <div class="modal-buttons">
-      <button class="btn cancel-modal-btn" (click)="hideModal('cancel-button')">Cancel</button>
-      <button class="btn make-call-btn" (click)="makeCall('make-call-button')">
-        <fa-icon [icon]="faPhone"></fa-icon>
-        <span>Call Me</span>
-      </button>
-    </div>
   </div>
 </div>

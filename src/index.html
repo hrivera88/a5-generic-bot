@@ -2,20 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>A5 UT Austin</title>
-    <base href="/" />
+    <title>UT Austin</title>
+    <base href="/ut-austin-opt-in/" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/ut-austin-opt-in/assets/css/styles.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/animate.min.css" />
-    <link rel="stylesheet" href="/assets/css/emoji-mart.css" />
+    <link rel="stylesheet" href="/ut-austin-opt-in/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="/ut-austin-opt-in/assets/css/emoji-mart.css" />
     <script>
       var global = global || window;
       document.addEventListener("gesturestart", function(e) {
@@ -24,11 +24,46 @@
     </script>
   </head>
 
-    gtag("config", "UA-131288052-1");
-  </script>
-</body>
-
+  <body>
+    <app-root></app-root>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-131288052-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
       gtag("config", "UA-131288052-1");
     </script>
+    <!-- Start WebsiteAlive AliveTracker Code -->
+    <script type="text/javascript">
+      function wsa_include_js() {
+        var wsa_host =
+          "https:" == document.location.protocol ? "https://" : "http://";
+        var js = document.createElement("script");
+        js.setAttribute("language", "javascript");
+        js.setAttribute("type", "text/javascript");
+        js.setAttribute(
+          "src",
+          wsa_host +
+            "tracking-v3.websitealive.com/3.0/?objectref=wsa3&groupid=9&websiteid=1226"
+        );
+        document
+          .getElementsByTagName("head")
+          .item(0)
+          .appendChild(js);
+      }
+      if (window.attachEvent) {
+        window.attachEvent("onload", wsa_include_js);
+      } else if (window.addEventListener) {
+        window.addEventListener("load", wsa_include_js, false);
+      } else {
+        document.addEventListener("load", wsa_include_js, false);
+      }
+    </script>
+    <!-- End WebsiteAlive AliveTracker v3.0 Code -->
   </body>
 </html>
