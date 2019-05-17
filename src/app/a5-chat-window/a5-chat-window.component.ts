@@ -154,9 +154,9 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#050505",
     "border-bottom-color": "#38B54A"
   };
-  logoImg = "/assets/img/";
+  logoImg = "/assets/img/do-what-you-love.jpeg";
   showGreetingSection = true;
-  greetingLine = "Welcome to my personal chatbot!";
+  greetingLine = "Welcome to my personal Alive5 chatbot!";
   greetingSectionStyle = {
     "background-color": "#2C2C2C"
   };
