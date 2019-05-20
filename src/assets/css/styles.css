@@ -18,7 +18,7 @@ body {
   font-weight: 300;
 }
 .message a {
-  color: #fff;
+  color: #77c37d;
   text-decoration: underline;
 }
 .message iframe {
@@ -44,7 +44,7 @@ body {
   vertical-align: bottom;
 }
 
-@media (min-width:360) and (max-width:766px) {
+@media (min-width: 360) and (max-width: 766px) {
   .message {
     margin-left: 20%;
     margin-right: 20%;
@@ -57,18 +57,20 @@ body {
     margin-right: 20%;
     max-width: 20em;
   }
-  .message iframe, .message img, .message video {
+  .message iframe,
+  .message img,
+  .message video {
     max-width: 247px;
   }
 }
-@media (min-width: 1024px) and (max-width: 1299px){
+@media (min-width: 1024px) and (max-width: 1299px) {
   .message {
     margin-left: 25%;
     margin-right: 30%;
     max-width: 20em;
   }
-} 
-@media (min-width: 1300px){
+}
+@media (min-width: 1300px) {
   .message {
     margin-left: 35%;
     margin-right: 37%;

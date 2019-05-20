@@ -180,7 +180,8 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#fff"
   };
   messageListStyle = {
-    background: "none"
+    background: "url('/thinker-tinker/assets/img/tt-bg.png')",
+    "background-size": "cover"
   };
 
   messageSubmissionStyle = {
