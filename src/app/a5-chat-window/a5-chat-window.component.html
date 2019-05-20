@@ -1,9 +1,9 @@
 <div class="window-container">
   <div id="window-banner">
-    <div class="logo">
+    <div class="logo" [ngClass]="{ 'justify-middle': !showContactButton }">
       <img [src]="logoImg" alt="" srcset="" />
     </div>
-    <div class="exchange-info-button">
+    <div class="exchange-info-button" *ngIf="showContactButton">
       <button class="btn exchange-btn" (click)="exchangeContact()">
         <fa-icon [icon]="faAddressCard"></fa-icon>
         <span>Contact</span>

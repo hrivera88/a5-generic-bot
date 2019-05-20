@@ -168,6 +168,8 @@ export class A5ChatWindowComponent implements OnInit {
     "border-bottom-color": "#000"
   };
   logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  //Contact button
+  showContactButton = false; //Turn to true to show top right Contact Button
   showGreetingSection = true;
   greetingLine = "Welcome to Doc Juris!";
   greetingSectionStyle = {
