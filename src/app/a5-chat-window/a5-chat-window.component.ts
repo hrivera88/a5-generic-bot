@@ -890,6 +890,5 @@ export class A5ChatWindowComponent implements OnInit {
         }, 1000);
         break;
     }
-    // this.showAlivePayModal = evt;
   }
 }
