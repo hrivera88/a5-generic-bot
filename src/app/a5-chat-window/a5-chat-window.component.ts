@@ -825,7 +825,7 @@ export class A5ChatWindowComponent implements OnInit {
         case "call me":
           botQuote = `<p>Call Me</p>`;
           this.showResponse(false, botQuote);
-          this.sendTextMessageToBot(optionText);
+          this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
         case "gallery":
