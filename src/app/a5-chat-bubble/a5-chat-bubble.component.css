@@ -14,11 +14,11 @@
 .message {
   font-size: 14px;
   padding: 0.5rem;
-  background: #486290;
+  background: #333F42;
   color: #fdf9f0;
   border-radius: 5px;
   width: auto;
-  /* text-align: center; */
+  text-align: center;
   display: inline-block;
   max-width: 75%;
   font-family: "Nunito", sans-serif;
@@ -51,10 +51,10 @@
   height: auto;
 }
 .message.user {
-  background: #ff8359;
+  background: #B4975A;
   font-family: "Nunito", sans-serif;
   text-align: center;
-  color: white;
+  color: #000;
   -ms-flex-item-align: end;
   align-self: flex-end;
 }

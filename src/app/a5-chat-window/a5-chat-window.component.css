@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #18183d;
+  border-bottom: 2px solid #B4975A;
   font-size: 17px;
   padding: 0.25rem;
   color: #fdf9f0;
@@ -41,8 +41,9 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background: white;
-  background-size: cover;
+  background-color: white;
+  /* background-image: url('../../assets/img/geometry.png'); */
+  /* background-size: cover; */
 }
 .hide-chat,
 .end-chat {
@@ -204,8 +205,8 @@
 .exchange-btn {
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #f1592b;
-  background: #f1592b;
+  border: 1px solid #C8102E;
+  background: #C8102E;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;
@@ -362,8 +363,8 @@
   font-size: 16px;
 }
 #dialog-options .option-buttons-container button.more-options-btn {
-  border: 1px solid #e32526;
-  color: #e32526;
+  border: 1px solid #C8102E;
+  color: #C8102E;
 }
 button.more-options-btn span {
   margin-right: 4px;
