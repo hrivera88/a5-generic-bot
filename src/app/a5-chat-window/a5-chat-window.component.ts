@@ -780,7 +780,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
           break;
-        case "call the texans":
+        case "call me":
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
