@@ -84,7 +84,7 @@ export class A5AlivedialModalComponent implements OnInit {
   makeAliveDialRequest() {
     this.http
       .get(
-        "https://api-v1.websitealive.com/alivedial/makecall/?format=json&callback=?",
+        "https://api-v1.websitealive.com/alivedial/makecall/?format=json&callback=",
         {
           params: this.httpOptions.data
         }
