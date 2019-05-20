@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #18183d;
+  border-bottom: 2px solid #F6C506;
   font-size: 17px;
   padding: 0.25rem;
   color: #fdf9f0;
@@ -41,8 +41,9 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: space-around;
-  background: #111111;
+  background: #013CB4;
   background-size: cover;
+  z-index: 1;
 }
 .hide-chat,
 .end-chat {
@@ -66,7 +67,7 @@
 .logo {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-left: 10px;
 }
@@ -103,6 +104,7 @@
   -ms-flex-pack: center;
   justify-content: center;
   background-color: #18183d;
+  z-index: 1;
 }
 
 .logo-container {
@@ -174,8 +176,23 @@
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   position: relative;
-  background: #111111;
+  background-image: url(http://insidetexas.com/wp-content/uploads/2018/03/Greg-Brown-III-300x300.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
+
+#message-list::after {
+  content:"";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left:0;
+  z-index: 0;
+}
+
 #message-list > *:first-child {
   margin-bottom: auto;
 }

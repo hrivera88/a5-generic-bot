@@ -164,14 +164,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#fff",
-    "border-bottom-color": "#000"
+    "background-color": "#013CB4",
+    "border-bottom-color": "#F6C506"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/gregbrown.png"; //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Hello, I'm Greg Brown!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    "background-color": "#013CB4"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -180,12 +180,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#486290"
+    "background-color": "#013CB4"
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
+    "border-color": "#F6C506",
     color: "#fff",
-    background: "#f1592b"
+    background: "#E30200"
   };
   botOptionTitleStyle = {
     color: "#fff"
@@ -666,7 +666,7 @@ export class A5ChatWindowComponent implements OnInit {
       }
     });
   }
-  triggerAliveDial() {}
+  triggerAliveDial() { }
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
@@ -755,13 +755,13 @@ export class A5ChatWindowComponent implements OnInit {
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
         this.name
-      }&email=${this.email}&question=${this.question}`;
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
           this.name
-        }&email=${this.email}&question=${this.question}`;
+          }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
