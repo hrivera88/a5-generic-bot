@@ -667,17 +667,6 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
-  // chooseBotOption(evt: any) {
-  //   let optionText = evt.target.value;
-  //   this.showResponse(true, optionText);
-  //   if (optionText === 'schedule a demo') {
-  //     this.triggerAliveChat();
-  //   } else {
-  //     this.sendTextMessageToBot(optionText);
-  //   }
-  //   this.bounceMenu = "button";
-  // }
-
   chooseMainOption(evt: any) {
     //Get text value from Main Menu Button
     let optionText = evt.target.value;
