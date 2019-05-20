@@ -39,9 +39,9 @@
   height: auto;
 }
 .message.user {
-  background: #62afa9;
+  background: rgb(238,232,214);
   font-family: "Nunito", sans-serif;
-  color: rgb(238,232,214);
+  color: rgb(33,69,76);
   -ms-flex-item-align: end;
   align-self: flex-end;
 }
