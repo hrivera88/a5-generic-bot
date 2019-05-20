@@ -154,11 +154,11 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#ff0000',
     'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/comcast-business-phone-logo.png";  //EDIT with s3 bucket file name
+  logoImg = "/comcast-business-ruby/assets/img/comcast-business-phone-logo.png";  //EDIT with s3 bucket file name
   showGreetingSection = true;
   greetingLine = "Welcome to Comcast Business Ruby!";
   greetingSectionStyle = {
-    'background-color': '#ff0000'
+    'background-color': '#000000'
   };
   greetingFontStyle = {
     color: '#fff'
@@ -361,7 +361,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "comcastaRubyBot",
+      botName: "comcastRubyBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
