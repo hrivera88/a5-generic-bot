@@ -26,6 +26,7 @@ import { Option } from "./option";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
+import { BotReportingService } from "../bot-reporting.service";
 import { ReturnStatement } from "@angular/compiler";
 
 @Component({
@@ -224,7 +225,9 @@ export class A5ChatWindowComponent implements OnInit {
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private galleryService: GalleryService,
+    private botReporting: BotReportingService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -391,6 +394,32 @@ export class A5ChatWindowComponent implements OnInit {
         }
       ];
     }, 1000);
+  }
+
+  sendToBotReportingAPI(
+    event_direction: string,
+    event_type: string,
+    event_content: string,
+    client_ip: string
+  ) {
+    let action = `record_event`;
+    let objectref = "wsa3";
+    let groupid = 9;
+    let websiteid = 123;
+    this.botReporting
+      .sendToReportingAPI(
+        action,
+        objectref,
+        groupid,
+        websiteid,
+        client_ip,
+        event_direction,
+        event_type,
+        event_content
+      )
+      .subscribe(data => {
+        console.log("reporting data : ", data);
+      });
   }
 
   makeCallToFAQAPI(userMessage: string) {
@@ -595,6 +624,10 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
+
   triggerAliveChat() {
     //for Hal's webbot
     let alive5_sms_phone_number: string;
@@ -712,6 +745,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
+          break;
       }
     }
   }
