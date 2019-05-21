@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
+import { HttpClient, HttpHeaders} from "@angular/common/http";
 import {
   trigger,
   state,
@@ -26,7 +27,10 @@ import { Option } from "./option";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
-import { Image, GalleryService } from 'angular-modal-gallery';
+import { BotReportingService } from "../bot-reporting.service";
+import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from "angular-modal-gallery";
+
 @Component({
   selector: "a5-chat-window",
   templateUrl: "./a5-chat-window.component.html",
@@ -163,6 +167,20 @@ export class A5ChatWindowComponent implements OnInit {
   showPreviews = {
     'visible': false
   };
+  //elastic search
+  activeFAQDirectory = false;
+  isTyping = false;
+  httpOptions = {
+    headers: new HttpHeaders({
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ"
+    }),
+    data: {
+      org_name: "spectrabg",
+      search: "",
+      category_name: "Greetings"
+    }
+  };
   images: Image[] = [
     new Image(0, {
       img: 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
@@ -175,7 +193,9 @@ export class A5ChatWindowComponent implements OnInit {
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
+    private http: HttpClient,
     private galleryService: GalleryService,
+    private botReporting: BotReportingService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -304,6 +324,168 @@ export class A5ChatWindowComponent implements OnInit {
     this.loopThroughBotResponseCardButtons(
       responseCards[this.currentResponseCardPosition].buttons
     );
+  }
+  storeFAQAnswersLocalStorage(answers: any) {
+    localStorage.setItem("faq-answers", JSON.stringify(answers));
+  }
+
+  removeFAQAnswersLocalStorage() {
+    localStorage.removeItem("faq-answers");
+  }
+
+  sendAnswerToUser() {
+    let answers = localStorage.getItem("faq-answers");
+    let parsed = JSON.parse(answers);
+    if (parsed) {
+      if (parsed.length === 0) {
+        console.log("parsed equal zeero");
+        this.isTyping = false;
+        this.showResponse(
+          false,
+          "Sorry, I couldn't help you out. Would you like to ask a human?"
+        );
+        this.removeFAQAnswersLocalStorage();
+        this.activeFAQDirectory = false;
+
+        setTimeout(() => {
+          this.botOptionsTitle = "Speak with a person or go to main menu?";
+          this.botMenuOptions = [
+            {
+              text: "Chat with a human",
+              value: "chat with a human"
+            },
+            {
+              text: "Main Menu",
+              value: "go back to main menu"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      } else {
+        this.isTyping = false;
+        let answer = parsed.shift();
+        this.storeFAQAnswersLocalStorage(parsed);
+        this.showResponse(false, answer);
+        setTimeout(() => {
+          this.botOptionsTitle = "Was this helpful?";
+          this.botMenuOptions = [
+            {
+              text: "Yes",
+              value: "yes"
+            },
+            {
+              text: "No",
+              value: "no"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      }
+    }
+  }
+
+  sendSuccessFAQMessage() {
+    this.isTyping = false;
+    this.showResponse(
+      false,
+      "Great, if you have any other questions let us know."
+    );
+    this.removeFAQAnswersLocalStorage();
+    this.activeFAQDirectory = false;
+    setTimeout(() => {
+      this.showBotOptions = true;
+      this.botOptionsTitle = "View Main Menu?";
+      this.botMenuOptions = [
+        {
+          text: "Main Menu",
+          value: "menu"
+        }
+      ];
+    }, 1000);
+  }
+
+  sendToBotReportingAPI(
+    event_direction: string,
+    event_type: string,
+    event_content: string,
+    client_ip: string
+  ) {
+    let action = `record_event`;
+    let objectref = "wsa3";
+    let groupid = 9;
+    let websiteid = 123;
+    this.botReporting
+      .sendToReportingAPI(
+        action,
+        objectref,
+        groupid,
+        websiteid,
+        client_ip,
+        event_direction,
+        event_type,
+        event_content
+      )
+      .subscribe(data => {
+        console.log("reporting data : ", data);
+      });
+  }
+
+  makeCallToFAQAPI(userMessage: string) {
+    this.isTyping = true;
+    if (userMessage) {
+      this.httpOptions.data.search = userMessage;
+      this.http
+        .get("https://api-v2.alive5.com/1.0/kb-article/search-external", {
+          headers: this.httpOptions.headers,
+          params: this.httpOptions.data
+        })
+        .subscribe((data: any) => {
+          if (data.error) {
+            console.log("subscribe error");
+            this.isTyping = false;
+            this.showResponse(
+              false,
+              "Sorry, I couldn't help you out. Would you like to ask a human?"
+            );
+            this.showBotOptions = true;
+            this.botMenuOptions = [
+              {
+                text: "Chat with a human",
+                value: "chat with a human"
+              },
+              {
+                text: "Main Menu",
+                value: "go back to main menu"
+              }
+            ];
+          } else {
+            let faqAnswersData = data.data;
+            this.storeFAQAnswersLocalStorage(faqAnswersData);
+            this.isTyping = false;
+            this.sendAnswerToUser();
+            this.activeFAQDirectory = true;
+          }
+          console.log(data);
+        });
+    } else {
+      this.isTyping = false;
+      console.log("no user message");
+      this.showResponse(
+        false,
+        "Sorry, I couldn't help you out. Would you like to ask a human?"
+      );
+      this.showBotOptions = true;
+      this.botMenuOptions = [
+        {
+          text: "Chat with a human",
+          value: "chat with a human"
+        },
+        {
+          text: "Main Menu",
+          value: "go back to main menu"
+        }
+      ];
+    }
   }
 
   showBotResponseToUser(botResponse) {
