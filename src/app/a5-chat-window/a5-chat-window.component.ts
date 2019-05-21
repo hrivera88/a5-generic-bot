@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/nonamefit2.jpg"; //EDIT with s3 bucket file name
+  logoImg = "/nonamefit/assets/img/nonamefit2.jpg"; //EDIT with s3 bucket file name
   showGreetingSection = true;
   greetingLine = "Welcome to Noname Fit Studios!";
   greetingSectionStyle = {
@@ -650,7 +650,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "bemerUserBot",
+      botName: "nonameFITbot",
       inputText: textMessage,
       userId: this.lexUserID
     };
