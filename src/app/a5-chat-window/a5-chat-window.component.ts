@@ -167,11 +167,11 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/nonamefit2.jpg"; //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Noname Fit Studios!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    "background-color": "#434343"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -180,12 +180,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-    "background-color": "#486290"
+    "background-color": "#434343"
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
+    "border-color": "#red",
     color: "#fff",
-    background: "#f1592b"
+    background: "#c8332c"
   };
   botOptionTitleStyle = {
     color: "#fff"
@@ -787,13 +787,13 @@ export class A5ChatWindowComponent implements OnInit {
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
         this.name
-      }&email=${this.email}&question=${this.question}`;
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
           this.name
-        }&email=${this.email}&question=${this.question}`;
+          }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
