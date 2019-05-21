@@ -27,6 +27,7 @@ import { Option } from "./option";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
+import { BotReportingService } from "../bot-reporting.service";
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
 
@@ -267,7 +268,8 @@ export class A5ChatWindowComponent implements OnInit {
     private sendMailService: SendMailService,
     private renderer: Renderer2,
     private http: HttpClient,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private botReporting: BotReportingService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -493,6 +495,32 @@ export class A5ChatWindowComponent implements OnInit {
     }, 1000);
   }
 
+  sendToBotReportingAPI(
+    event_direction: string,
+    event_type: string,
+    event_content: string,
+    client_ip: string
+  ) {
+    let action = `record_event`;
+    let objectref = "wsa3";
+    let groupid = 9;
+    let websiteid = 123;
+    this.botReporting
+      .sendToReportingAPI(
+        action,
+        objectref,
+        groupid,
+        websiteid,
+        client_ip,
+        event_direction,
+        event_type,
+        event_content
+      )
+      .subscribe(data => {
+        console.log("reporting data : ", data);
+      });
+  }
+
   makeCallToFAQAPI(userMessage: string) {
     this.isTyping = true;
     if (userMessage) {
@@ -667,17 +695,6 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
-  // chooseBotOption(evt: any) {
-  //   let optionText = evt.target.value;
-  //   this.showResponse(true, optionText);
-  //   if (optionText === 'schedule a demo') {
-  //     this.triggerAliveChat();
-  //   } else {
-  //     this.sendTextMessageToBot(optionText);
-  //   }
-  //   this.bounceMenu = "button";
-  // }
-
   chooseMainOption(evt: any) {
     //Get text value from Main Menu Button
     let optionText = evt.target.value;
@@ -846,6 +863,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
           this.bounceMenu = "button";
+          break;
       }
     }
   }
