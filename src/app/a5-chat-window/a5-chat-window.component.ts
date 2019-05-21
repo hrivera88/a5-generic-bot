@@ -164,14 +164,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#fff",
-    "border-bottom-color": "#000"
+    'background-color': '#ff0000',
+    'border-bottom-color': '#000'
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/comcast-business-ruby/assets/img/comcast-business-phone-logo.png";  //EDIT with s3 bucket file name
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Ruby, powered by Comcast Business.";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    'background-color': '#000000'
   };
   greetingFontStyle = {
     color: "#fff"
@@ -180,7 +180,11 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
+<<<<<<< HEAD
     "background-color": "#486290"
+=======
+    'background-color': '#000000'
+>>>>>>> d38824b1dde430daa89bda5122cc88aac2e19fff
   };
   botOptionButtonStyle = {
     "border-color": "#f1592b",
@@ -650,7 +654,11 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
+<<<<<<< HEAD
       botName: "bemerUserBot",
+=======
+      botName: "comcastRubyBot",
+>>>>>>> d38824b1dde430daa89bda5122cc88aac2e19fff
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -787,13 +795,13 @@ export class A5ChatWindowComponent implements OnInit {
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
         this.name
-      }&email=${this.email}&question=${this.question}`;
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
           this.name
-        }&email=${this.email}&question=${this.question}`;
+          }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
