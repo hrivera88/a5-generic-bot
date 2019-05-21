@@ -180,11 +180,7 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = "../../assets/img/featurettes-header.png";
   botOptionsStyle = {
-<<<<<<< HEAD
-    "background-color": "#486290"
-=======
-    'background-color': '#000000'
->>>>>>> d38824b1dde430daa89bda5122cc88aac2e19fff
+    "background-color": "#000000"
   };
   botOptionButtonStyle = {
     "border-color": "#f1592b",
@@ -654,11 +650,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-<<<<<<< HEAD
-      botName: "bemerUserBot",
-=======
       botName: "comcastRubyBot",
->>>>>>> d38824b1dde430daa89bda5122cc88aac2e19fff
       inputText: textMessage,
       userId: this.lexUserID
     };
