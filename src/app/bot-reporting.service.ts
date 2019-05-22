@@ -17,7 +17,7 @@ export class BotReportingService {
     event_type,
     event_content
   ) {
-    return this.http.get("https://api-v1.websitealive.com/alive5", {
+    return this.http.get("https://api-v1-dev0.websitealive.com/alive5", {
       params: {
         action: action,
         objectref: objectref,
