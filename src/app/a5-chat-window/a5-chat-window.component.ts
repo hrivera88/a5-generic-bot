@@ -27,6 +27,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { BotReportingService } from "../bot-reporting.service";
+import { ClientIpServiceService } from "../client-ip-service.service";
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
 
@@ -200,6 +201,16 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#D7191F"
   };
 
+  //User info for live chat agent
+  name = "";
+  email = "";
+  question = "";
+  showUserInput = false;
+  currentIntentName = "";
+  clientIP: String;
+  //elastic search
+  activeFAQDirectory = false;
+  isTyping = false;
   httpOptions = {
     headers: new HttpHeaders({
       Authorization:
@@ -212,23 +223,13 @@ export class A5ChatWindowComponent implements OnInit {
     }
   };
 
-  isTyping = false;
-
-  activeFAQDirectory = false;
-
-  //User info for live chat agent
-  name = "";
-  email = "";
-  question = "";
-  showUserInput = false;
-  currentIntentName = "";
-
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
     private http: HttpClient,
     private galleryService: GalleryService,
-    private botReporting: BotReportingService
+    private botReporting: BotReportingService,
+    private clientIPService: ClientIpServiceService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -239,6 +240,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   ngOnInit() {
     this.sendTextMessageToBot("menu");
+    // console.log("crazy hello", rarrar)
     console.log(screen.width);
     if (screen.width < 768) {
       this.notMobileScreen = false;
@@ -260,6 +262,12 @@ export class A5ChatWindowComponent implements OnInit {
       .subscribe(data => {
         this.agentOnline = data;
       });
+    this.sendToBotReportingService(
+      "out",
+      "alive5_email",
+      "hello world",
+      "127.0.0.1"
+    );
   }
 
   toggleEmojiPicker() {
@@ -403,8 +411,8 @@ export class A5ChatWindowComponent implements OnInit {
       ];
     }, 1000);
   }
-
-  sendToBotReportingAPI(
+  //cookie_id: string
+  sendToBotReportingService(
     event_direction: string,
     event_type: string,
     event_content: string,
@@ -545,6 +553,31 @@ export class A5ChatWindowComponent implements OnInit {
       this.showMainMenuButton = false;
       this.showBotOptions = false;
       this.showMainMenuOptions = false;
+      //Event Direction is always out
+      //Then Check if Intent is humanChat
+      //If Intent is askQuestion - Check if activeDirectory is true
+      //Check Slot type name
+      // Get Client IP
+      //Pass Slot type
+      if (this.currentIntentName === "humanChat") {
+        this.clientIPService.getClientIP().subscribe(data => {
+          this.clientIP = data["ip"];
+        });
+        setTimeout(() => {
+          console.log("gotIt:", this.clientIP);
+        }, 800);
+        if (this.activeFAQDirectory !== true) {
+          switch (botResponse.currentIntent.slots) {
+            case "email":
+              this.sendToBotReportingService(
+                "out",
+                "alive5_email",
+                botResponse.message,
+                "hi"
+              );
+          }
+        }
+      }
     } else if (
       botResponse.responseCard &&
       botResponse.dialogState !== "Fulfilled"
