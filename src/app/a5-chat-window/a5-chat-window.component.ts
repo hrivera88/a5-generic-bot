@@ -305,7 +305,7 @@ export class A5ChatWindowComponent implements OnInit {
       .subscribe(data => {
         this.agentOnline = data;
       });
-    this.sendToBotReportingService("out","alive5_email", "hello world", "127.0.0.1")
+    this.sendToBotReportingService("cookies","out","alive5_email", "hello world", "browser", "127.0.0.1")
   }
 
   toggleEmojiPicker() {
@@ -501,9 +501,11 @@ export class A5ChatWindowComponent implements OnInit {
   }
  //cookie_id: string
   sendToBotReportingService(
+    cookie_id: string,
     event_direction: string,
     event_type: string,
     event_content: string,
+    browser_type: string,
     client_ip: string
   ) {
     let action = `record_event`;
@@ -511,16 +513,7 @@ export class A5ChatWindowComponent implements OnInit {
     let groupid = 9;
     let websiteid = 123;
     this.botReporting
-      .sendToReportingAPI(
-        action,
-        objectref,
-        groupid,
-        websiteid,
-        client_ip,
-        event_direction,
-        event_type,
-        event_content
-      )
+      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id)
       .subscribe(data => {
         console.log("reporting data : ", data);
       });
@@ -618,7 +611,7 @@ export class A5ChatWindowComponent implements OnInit {
         if (this.activeFAQDirectory !== true) {
           switch(botResponse.currentIntent.slots){
             case "email":
-              this.sendToBotReportingService("out", "alive5_email", botResponse.message, "hi" )
+              // this.sendToBotReportingService("cookies", "out", "alive5_email", botResponse.message, "hi", "browsertype")
           }
         }
       }
