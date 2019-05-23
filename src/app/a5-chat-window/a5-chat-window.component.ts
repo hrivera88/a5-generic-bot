@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#013CB4",
     "border-bottom-color": "#F6C506"
   };
-  logoImg = "/assets/img/gregbrown.png"; //EDIT with s3 bucket file name
+  logoImg = "/gregbrown/assets/img/gregbrown.png"; //EDIT with s3 bucket file name
   showGreetingSection = true;
   greetingLine = "Hello, I'm Greg Brown!";
   greetingSectionStyle = {
@@ -650,7 +650,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "bemerUserBot",
+      botName: "gregBrownBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
