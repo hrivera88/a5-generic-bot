@@ -21,6 +21,7 @@ import { ModalGalleryModule } from "angular-modal-gallery";
 import { AutofocusDirective } from "./autofocus.directive";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { CookieService } from "ngx-cookie-service";
+import { DeviceDetectorModule } from "ngx-device-detector";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,8 @@ import { CookieService } from "ngx-cookie-service";
     HttpClientModule,
     PickerModule,
     EmojiModule,
+    NgxIntlTelInputModule,
+    DeviceDetectorModule.forRoot(),
     ModalGalleryModule.forRoot()
   ],
   providers: [CookieService],
