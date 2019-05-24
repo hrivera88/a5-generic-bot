@@ -30,6 +30,7 @@ import { ClientIpServiceService } from "../client-ip-service.service";
 import { CookieService } from 'ngx-cookie-service';
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
@@ -211,6 +212,7 @@ export class A5ChatWindowComponent implements OnInit {
   currentIntentName = "";
   clientIP: string;
   slotToElicit: string;
+  browser: string;
   //elastic search
   activeFAQDirectory = false;
   isTyping = false;
@@ -278,7 +280,8 @@ export class A5ChatWindowComponent implements OnInit {
     private galleryService: GalleryService,
     private botReporting: BotReportingService,
     private clientIPService: ClientIpServiceService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private deviceService: DeviceDetectorService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -319,6 +322,9 @@ export class A5ChatWindowComponent implements OnInit {
       });
 
     this.checkForCookie();
+    
+    this.browser = this.deviceService.browser;
+
   }
 
   checkForCookie() {
