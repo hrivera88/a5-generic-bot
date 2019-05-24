@@ -20,6 +20,8 @@ import "mousetrap";
 import { ModalGalleryModule } from "angular-modal-gallery";
 import { AutofocusDirective } from "./autofocus.directive";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { CookieService } from 'ngx-cookie-service';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-modal.component";
 
 @NgModule({
@@ -43,9 +45,12 @@ import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-mod
     PickerModule,
     EmojiModule,
     NgxIntlTelInputModule,
+    DeviceDetectorModule.forRoot(),
     ModalGalleryModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
