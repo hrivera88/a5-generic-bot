@@ -28,6 +28,7 @@ import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { BotReportingService } from "../bot-reporting.service";
 import { ClientIpServiceService } from "../client-ip-service.service";
+import { CookieService } from "ngx-cookie-service";
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
 
@@ -230,7 +231,8 @@ export class A5ChatWindowComponent implements OnInit {
     private http: HttpClient,
     private galleryService: GalleryService,
     private botReporting: BotReportingService,
-    private clientIPService: ClientIpServiceService
+    private clientIPService: ClientIpServiceService,
+    private cookieService: CookieService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -241,11 +243,12 @@ export class A5ChatWindowComponent implements OnInit {
 
   ngOnInit() {
     this.sendTextMessageToBot("menu");
-    // console.log("crazy hello", rarrar)
-    console.log(screen.width);
+
+    //Checking to see if bot is running in a mobile device
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
+
     //Making request to API to retrieve info on whether an live chat agent is online or not.
     const params = new HttpParams()
       .set("action", "groupstatus")
@@ -254,6 +257,8 @@ export class A5ChatWindowComponent implements OnInit {
       "Content-Type",
       "text/plain; charset=utf-8"
     );
+
+    //Get Current User's Client IP Address
     this.http
       .get("https://www.websitealive3.com/9/status.asp", {
         headers: headers,
@@ -266,8 +271,18 @@ export class A5ChatWindowComponent implements OnInit {
     this.clientIPService.getClientIP().subscribe(data => {
       this.clientIP = data["ip"];
     });
+
+    this.checkForCookie();
   }
 
+  checkForCookie() {
+    let cookieExist: boolean = this.cookieService.check("a5BotCookie");
+    if (cookieExist) {
+      // do something
+    } else {
+      this.cookieService.set("a5BotCookie", "113");
+    }
+  }
   toggleEmojiPicker() {
     this.emojiPickerShown = !this.emojiPickerShown;
   }
