@@ -24,14 +24,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "./message";
 import { Option } from "./option";
-import * as AWS from "aws-sdk";
-import * as _ from "lodash";
 import { SendMailService } from "../send-mail.service";
 import { BotReportingService } from "../bot-reporting.service";
 import { ClientIpServiceService } from "../client-ip-service.service";
 import { CookieService } from 'ngx-cookie-service';
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
+
+import * as AWS from "aws-sdk";
+import * as _ from "lodash";
+import * as uuid from 'uuid';
+
 
 @Component({
   selector: "a5-chat-window",
@@ -263,7 +266,7 @@ export class A5ChatWindowComponent implements OnInit {
     if (cookieExist) {
       // do something
     } else {
-      this.cookieService.set('a5BotCookie', '113');
+      this.cookieService.set('a5BotCookie', uuid.v4());
     }
   }
   toggleEmojiPicker() {
