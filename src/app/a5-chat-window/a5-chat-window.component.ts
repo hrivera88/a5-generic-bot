@@ -173,12 +173,13 @@ export class A5ChatWindowComponent implements OnInit {
   };
 
   //User info for live chat agent
-  name = "";
+  fullname = "";
   email = "";
   question = "";
   showUserInput = false;
   currentIntentName = "";
-  clientIP: String;
+  clientIP: string;
+  slotToElicit: string;
   //elastic search
   activeFAQDirectory = false;
   isTyping = false;
@@ -195,6 +196,8 @@ export class A5ChatWindowComponent implements OnInit {
   };
   //Check whether an agent is online for Live Chat
   agentOnline: any;
+  // aliveDial
+  showAliveDialModal = false;
   images: Image[] = [
     new Image(0, {
       img: 'https://www.techstars.com/uploads/Group-Photo-1-1024x751.jpg'
@@ -243,7 +246,9 @@ export class A5ChatWindowComponent implements OnInit {
       .subscribe(data => {
         this.agentOnline = data;
       });
-    this.sendToBotReportingService("cookies","out","alive5_email", "hello world", "browser", "127.0.0.1")
+      this.clientIPService.getClientIP().subscribe(data => {
+        this.clientIP = data["ip"];
+      });
   }
 
   toggleEmojiPicker() {
@@ -439,7 +444,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
  //cookie_id: string
   sendToBotReportingService(
-    cookie_id: string,
     event_direction: string,
     event_type: string,
     event_content: string,
@@ -451,7 +455,7 @@ export class A5ChatWindowComponent implements OnInit {
     let groupid = 9;
     let websiteid = 123;
     this.botReporting
-      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id)
+      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content)
       .subscribe(data => {
         console.log("reporting data : ", data);
       });
@@ -521,7 +525,6 @@ export class A5ChatWindowComponent implements OnInit {
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
-      console.log("RAWRWRWRWRWRW");
       this.showMainMenuButton = false;
       this.showBotOptions = false;
       this.showMainMenuOptions = false;
@@ -531,19 +534,40 @@ export class A5ChatWindowComponent implements OnInit {
       //Check Slot type name
       // Get Client IP
       //Pass Slot type 
-      if (this.currentIntentName === 'humanChat') {
-        this.clientIPService.getClientIP().subscribe(data => {
-          
-          this.clientIP = data["ip"];
-          
-        });
-        setTimeout(()=> {console.log("gotIt:", this.clientIP)}, 800 );
-        if (this.activeFAQDirectory !== true) {
-          switch(botResponse.currentIntent.slots){
-            case "email":
-              // this.sendToBotReportingService("cookies", "out", "alive5_email", botResponse.message, "hi", "browsertype")
-          }
-        }
+      //Checking to see if Bot is asking for these specific things from the User
+      switch(botResponse.slotToElicit){
+        case "email":
+          this.slotToElicit = 'email';
+          this.sendToBotReportingService("out", "alive5_email", botResponse.message, "hi", this.clientIP);
+          break;
+        case "fullname":
+            this.slotToElicit = 'fullname';
+          this.sendToBotReportingService('out', 'alive5_fullname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "firstname":
+            this.slotToElicit = 'firstname';
+          this.sendToBotReportingService('out', 'alive5_firstname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "lastname":
+            this.slotToElicit = 'lastname';
+          this.sendToBotReportingService('out', 'alive5_lastname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "phone":
+            this.slotToElicit = 'phone';
+          this.sendToBotReportingService('out', 'alive5_phone', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "company":
+            this.slotToElicit = 'company';
+          this.sendToBotReportingService('out', 'alive5_company', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "company_title":
+            this.slotToElicit = 'company_title';
+          this.sendToBotReportingService('out', 'alive5_company_title', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "question":
+            this.slotToElicit = 'question';
+          this.sendToBotReportingService('out', 'alive5_notes', botResponse.message, 'hi', this.clientIP);
+          break;      
       }
     } else if (
       botResponse.responseCard &&
@@ -556,9 +580,20 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.bounceMenu = "botResponse";
     } else {
+      if (
+        botResponse.slots.name &&
+        botResponse.slots.email &&
+        botResponse.slots.question
+      ) {
+        this.fullname = botResponse.slots.name;
+        this.email = botResponse.slots.email;
+        this.question = botResponse.slots.question;
+        this.triggerAliveChat();
+      }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
+        console.log("botResponses *****", this.fullname, this.email);
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
         this.showBotOptions = true;
@@ -572,17 +607,82 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   submitMessageToBot(message: any) {
-    let usersMessage = this.botMessageInput.nativeElement.innerHTML;
-    usersMessage = usersMessage.replace(/<\s*div[^>]*>(.*?)<\s*\/\s*div>/g, "");
-    this.showResponse(true, usersMessage);
-    let noEmojisMsg = usersMessage.replace(/<\s*img[^>]*>/g, " ");
-    let noSpanTags = noEmojisMsg.replace(
-      /<\s*span[^>]*>(.*?)<\s*\/\s*span>/g,
-      ""
-    );
-    let cleanMessage = noSpanTags.replace(/&(nbsp|amp|quot|lt|gt);/g, " ");
-    this.sendTextMessageToBot(cleanMessage);
-    this.botMessageInput.nativeElement.innerHTML = "";
+    let messageUserTyped = this.botMessageInput.nativeElement.innerText;
+    messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "");
+    if (messageUserTyped === "") {
+      return;
+    }
+    this.showResponse(true, messageUserTyped);
+    this.botMessageInput.nativeElement.innerText = "";
+    this.multipleCards = false;
+    if (this.activeFAQDirectory === false) {
+      this.showBotOptions = false;
+      //If the user is replying to a Bot's question; we check what slot we are answering for API.
+      if (this.slotToElicit) {
+        switch(this.slotToElicit){
+          case "email":
+            this.slotToElicit = null;
+            this.sendToBotReportingService("in", "alive5_email", messageUserTyped, "hi", this.clientIP);
+            break;
+          case "fullname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_fullname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "firstname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_firstname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "lastname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_lastname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "phone":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_phone', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "company":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_company', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "company_title":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_company_title', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "question":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_notes', messageUserTyped, 'hi', this.clientIP);
+            break;      
+        } 
+      } else {
+        this.sendToBotReportingService("in", "html", messageUserTyped, "hi", this.clientIP);
+      }    
+      if (this.currentIntentName === "askQuestion") {
+        this.makeCallToFAQAPI(messageUserTyped);
+      } else if (this.currentIntentName === "humanChat") {
+        this.sendTextMessageToBot(messageUserTyped);
+      }
+    } else {
+      this.sendToBotReportingService('in', 'html', messageUserTyped, 'hi', this.clientIP);
+      if (messageUserTyped.toLowerCase() === "yes") {
+        this.isTyping = true;
+        this.showBotOptions = false;
+        this.sendSuccessFAQMessage();
+      } else if (messageUserTyped.toLowerCase() === "no") {
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      } else if (messageUserTyped.toLowerCase() === "go back to main menu") {
+        this.sendTextMessageToBot(messageUserTyped.toLowerCase());
+        this.activeFAQDirectory = false;
+        this.removeFAQAnswersLocalStorage();
+      } else {
+        this.showResponse(false, "Let me search for that real quick");
+        this.removeFAQAnswersLocalStorage();
+        this.showBotOptions = false;
+        setTimeout(() => {
+          this.makeCallToFAQAPI(messageUserTyped);
+        }, 1000);
+      }
+    }
   }
 
   sendTextMessageToBot(textMessage) {
@@ -608,17 +708,6 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
-  chooseBotOption(evt: any) {
-    let optionText = evt.target.value;
-    this.showResponse(true, optionText);
-    if (optionText === 'schedule a demo') {
-      this.triggerAliveChat();
-    } else {
-      this.sendTextMessageToBot(optionText);
-    }
-    this.bounceMenu = "button";
-  }
-
   chooseMainOption(evt: any) {
     //Get text value from Main Menu Button
     let optionText = evt.target.value;
@@ -634,10 +723,6 @@ export class A5ChatWindowComponent implements OnInit {
       this.movieTitle = null;
     }
     console.log(this.movieTitle);
-  }
-
-  modalState(evt: any) {
-    this.showAlivePayModal = evt;
   }
 
   exchangeContact() {
@@ -712,10 +797,125 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+        this.fullname
+      }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
-      document.location.href = alive5_pre_link;
+      if (this.currentIntentName === "humanChat") {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+          this.fullname
+        }&email=${this.email}&question=${this.question}`;
+      } else {
+        document.location.href = alive5_pre_link;
+      }
     }
   }
 
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
+  }
+
+  chooseBotOption(evt: any) {
+    let optionText = evt.target.value;
+    this.sendToBotReportingService('in', 'html', optionText, 'hi', this.clientIP);
+    if (this.activeFAQDirectory === true) {
+      if (optionText === "yes") {
+        this.isTyping = true;
+        this.sendSuccessFAQMessage();
+        this.showBotOptions = false;
+      } else if (optionText === "go back to main menu") {
+        this.isTyping = true;
+        this.sendTextMessageToBot(optionText);
+        this.showBotOptions = false;
+        this.activeFAQDirectory = false;
+      } else {
+        this.isTyping = true;
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      }
+    } else {
+      let botQuote;
+      switch (optionText) {
+        //Check if special action is required by certain button pressed
+        case "chat with a human":
+          botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case "our story":
+          botQuote = `<p>WebsiteAlive is a forward thinking online communications provider dedicated to creating innovative, customizable, and unique experiences for businesses and consumers.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case "customization":
+          botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
+          break;
+        case 'schedule a demo':
+          this.triggerAliveChat();
+          break;
+        default:
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+      }
+    }
+  }
+
+  modalState(evt: any) {
+    let userQuote;
+    let botQuote;
+    switch (evt.triggeredBy) {
+      case "alivedial-cancel-btn":
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Don't call me right now.`;
+        this.showResponse(true, userQuote);
+        botQuote = `Anything else I can help you with?`;
+        this.bounceMenu = "button";
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: "View other ticket options",
+              value: "buy tickets"
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+      case "alivedial-make-call":
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Yes, I'm ready for a call.`;
+        this.showResponse(true, userQuote);
+        botQuote =
+          "Ok, one of our agents should reach out to you soon. Can I help you with anything else?";
+        this.showResponse(false, botQuote);
+        this.bounceMenu = "button";
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: "View other ticket options",
+              value: "buy tickets"
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+    }
+    // this.showAlivePayModal = evt;
+  }
 }
