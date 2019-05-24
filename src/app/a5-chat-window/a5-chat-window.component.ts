@@ -29,7 +29,7 @@ import { ClientIpServiceService } from "../client-ip-service.service";
 import { CookieService } from "ngx-cookie-service";
 import { ReturnStatement } from "@angular/compiler";
 import { Image, GalleryService } from "angular-modal-gallery";
-import { DeviceDetectorService } from 'ngx-device-detector';
+import { DeviceDetectorService } from "ngx-device-detector";
 
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
@@ -278,9 +278,8 @@ export class A5ChatWindowComponent implements OnInit {
     });
 
     this.checkForCookie();
-    
-    this.browser = this.deviceService.browser;
 
+    this.browser = this.deviceService.browser;
   }
 
   checkForCookie() {
@@ -419,6 +418,14 @@ export class A5ChatWindowComponent implements OnInit {
       false,
       "Great, if you have any other questions let us know."
     );
+    this.sendToBotReportingService(
+      "out",
+      "html",
+      `Great, if you have any other questions let us know.`,
+      this.clientIP,
+      this.browser,
+      this.cookieService.get("a5BotCookie")
+    );
     this.removeFAQAnswersLocalStorage();
     this.activeFAQDirectory = false;
     setTimeout(() => {
@@ -432,12 +439,13 @@ export class A5ChatWindowComponent implements OnInit {
       ];
     }, 1000);
   }
-  //cookie_id: string
   sendToBotReportingService(
     event_direction: string,
     event_type: string,
     event_content: string,
-    client_ip: string
+    client_ip: string,
+    browser_type: string,
+    cookie_id: string
   ) {
     let action = `record_event`;
     let objectref = "wsa3";
@@ -452,7 +460,9 @@ export class A5ChatWindowComponent implements OnInit {
         client_ip,
         event_direction,
         event_type,
-        event_content
+        event_content,
+        browser_type,
+        cookie_id
       )
       .subscribe(data => {
         console.log("reporting data : ", data);
@@ -557,6 +567,7 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   showBotResponseToUser(botResponse) {
+    console.log("Mr. Telephone: ", botResponse);
     //Display Bot's response to Chat UI
     this.currentIntentName = botResponse.intentName;
     if (
@@ -587,8 +598,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_email",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "fullname":
@@ -597,8 +609,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_fullname",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "firstname":
@@ -607,8 +620,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_firstname",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "lastname":
@@ -617,8 +631,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_lastname",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "phone":
@@ -627,8 +642,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_phone",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "company":
@@ -637,8 +653,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_company",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "company_title":
@@ -647,8 +664,9 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_company_title",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
         case "question":
@@ -657,15 +675,127 @@ export class A5ChatWindowComponent implements OnInit {
             "out",
             "alive5_notes",
             botResponse.message,
-            "hi",
-            this.clientIP
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
           );
           break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
       }
     } else if (
       botResponse.responseCard &&
       botResponse.dialogState !== "Fulfilled"
     ) {
+      //Capture Bot's reply for Bot Reporting API
+      switch (botResponse.slotToElicit) {
+        case "email":
+          this.slotToElicit = "email";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_email",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "fullname":
+          this.slotToElicit = "fullname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_fullname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "firstname":
+          this.slotToElicit = "firstname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_firstname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "lastname":
+          this.slotToElicit = "lastname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_lastname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "phone":
+          this.slotToElicit = "phone";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_phone",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company":
+          this.slotToElicit = "company";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company_title":
+          this.slotToElicit = "company_title";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company_title",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "question":
+          this.slotToElicit = "question";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_notes",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+      }
+
       this.botMenuOptions = [];
       //If the Bot response has a Response Card with Options show them in the UI
       this.responseCards = botResponse.responseCard.genericAttachments;
@@ -673,8 +803,108 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.bounceMenu = "botResponse";
     } else {
+      //Capture Bot's reply for Bot Reporting API
+      switch (botResponse.slotToElicit) {
+        case "email":
+          this.slotToElicit = "email";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_email",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "fullname":
+          this.slotToElicit = "fullname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_fullname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "firstname":
+          this.slotToElicit = "firstname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_firstname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "lastname":
+          this.slotToElicit = "lastname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_lastname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "phone":
+          this.slotToElicit = "phone";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_phone",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company":
+          this.slotToElicit = "company";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company_title":
+          this.slotToElicit = "company_title";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company_title",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "question":
+          this.slotToElicit = "question";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_notes",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+      }
       if (
-        botResponse.slots.name &&
+        botResponse.slots.fullname &&
         botResponse.slots.email &&
         botResponse.slots.question
       ) {
@@ -719,8 +949,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_email",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "fullname":
@@ -729,8 +960,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_fullname",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "firstname":
@@ -739,8 +971,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_firstname",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "lastname":
@@ -749,8 +982,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_lastname",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "phone":
@@ -759,8 +993,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_phone",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "company":
@@ -769,8 +1004,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_company",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "company_title":
@@ -779,8 +1015,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_company_title",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
           case "question":
@@ -789,8 +1026,9 @@ export class A5ChatWindowComponent implements OnInit {
               "in",
               "alive5_notes",
               messageUserTyped,
-              "hi",
-              this.clientIP
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
             );
             break;
         }
@@ -799,8 +1037,9 @@ export class A5ChatWindowComponent implements OnInit {
           "in",
           "html",
           messageUserTyped,
-          "hi",
-          this.clientIP
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
         );
       }
       if (this.currentIntentName === "askQuestion") {
@@ -813,8 +1052,9 @@ export class A5ChatWindowComponent implements OnInit {
         "in",
         "html",
         messageUserTyped,
-        "hi",
-        this.clientIP
+        this.clientIP,
+        this.browser,
+        this.cookieService.get("a5BotCookie")
       );
       if (messageUserTyped.toLowerCase() === "yes") {
         this.isTyping = true;
@@ -965,8 +1205,9 @@ export class A5ChatWindowComponent implements OnInit {
       "in",
       "html",
       optionText,
-      "hi",
-      this.clientIP
+      this.clientIP,
+      this.browser,
+      this.cookieService.get("a5BotCookie")
     );
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
