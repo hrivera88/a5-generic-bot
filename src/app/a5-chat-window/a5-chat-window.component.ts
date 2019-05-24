@@ -200,12 +200,13 @@ export class A5ChatWindowComponent implements OnInit {
   };
 
   //User info for live chat agent
-  name = "";
+  fullname = "";
   email = "";
   question = "";
   showUserInput = false;
   currentIntentName = "";
-  clientIP: String;
+  clientIP: string;
+  slotToElicit: string;
   //elastic search
   activeFAQDirectory = false;
   isTyping = false;
@@ -305,7 +306,9 @@ export class A5ChatWindowComponent implements OnInit {
       .subscribe(data => {
         this.agentOnline = data;
       });
-    this.sendToBotReportingService("cookies","out","alive5_email", "hello world", "browser", "127.0.0.1")
+      this.clientIPService.getClientIP().subscribe(data => {
+        this.clientIP = data["ip"];
+      });
   }
 
   toggleEmojiPicker() {
@@ -501,7 +504,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
  //cookie_id: string
   sendToBotReportingService(
-    cookie_id: string,
     event_direction: string,
     event_type: string,
     event_content: string,
@@ -513,7 +515,7 @@ export class A5ChatWindowComponent implements OnInit {
     let groupid = 9;
     let websiteid = 123;
     this.botReporting
-      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id)
+      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content)
       .subscribe(data => {
         console.log("reporting data : ", data);
       });
@@ -591,7 +593,6 @@ export class A5ChatWindowComponent implements OnInit {
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
-      console.log("RAWRWRWRWRWRW");
       this.showMainMenuButton = false;
       this.showBotOptions = false;
       this.showMainMenuOptions = false;
@@ -601,19 +602,40 @@ export class A5ChatWindowComponent implements OnInit {
       //Check Slot type name
       // Get Client IP
       //Pass Slot type 
-      if (this.currentIntentName === 'humanChat') {
-        this.clientIPService.getClientIP().subscribe(data => {
-          
-          this.clientIP = data["ip"];
-          
-        });
-        setTimeout(()=> {console.log("gotIt:", this.clientIP)}, 800 );
-        if (this.activeFAQDirectory !== true) {
-          switch(botResponse.currentIntent.slots){
-            case "email":
-              // this.sendToBotReportingService("cookies", "out", "alive5_email", botResponse.message, "hi", "browsertype")
-          }
-        }
+      //Checking to see if Bot is asking for these specific things from the User
+      switch(botResponse.slotToElicit){
+        case "email":
+          this.slotToElicit = 'email';
+          this.sendToBotReportingService("out", "alive5_email", botResponse.message, "hi", this.clientIP);
+          break;
+        case "fullname":
+            this.slotToElicit = 'fullname';
+          this.sendToBotReportingService('out', 'alive5_fullname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "firstname":
+            this.slotToElicit = 'firstname';
+          this.sendToBotReportingService('out', 'alive5_firstname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "lastname":
+            this.slotToElicit = 'lastname';
+          this.sendToBotReportingService('out', 'alive5_lastname', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "phone":
+            this.slotToElicit = 'phone';
+          this.sendToBotReportingService('out', 'alive5_phone', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "company":
+            this.slotToElicit = 'company';
+          this.sendToBotReportingService('out', 'alive5_company', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "company_title":
+            this.slotToElicit = 'company_title';
+          this.sendToBotReportingService('out', 'alive5_company_title', botResponse.message, 'hi', this.clientIP);
+          break;
+        case "question":
+            this.slotToElicit = 'question';
+          this.sendToBotReportingService('out', 'alive5_notes', botResponse.message, 'hi', this.clientIP);
+          break;      
       }
     } else if (
       botResponse.responseCard &&
@@ -631,7 +653,7 @@ export class A5ChatWindowComponent implements OnInit {
         botResponse.slots.email &&
         botResponse.slots.question
       ) {
-        this.name = botResponse.slots.name;
+        this.fullname = botResponse.slots.name;
         this.email = botResponse.slots.email;
         this.question = botResponse.slots.question;
         this.triggerAliveChat();
@@ -639,7 +661,7 @@ export class A5ChatWindowComponent implements OnInit {
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
-        console.log("botResponses *****", this.name, this.email);
+        console.log("botResponses *****", this.fullname, this.email);
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
         this.showBotOptions = true;
@@ -663,12 +685,52 @@ export class A5ChatWindowComponent implements OnInit {
     this.multipleCards = false;
     if (this.activeFAQDirectory === false) {
       this.showBotOptions = false;
+      //If the user is replying to a Bot's question; we check what slot we are answering for API.
+      if (this.slotToElicit) {
+        switch(this.slotToElicit){
+          case "email":
+            this.slotToElicit = null;
+            this.sendToBotReportingService("in", "alive5_email", messageUserTyped, "hi", this.clientIP);
+            break;
+          case "fullname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_fullname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "firstname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_firstname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "lastname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_lastname', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "phone":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_phone', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "company":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_company', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "company_title":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_company_title', messageUserTyped, 'hi', this.clientIP);
+            break;
+          case "question":
+            this.slotToElicit = null;
+            this.sendToBotReportingService('in', 'alive5_notes', messageUserTyped, 'hi', this.clientIP);
+            break;      
+        } 
+      } else {
+        this.sendToBotReportingService("in", "html", messageUserTyped, "hi", this.clientIP);
+      }    
       if (this.currentIntentName === "askQuestion") {
         this.makeCallToFAQAPI(messageUserTyped);
       } else if (this.currentIntentName === "humanChat") {
         this.sendTextMessageToBot(messageUserTyped);
       }
     } else {
+      this.sendToBotReportingService('in', 'html', messageUserTyped, 'hi', this.clientIP);
       if (messageUserTyped.toLowerCase() === "yes") {
         this.isTyping = true;
         this.showBotOptions = false;
@@ -822,13 +884,13 @@ export class A5ChatWindowComponent implements OnInit {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
-        this.name
+        this.fullname
       }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
-          this.name
+          this.fullname
         }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
@@ -842,6 +904,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
+    this.sendToBotReportingService('in', 'html', optionText, 'hi', this.clientIP);
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
