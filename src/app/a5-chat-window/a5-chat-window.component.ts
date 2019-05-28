@@ -362,8 +362,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   setBotOptions(botOptions, position) {
-    console.log("rawrBotOption: ", botOptions);
-    console.log("rwarPosition: ", position);
     if (botOptions.length > 1) {
       this.multipleCards = true;
     } else {
@@ -481,8 +479,9 @@ export class A5ChatWindowComponent implements OnInit {
     let objectref = "wsa3";
     let groupid = 9;
     let websiteid = 123;
+    let alive5_org_name = null;
     this.botReporting
-      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id)
+      .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id,  alive5_org_name)
       .subscribe(data => {
         console.log("reporting data : ", data);
       });
@@ -547,7 +546,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   showBotResponseToUser(botResponse) {
-    console.log('Mr. Telephone: ', botResponse);
     //Display Bot's response to Chat UI
     this.checkBotIntent(botResponse);
     this.showResponse(false, botResponse.message);
