@@ -15,10 +15,12 @@ import { PickerModule } from "@ctrl/ngx-emoji-mart";
 import { EmojiModule } from "@ctrl/ngx-emoji-mart/ngx-emoji";
 import { A5AlivepayModalComponent } from "./a5-alive5-modal/a5-alive5-modal.component";
 
-import 'hammerjs';
-import 'mousetrap';
-import { ModalGalleryModule } from 'angular-modal-gallery';
-import { AutofocusDirective } from './autofocus.directive';
+import "hammerjs";
+import "mousetrap";
+import { ModalGalleryModule } from "angular-modal-gallery";
+import { AutofocusDirective } from "./autofocus.directive";
+import { CookieService } from "ngx-cookie-service";
+import { DeviceDetectorModule } from "ngx-device-detector";
 
 @NgModule({
   declarations: [
@@ -38,9 +40,10 @@ import { AutofocusDirective } from './autofocus.directive';
     HttpClientModule,
     PickerModule,
     EmojiModule,
+    DeviceDetectorModule.forRoot(),
     ModalGalleryModule.forRoot()
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
