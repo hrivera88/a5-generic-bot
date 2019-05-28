@@ -174,7 +174,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#d8a328"
   };
-  logoImg = "/assets/img/jaguar logo.jpg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/jacksonville-jaguars-logo-transparent.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
