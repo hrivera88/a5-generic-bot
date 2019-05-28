@@ -172,7 +172,7 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
-    "border-bottom-color": "#000"
+    "border-bottom-color": "#d8a328"
   };
   logoImg = "/assets/img/jaguar logo.jpg"; //EDIT with s3 bucket file name
   //Contact button
@@ -1223,7 +1223,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "JaguarBot",
       inputText: textMessage,
       userId: this.lexUserID
     };

@@ -11,11 +11,7 @@
     </div>
   </div>
 
-  <div
-    id="greeting-section"
-    *ngIf="showGreetingSection"
-    [ngStyle]="greetingSectionStyle"
-  >
+  <div id="greeting-section" *ngIf="showGreetingSection" [ngStyle]="greetingSectionStyle">
     <div class="greeting-line">
       <div class="chat-icon" [ngStyle]="greetingFontStyle">
         <fa-icon *ngIf="notMobileScreen" [icon]="faComment"></fa-icon>
@@ -26,11 +22,7 @@
 
   <div id="message-list" [ngStyle]="messageListStyle">
     <div *ngFor="let message of messages">
-      <a5-chat-bubble
-        [messageContent]="message.message"
-        [userMessage]="message.userMessage"
-        [name]="message.name"
-      >
+      <a5-chat-bubble [messageContent]="message.message" [userMessage]="message.userMessage" [name]="message.name">
       </a5-chat-bubble>
     </div>
   </div>
@@ -43,39 +35,21 @@
         <button value="main-menu-button" (click)="sendMail()">Menu</button>
       </div>
     -->
-    <div
-      class="bot-menu-options"
-      [ngStyle]="botOptionsStyle"
-      [@bounceMenu]="bounceMenu"
-      *ngIf="showBotOptions"
-    >
+    <div class="bot-menu-options" [ngStyle]="botOptionsStyle" [@bounceMenu]="bounceMenu" *ngIf="showBotOptions">
       <div class="bot-option-img" *ngIf="botOptionsImg">
         <img [src]="botOptionImgSource" alt="" srcset="" />
       </div>
-      <div
-        [ngStyle]="botOptionTitleStyle"
-        class="bot-option-title"
-        *ngIf="!botOptionsImg"
-      >
+      <div [ngStyle]="botOptionTitleStyle" class="bot-option-title" *ngIf="!botOptionsImg">
         <p>{{ botOptionsTitle }}</p>
       </div>
       <div class="option-buttons-container">
-        <button
-          [ngStyle]="botOptionButtonStyle"
-          *ngFor="let option of botMenuOptions"
-          value="{{ option.value }}"
-          (click)="chooseBotOption($event)"
-        >
+        <button [ngStyle]="botOptionButtonStyle" *ngFor="let option of botMenuOptions" value="{{ option.value }}"
+          (click)="chooseBotOption($event)">
           {{ option.text }}
         </button>
-        <button
-          [ngStyle]="botOptionButtonStyle"
-          *ngIf="multipleCards"
-          class="more-options-btn"
-          (click)="
+        <button [ngStyle]="botOptionButtonStyle" *ngIf="multipleCards" class="more-options-btn" (click)="
             setBotOptionPagination(currentResponseCardPosition, responseCards)
-          "
-        >
+          ">
           <span> More </span>
           <fa-icon [icon]="faArrowRight"></fa-icon>
         </button>
@@ -118,15 +92,8 @@
     </div>
   </div>
 </div>
-<a5-alivepay-modal
-  *ngIf="showAlivePayModal"
-  [showModal]="showAlivePayModal"
-  (modalHidden)="modalState($event)"
-  [movieTitle]="movieTitle"
-></a5-alivepay-modal>
+<a5-alivepay-modal *ngIf="showAlivePayModal" [showModal]="showAlivePayModal" (modalHidden)="modalState($event)"
+  [movieTitle]="movieTitle"></a5-alivepay-modal>
 <ks-modal-gallery [id]="1" [modalImages]="galleryImages"></ks-modal-gallery>
-<a5-alivedial-modal
-  *ngIf="showAliveDialModal"
-  [showModal]="showAliveDialModal"
-  (modalHidden)="modalState($event)"
-></a5-alivedial-modal>
+<a5-alivedial-modal *ngIf="showAliveDialModal" [showModal]="showAliveDialModal" (modalHidden)="modalState($event)">
+</a5-alivedial-modal>
