@@ -415,15 +415,12 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   checkBotIntent(botResponse) {
-    console.log("whoaaaaa", botResponse);
     if (botResponse.intentName === "PortlWatchTrailer") {
       this.showAlivePayModal = true;
     }
   }
 
   setBotOptions(botOptions, position) {
-    console.log("rawrBotOption: ", botOptions);
-    console.log("rwarPosition: ", position);
     if (botOptions.length > 1) {
       this.multipleCards = true;
     } else {
@@ -641,7 +638,6 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   showBotResponseToUser(botResponse) {
-    console.log("Mr. Telephone: ", botResponse);
     //Display Bot's response to Chat UI
     this.currentIntentName = botResponse.intentName;
     if (

@@ -29,8 +29,8 @@ export class BotReportingService {
         client_ip: client_ip,
         event_direction: event_direction,
         event_type: event_type,
-        event_content: event_content,
-        cookieid: cookieid,
+        event_content: encodeURIComponent(event_content),
+        cookie_id: cookieid,
         browser_type: browser_type,
         alive5_org_name: alive5_org_name
       }
