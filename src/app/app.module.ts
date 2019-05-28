@@ -19,7 +19,6 @@ import "hammerjs";
 import "mousetrap";
 import { ModalGalleryModule } from "angular-modal-gallery";
 import { AutofocusDirective } from "./autofocus.directive";
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { CookieService } from "ngx-cookie-service";
 import { DeviceDetectorModule } from "ngx-device-detector";
 
@@ -41,7 +40,6 @@ import { DeviceDetectorModule } from "ngx-device-detector";
     HttpClientModule,
     PickerModule,
     EmojiModule,
-    NgxIntlTelInputModule,
     DeviceDetectorModule.forRoot(),
     ModalGalleryModule.forRoot()
   ],

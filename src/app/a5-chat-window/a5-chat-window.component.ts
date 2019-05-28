@@ -225,7 +225,7 @@ export class A5ChatWindowComponent implements OnInit {
     data: {
       org_name: "spectrabec",
       search: "",
-      category_name: "AliveChat Support"
+      category_name: "Greetings"
     }
   };
 
@@ -514,10 +514,10 @@ export class A5ChatWindowComponent implements OnInit {
     cookieid: string
   ) {
     let action = `record_event`;
-    let objectref = "wsa3";
-    let groupid = 9;
+    let objectref = null;
+    let groupid = null;
     let websiteid = 123;
-    let alive5_org_name = null;
+    let alive5_org_name = "spectrabec";
     this.botReporting
       .sendToReportingAPI(
         action,
