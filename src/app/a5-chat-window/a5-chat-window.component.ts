@@ -412,6 +412,72 @@ export class A5ChatWindowComponent implements OnInit {
     localStorage.removeItem("faq-answers");
   }
 
+  sendAnswerToUser() {
+    let answers = localStorage.getItem("faq-answers");
+    let parsed = JSON.parse(answers);
+    if (parsed) {
+      if (parsed.length === 0) {
+        console.log("parsed equal zeero");
+        this.isTyping = false;
+        this.showResponse(
+          false,
+          "Sorry, I couldn't help you out. Would you like to ask a human?"
+        );
+        this.removeFAQAnswersLocalStorage();
+        this.activeFAQDirectory = false;
+        this.sendToBotReportingService(
+          "out",
+          "html",
+          `Sorry, I couldn't help you out. Would you like to ask a human?`,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+        setTimeout(() => {
+          this.botOptionsTitle = "Speak with a person or go to main menu?";
+          this.botMenuOptions = [
+            {
+              text: "Chat with a human",
+              value: "chat with a human"
+            },
+            {
+              text: "Main Menu",
+              value: "go back to main menu"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      } else {
+        this.isTyping = false;
+        let answer = parsed.shift();
+        this.storeFAQAnswersLocalStorage(parsed);
+        this.showResponse(false, answer);
+        this.sendToBotReportingService(
+          "out",
+          "html",
+          answer,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+        setTimeout(() => {
+          this.botOptionsTitle = "Was this helpful?";
+          this.botMenuOptions = [
+            {
+              text: "Yes",
+              value: "yes"
+            },
+            {
+              text: "No",
+              value: "no"
+            }
+          ];
+          this.showBotOptions = true;
+        }, 1000);
+      }
+    }
+  }
+
   sendSuccessFAQMessage() {
     this.isTyping = false;
     this.showResponse(
@@ -445,12 +511,13 @@ export class A5ChatWindowComponent implements OnInit {
     event_content: string,
     client_ip: string,
     browser_type: string,
-    cookie_id: string
+    cookieid: string
   ) {
     let action = `record_event`;
     let objectref = "wsa3";
     let groupid = 9;
     let websiteid = 123;
+    let alive5_org_name = null;
     this.botReporting
       .sendToReportingAPI(
         action,
@@ -462,7 +529,8 @@ export class A5ChatWindowComponent implements OnInit {
         event_type,
         event_content,
         browser_type,
-        cookie_id
+        cookieid,
+        alive5_org_name
       )
       .subscribe(data => {
         console.log("reporting data : ", data);
@@ -516,53 +584,6 @@ export class A5ChatWindowComponent implements OnInit {
           value: "chat with a human"
         }
       ];
-    }
-  }
-
-  sendAnswerToUser() {
-    let answers = localStorage.getItem("faq-answers");
-    let parsed = JSON.parse(answers);
-    if (parsed) {
-      if (parsed.length === 0) {
-        console.log("parsed equal zeero");
-        this.isTyping = false;
-        this.showResponse(
-          false,
-          "Sorry, I couldn't help you out. Would you like to ask a human?"
-        );
-        this.removeFAQAnswersLocalStorage();
-        this.activeFAQDirectory = false;
-
-        setTimeout(() => {
-          this.botOptionsTitle = "Speak with a person?";
-          this.botMenuOptions = [
-            {
-              text: "Chat with a human",
-              value: "chat with a human"
-            }
-          ];
-          this.showBotOptions = true;
-        }, 1000);
-      } else {
-        this.isTyping = false;
-        let answer = parsed.shift();
-        this.storeFAQAnswersLocalStorage(parsed);
-        this.showResponse(false, answer);
-        setTimeout(() => {
-          this.botOptionsTitle = "Was this helpful?";
-          this.botMenuOptions = [
-            {
-              text: "Yes",
-              value: "yes"
-            },
-            {
-              text: "No",
-              value: "no"
-            }
-          ];
-          this.showBotOptions = true;
-        }, 1000);
-      }
     }
   }
 
