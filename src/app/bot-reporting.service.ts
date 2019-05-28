@@ -29,7 +29,7 @@ export class BotReportingService {
         event_direction: event_direction,
         event_type: event_type,
         event_content: event_content,
-        cookie_id: cookie_id,
+        cookieid: cookie_id,
         browser_type: browser_type
       }
     });
