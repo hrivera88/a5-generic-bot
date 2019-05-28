@@ -171,7 +171,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#fff",
+    "background-color": "#ffda46",
     "border-bottom-color": "#d8a328"
   };
   logoImg = "/assets/img/jacksonville-jaguars-logo-transparent.png"; //EDIT with s3 bucket file name
