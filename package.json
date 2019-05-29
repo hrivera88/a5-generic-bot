@@ -29,6 +29,7 @@
     "@types/hammerjs": "^2.0.36",
     "@types/lodash": "^4.14.110",
     "@types/mousetrap": "^1.6.0",
+    "anchorme": "^1.1.2",
     "angular-modal-gallery": "^5.7.1",
     "bootstrap": "4.2.1",
     "buffer": "^5.1.0",
