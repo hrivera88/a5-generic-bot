@@ -34,6 +34,7 @@ import { DeviceDetectorService } from "ngx-device-detector";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import * as uuid from "uuid";
+import anchorme from "anchorme";
 
 @Component({
   selector: "a5-chat-window",
@@ -451,7 +452,7 @@ export class A5ChatWindowComponent implements OnInit {
         this.isTyping = false;
         let answer = parsed.shift();
         this.storeFAQAnswersLocalStorage(parsed);
-        this.showResponse(false, answer);
+        this.showResponse(false, anchorme(answer, {attributes: [{'name': 'target', value: 'blank'}]}));
         this.sendToBotReportingService(
           "out",
           "html",
@@ -929,7 +930,7 @@ export class A5ChatWindowComponent implements OnInit {
         botResponse.slots.email &&
         botResponse.slots.question
       ) {
-        this.fullname = botResponse.slots.name;
+        this.fullname = botResponse.slots.fullname;
         this.email = botResponse.slots.email;
         this.question = botResponse.slots.question;
         this.triggerAliveChat();
@@ -1201,15 +1202,11 @@ export class A5ChatWindowComponent implements OnInit {
     if (alive5_isDesktop) {
       //currently desktop is not supported
       //End alive5 Widget Code v2.0
-      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
-        this.fullname
-      }&email=${this.email}&question=${this.question}`;
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.fullname}&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
-        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
-          this.fullname
-        }&email=${this.email}&question=${this.question}`;
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${this.fullname}&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
