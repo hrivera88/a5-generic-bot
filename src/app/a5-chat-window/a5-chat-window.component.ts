@@ -36,6 +36,7 @@ import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import * as uuid from "uuid";
 import anchorme from 'anchorme';
+import { reduce } from "rxjs/operators";
 @Component({
   selector: "a5-chat-window",
   templateUrl: "./a5-chat-window.component.html",
@@ -175,7 +176,12 @@ export class A5ChatWindowComponent implements OnInit {
   };
   logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
   //Contact button
-  showContactButton = false; //Turn to true to show top right Contact Button
+  showContactButton = true; //Turn to true to show top right Contact Button
+  contactButtonStyle = {
+    "background-color": "red",
+    "border":"red",
+    "color": "white"
+  }
   showGreetingSection = true;
   greetingLine = "Welcome to Doc Juris!";
   greetingSectionStyle = {
@@ -186,7 +192,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = "../../assets/img/featurettes-header.png";
+  botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
     "background-color": "#486290"
   };
@@ -198,8 +204,12 @@ export class A5ChatWindowComponent implements OnInit {
   botOptionTitleStyle = {
     color: "#fff"
   };
+  messageListStyle = {
+    background: "url(../../assets/img/geometry.png)", //EDIT with S3 bucket name (remove../../)
+  }
   messageSubmissionStyle = {
-    background: "#fff"
+    background: "#fff",
+    color: "black"
   };
   sendButtonStyle = {
     color: "#ff8359"
