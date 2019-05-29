@@ -35,7 +35,7 @@ import { DeviceDetectorService } from "ngx-device-detector";
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
 import * as uuid from "uuid";
-
+import anchorme from 'anchorme';
 @Component({
   selector: "a5-chat-window",
   templateUrl: "./a5-chat-window.component.html",
@@ -492,7 +492,7 @@ export class A5ChatWindowComponent implements OnInit {
         this.isTyping = false;
         let answer = parsed.shift();
         this.storeFAQAnswersLocalStorage(parsed);
-        this.showResponse(false, answer);
+        this.showResponse(false, anchorme(answer));
         this.sendToBotReportingService(
           "out",
           "html",
