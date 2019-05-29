@@ -439,7 +439,7 @@ export class A5ChatWindowComponent implements OnInit {
           this.botMenuOptions = [
             {
               text: "Chat with a human",
-              value: "chat with a human"
+              value: "text us your question"
             },
             {
               text: "Main Menu",
@@ -516,8 +516,8 @@ export class A5ChatWindowComponent implements OnInit {
   ) {
     let action = `record_event`;
     let objectref = null;
-    let groupid = null;
-    let websiteid = 123;
+    let groupid = 0;
+    let websiteid = 0;
     let alive5_org_name = "spectrabec";
     this.botReporting
       .sendToReportingAPI(
