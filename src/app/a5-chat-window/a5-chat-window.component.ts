@@ -478,7 +478,7 @@ export class A5ChatWindowComponent implements OnInit {
     let action = `record_event`;
     let objectref = "wsa3";
     let groupid = 9;
-    let websiteid = 123;
+    let websiteid = 1227;
     let alive5_org_name = null;
     this.botReporting
       .sendToReportingAPI( action, objectref, groupid, websiteid, client_ip, event_direction, event_type, event_content, browser_type, cookie_id,  alive5_org_name)
