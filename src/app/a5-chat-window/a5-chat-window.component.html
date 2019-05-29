@@ -1,10 +1,10 @@
 <div class="window-container">
-  <div id="window-banner">
+  <div id="window-banner" [ngStyle]="windowBannerStyle">
     <div class="logo" [ngClass]="{ 'justify-middle': !showContactButton }">
       <img [src]="logoImg" alt="" srcset="" />
     </div>
-    <div class="exchange-info-button" *ngIf="showContactButton">
-      <button class="btn exchange-btn" (click)="exchangeContact()">
+    <div class="exchange-info-button" *ngIf="showContactButton" >
+      <button [ngStyle]="contactButtonStyle" class="btn exchange-btn" (click)="exchangeContact()">
         <fa-icon [icon]="faAddressCard"></fa-icon>
         <span>Contact</span>
       </button>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div id="message-list">
+  <div id="message-list" [ngStyle]="messageListStyle">
     <div *ngFor="let message of messages">
       <a5-chat-bubble
         [messageContent]="message.message"
@@ -82,7 +82,7 @@
       </div>
     </div>
   </div>
-  <div id="message-submission" *ngIf="showUserInput">
+  <div id="message-submission" *ngIf="showUserInput" [ngStyle]="messageSubmissionStyle">
     <div>
       <div
         #botMessageInput
@@ -93,10 +93,9 @@
         id="user-message-input"
         (keyup.enter)="submitMessageToBot(userMessageInput)"
         data-ph="Type your message here"
-        [ngStyle]="messageSubmissionStyle"
         autofocus
       ></div>
-
+     <!-- EMOJIS STAERT(NOT IN USE)-->
       <!-- <input (keyup.enter)="submitMessageToBot(userMessageInput)" [(ngModel)]="userMessageInput" type="text" name="" id="user-message-input"
         placeholder="Type here..." autocomplete="off"> -->
 
@@ -108,6 +107,7 @@
           <fa-icon [icon]="faGrin"></fa-icon>
         </button> -->
       <!--EDIT SEND BUTTON(SHOW/HIDE by commitout /uncommit out below-->
+      <!--- END EMOJIS-->
       <button
         [ngStyle]="sendButtonStyle"
         type="submit"
