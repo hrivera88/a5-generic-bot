@@ -171,7 +171,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    "background-color": "#ffda46",
+    "background-color": "#eeeeee",
     "border-bottom-color": "#d8a328"
   };
   logoImg = "/assets/img/jacksonville-jaguars-logo-transparent.png"; //EDIT with s3 bucket file name
@@ -185,7 +185,7 @@ export class A5ChatWindowComponent implements OnInit {
   showGreetingSection = true;
   greetingLine = "Welcome to the Jacksonville Jaguars Bot!";
   greetingSectionStyle = {
-    "background-color": "#126373"
+    "background-color": "#000000"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,12 +194,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    "background-color": "#126373"
+    "background-color": "#0c849f"
   };
   botOptionButtonStyle = {
     "border-color": "#d8a328",
     color: "#fff",
-    background: "#126373"
+    background: "#0c849f"
   };
   botOptionTitleStyle = {
     color: "#fff"
