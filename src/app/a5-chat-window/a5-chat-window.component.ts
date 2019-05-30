@@ -173,7 +173,7 @@ export class A5ChatWindowComponent implements OnInit {
     'background-color': '#000',
     'border-bottom-color': '#f1592b'
   };
-  logoImg = "/assets/img/logo-white.png";
+  logoImg = "/WebsiteAlive/assets/img/logo-white.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Alive5 Start (QR on the box)!";
   greetingSectionStyle = {
@@ -184,7 +184,7 @@ export class A5ChatWindowComponent implements OnInit {
   };
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = "../../assets/img/featurettes-header.png";
+  botOptionImgSource = "/WebsiteAlive/assets/img/featurettes-header.png";
   botOptionsStyle = {
     'background-color': '#f1592b'
   };
