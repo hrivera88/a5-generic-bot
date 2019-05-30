@@ -161,31 +161,30 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   //EDITS: add the following:
-  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
+  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a 
+  //  change to parameters from string to variable and add to variable to customization section.
   // HAL: update master branch with changes:
-  // * Contact button with on/off
   // * aliveDial on/off
   // * Word wrapping to chat bubbles
   // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
-  // * Style.css add. Message ul paddding-left: 1.5rem
 
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/HIBU_logo_3x.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
-    "background-color": "red",
-    border: "red",
+    "background-color": "#CE0058",
+    border: "#CE0058",
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to Hibu!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    "background-color": "#418FDE"  
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,18 +193,22 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    "background-color": "#486290"
+    "background-color": "#418FDE"
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
+    "border-color": "#CE0058",
     color: "#fff",
-    background: "#f1592b"
+    background: "#CE0058"
   };
   botOptionTitleStyle = {
     color: "#fff"
   };
+
   messageListStyle = {
-    background: "url(../../assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
+    // //background: "url(../../assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
+    "background": "url(https://hibucomassets.hibu.com/var/site/storage/images/_aliases/optimized_original/7/5/8/2/2857-1-eng-GB/why-hibu-hero.jpg)",
+    "background-size": "cover",
+    "background-position": "50% 50%"
   };
   messageSubmissionStyle = {
     background: "#fff",
