@@ -138,7 +138,9 @@
 .logo-img-container div {
   width: 100%;
 }
-
+.justify-middle {
+  justify-content: center;
+}
 .greeting-line {
   display: -webkit-box;
   display: -ms-flexbox;
