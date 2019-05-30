@@ -201,7 +201,9 @@ export class A5ChatWindowComponent implements OnInit {
   sendButtonStyle = {
     color: '#f1592b'
   };
-
+  
+  //Contact button
+  showContactButton = false; //Turn to true to show top right Contact Button
   //User info for live chat agent
   fullname = "";
   email = "";
