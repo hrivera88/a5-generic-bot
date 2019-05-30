@@ -160,14 +160,6 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  //EDITS: add the following:
-  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a 
-  //  change to parameters from string to variable and add to variable to customization section.
-  // HAL: update master branch with changes:
-  // * aliveDial on/off
-  // * Word wrapping to chat bubbles
-  // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
-
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
@@ -1166,7 +1158,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "HibuBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
