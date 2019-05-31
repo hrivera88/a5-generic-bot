@@ -4,7 +4,7 @@
       <img src="" alt="" srcset="">
     </div>
     <div class="modal-title">
-      <h5>Call the Texans</h5>
+      <h5>Call the Jaguars</h5>
     </div>
     <div class="modal-description">
       <p>
@@ -12,7 +12,8 @@
       </p>
     </div>
     <form id="alivedial-form" #alideDialForm="ngForm" [formGroup]="aliveDialForm">
-      <ngx-intl-tel-input [formControl]="phone_customer" [preferredCountries]="['us']" enablePlaceholder="true" [enableAutoCountrySelect]="true" name="alivedial-number"></ngx-intl-tel-input>
+      <ngx-intl-tel-input [formControl]="phone_customer" [preferredCountries]="['us']" enablePlaceholder="true"
+        [enableAutoCountrySelect]="true" name="alivedial-number"></ngx-intl-tel-input>
     </form>
     <div class="modal-buttons">
       <button class="btn cancel-modal-btn" (click)="hideModal('cancel-button')">Cancel</button>
