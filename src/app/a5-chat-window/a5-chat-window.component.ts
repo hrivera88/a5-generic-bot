@@ -1200,22 +1200,24 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
+    if (window.location.pathname == "/hibu") {
+      alive5_sms_phone_number = "+17139994636"; // glenn's number
+      alive5_sms_message_question = "I'd like to connect with Hibu representative [hit send>]";
+    }
+
     if (window.location.pathname == "/budweiser-gardens") {
       alive5_sms_phone_number = "+15196675700";
-      alive5_sms_message_question =
-        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+      alive5_sms_message_question = "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
     }
 
     if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
       alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with dustin@alive5.com [hit Send>]";
+      alive5_sms_message_question = "I'd like to connect with dustin@alive5.com [hit Send>]";
     }
 
     if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
       alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with glenn@alive5.com [hit Send>]";
+      alive5_sms_message_question = "I'd like to connect with glenn@alive5.com [hit Send>]";
     }
 
     let alive5_pre_link;
@@ -1342,6 +1344,12 @@ export class A5ChatWindowComponent implements OnInit {
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
+        // case "email me back":
+        //   botQuote = `<p>Email Me Back</p>`;
+        //   this.showResponse(false, botQuote);
+        //   this.sendTextMessageToBot(optionText);
+        //   this.bounceMenu = "button";
+        //   break;
         case "gallery":
           botQuote = `<p>Gallery Text:</p>`;
           this.showResponse(false, botQuote);
@@ -1371,8 +1379,8 @@ export class A5ChatWindowComponent implements OnInit {
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
             {
-              text: "View other ticket options",
-              value: "buy tickets"
+              text: "View Other Connect Options",
+              value: "get started"
             },
             {
               text: "Main Menu",
@@ -1394,8 +1402,8 @@ export class A5ChatWindowComponent implements OnInit {
           this.botOptionsTitle = "View Main Menu?";
           this.botMenuOptions = [
             {
-              text: "View other ticket options",
-              value: "buy tickets"
+              text: "View Other Connect Options",
+              value: "get started"
             },
             {
               text: "Main Menu",
