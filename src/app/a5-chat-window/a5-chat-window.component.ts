@@ -159,7 +159,7 @@ export class A5ChatWindowComponent implements OnInit {
     "flags",
     "search"
   ];
-
+//NOTES: EDIT NEEDED: "sorry, can you repeat that add main menu return"
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
@@ -647,7 +647,8 @@ export class A5ChatWindowComponent implements OnInit {
     this.currentIntentName = botResponse.intentName;
     if (
       this.currentIntentName === "askQuestion" ||
-      this.currentIntentName === "humanChat"
+      this.currentIntentName === "humanChat" 
+      // this.currentIntentName === "emailMeBack"
     ) {
       this.showUserInput = true;
     } else {
