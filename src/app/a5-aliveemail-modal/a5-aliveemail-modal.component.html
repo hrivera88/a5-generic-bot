@@ -1,0 +1,29 @@
+
+
+<div id="aliveemail-modal" [ngClass]="{ show: showModal }">
+  <div class="modal-wrapper">
+    <div class="modal-image">
+      <img src="" alt="" srcset="">
+    </div>
+    <div class="modal-title">
+      <h5>Email Me Back</h5>
+    </div>
+    <div class="modal-description">
+      <p>
+        Please enter your name, email address, and request. A Hibu agent will respond to you as soon as possible.
+      </p>
+    </div>
+    <form id="aliveemail-form" #aliveEmailForm="ngForm" [formGroup]="aliveEmailForm">
+      <input [formControl]="name_customer" enablePlaceholder="true" name="aliveemail-name" placeholder="Name">
+      <input [formControl]="email_customer" enablePlaceholder="true" name="aliveemail-email" placeholder="Email Address">
+      <input [formControl]="question_customer" enablePlaceholder="true" name="aliveemail-question" placeholder="Please Enter Your Question or Message Here.">
+    </form>
+    <div class="modal-buttons">
+      <button class="btn cancel-modal-btn" (click)="hideModal('cancel-button')">Cancel</button>
+      <button class="btn send-email-btn" (click)="sendEmail('send-email-button')">
+        <!-- <fa-icon [icon]="faPhone"></fa-icon> -->
+        <span>Email Me</span>
+      </button>
+    </div>
+  </div>
+</div>
