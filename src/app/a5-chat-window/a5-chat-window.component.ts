@@ -939,6 +939,15 @@ export class A5ChatWindowComponent implements OnInit {
               this.browser,
               this.cookieService.get("a5BotCookie")
             );
+          } else if (this.currentIntentName === "askQuestion") {
+            this.sendToBotReportingService(
+              "out",
+              "alive5_faq_question",
+              botResponse.message,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
           } else {
             this.sendToBotReportingService(
               "out",
@@ -960,16 +969,6 @@ export class A5ChatWindowComponent implements OnInit {
         this.email = botResponse.slots.email;
         this.question = botResponse.slots.question;
         this.triggerAliveChat();
-      }
-      if (this.currentIntentName === "askQuestion") {
-        this.sendToBotReportingService(
-          "out",
-          "alive5_faq_question",
-          botResponse.message,
-          this.clientIP,
-          this.browser,
-          this.cookieService.get("a5BotCookie")
-        );
       }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
@@ -1091,25 +1090,28 @@ export class A5ChatWindowComponent implements OnInit {
             break;
         }
       } else {
-        this.sendToBotReportingService(
-          "in",
-          "html",
-          messageUserTyped,
-          this.clientIP,
-          this.browser,
-          this.cookieService.get("a5BotCookie")
-        );
+        if (this.currentIntentName === "askQuestion") {
+          this.sendToBotReportingService(
+            "in",
+            "alive5_faq_question",
+            messageUserTyped,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCoooke")
+          );
+        } else {
+          this.sendToBotReportingService(
+            "in",
+            "html",
+            messageUserTyped,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+        }
       }
       if (this.currentIntentName === "askQuestion") {
         this.makeCallToFAQAPI(messageUserTyped);
-        this.sendToBotReportingService(
-          "in",
-          "alive5_faq_question",
-          messageUserTyped,
-          this.clientIP,
-          this.browser,
-          this.cookieService.get("a5BotCoooke")
-        );
       } else if (this.currentIntentName === "humanChat") {
         this.sendTextMessageToBot(messageUserTyped);
       }
