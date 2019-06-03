@@ -478,7 +478,7 @@ export class A5ChatWindowComponent implements OnInit {
         this.activeFAQDirectory = false;
         this.sendToBotReportingService(
           "out",
-          "html",
+          "alive5_faq_answer",
           `Sorry, I couldn't help you out. Would you like to ask a human?`,
           this.clientIP,
           this.browser,
@@ -502,10 +502,13 @@ export class A5ChatWindowComponent implements OnInit {
         this.isTyping = false;
         let answer = parsed.shift();
         this.storeFAQAnswersLocalStorage(parsed);
-        this.showResponse(false, anchorme(answer));
+        this.showResponse(
+          false,
+          anchorme(answer, { attributes: [{ name: "target", value: "blank" }] })
+        );
         this.sendToBotReportingService(
           "out",
-          "html",
+          "alive5_faq_answer",
           answer,
           this.clientIP,
           this.browser,
@@ -865,14 +868,25 @@ export class A5ChatWindowComponent implements OnInit {
           );
           break;
         default:
-          this.sendToBotReportingService(
-            "out",
-            "html",
-            botResponse.message,
-            this.clientIP,
-            this.browser,
-            this.cookieService.get("a5BotCookie")
-          );
+          if (this.currentIntentName === null) {
+            this.sendToBotReportingService(
+              "out",
+              "alive5_question",
+              botResponse.message,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+          } else {
+            this.sendToBotReportingService(
+              "out",
+              "html",
+              botResponse.message,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+          }
           break;
       }
 
@@ -974,14 +988,26 @@ export class A5ChatWindowComponent implements OnInit {
           );
           break;
         default:
-          this.sendToBotReportingService(
-            "out",
-            "html",
-            botResponse.message,
-            this.clientIP,
-            this.browser,
-            this.cookieService.get("a5BotCookie")
-          );
+          if (this.currentIntentName === null) {
+            this.sendToBotReportingService(
+              "out",
+              "alive5_question",
+              botResponse.message,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+          } else {
+            this.sendToBotReportingService(
+              "out",
+              "html",
+              botResponse.message,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+          }
+          break;
       }
       if (
         botResponse.slots.fullname &&
@@ -992,6 +1018,16 @@ export class A5ChatWindowComponent implements OnInit {
         this.email = botResponse.slots.email;
         this.question = botResponse.slots.question;
         this.triggerAliveChat();
+      }
+      if (this.currentIntentName === "askQuestion") {
+        this.sendToBotReportingService(
+          "out",
+          "alive5_faq_question",
+          botResponse.message,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
       }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
@@ -1124,23 +1160,39 @@ export class A5ChatWindowComponent implements OnInit {
       }
       if (this.currentIntentName === "askQuestion") {
         this.makeCallToFAQAPI(messageUserTyped);
+        this.sendToBotReportingService(
+          "in",
+          "alive5_faq_question",
+          messageUserTyped,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCoooke")
+        );
       } else if (this.currentIntentName === "humanChat") {
         this.sendTextMessageToBot(messageUserTyped);
       }
     } else {
-      this.sendToBotReportingService(
-        "in",
-        "html",
-        messageUserTyped,
-        this.clientIP,
-        this.browser,
-        this.cookieService.get("a5BotCookie")
-      );
       if (messageUserTyped.toLowerCase() === "yes") {
+        this.sendToBotReportingService(
+          "alive5_faq_result",
+          "html",
+          messageUserTyped,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
         this.isTyping = true;
         this.showBotOptions = false;
         this.sendSuccessFAQMessage();
       } else if (messageUserTyped.toLowerCase() === "no") {
+        this.sendToBotReportingService(
+          "alive5_faq_result",
+          "html",
+          messageUserTyped,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
         this.sendAnswerToUser();
         this.showBotOptions = false;
       } else if (messageUserTyped.toLowerCase() === "go back to main menu") {
@@ -1148,6 +1200,14 @@ export class A5ChatWindowComponent implements OnInit {
         this.activeFAQDirectory = false;
         this.removeFAQAnswersLocalStorage();
       } else {
+        this.sendToBotReportingService(
+          "alive5_faq_question",
+          "html",
+          messageUserTyped,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
         this.showResponse(false, "Let me search for that real quick");
         this.removeFAQAnswersLocalStorage();
         this.showBotOptions = false;
@@ -1308,14 +1368,39 @@ export class A5ChatWindowComponent implements OnInit {
 
   chooseBotOption(evt: any) {
     let optionText = evt.target.value;
-    this.sendToBotReportingService(
-      "in",
-      "html",
-      optionText,
-      this.clientIP,
-      this.browser,
-      this.cookieService.get("a5BotCookie")
-    );
+    if (this.currentIntentName === "askQuestion") {
+      if (optionText === "no" || optionText === "yes") {
+        this.sendToBotReportingService(
+          "in",
+          "alive5_faq_result",
+          optionText,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+      }
+    } else {
+      //Check if it's welcome intent to send button choice as alive5_answer
+      if (this.currentIntentName === null) {
+        this.sendToBotReportingService(
+          "in",
+          "alive5_answer",
+          optionText,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+      } else {
+        this.sendToBotReportingService(
+          "in",
+          "html",
+          optionText,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+      }
+    }
     if (this.activeFAQDirectory === true) {
       if (optionText === "yes") {
         this.isTyping = true;
@@ -1335,6 +1420,12 @@ export class A5ChatWindowComponent implements OnInit {
       let botQuote;
       switch (optionText) {
         //Check if special action is required by certain button pressed
+        case "report problem":
+          this.triggerAliveChat();
+          break;
+        case "text us your question":
+          this.triggerAliveChat();
+          break;
         case "chat with a human":
           botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
           this.showResponse(false, botQuote);
