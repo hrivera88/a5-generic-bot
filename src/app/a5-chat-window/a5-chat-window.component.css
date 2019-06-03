@@ -152,6 +152,7 @@
   color: #b38f4f;
 }
 .greeting-line p {
+  margin-top: 1rem;
   font-size: 14px;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
