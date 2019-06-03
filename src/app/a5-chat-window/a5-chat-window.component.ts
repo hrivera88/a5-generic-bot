@@ -160,14 +160,7 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  //EDITS: add the following:
-  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
-  // HAL: update master branch with changes:
-  // * Contact button with on/off
-  // * aliveDial on/off
-  // * Word wrapping to chat bubbles
-  // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
-  // * Style.css add. Message ul paddding-left: 1.5rem
+  
 
   // Customizing **************
   windowBannerStyle = {
@@ -247,6 +240,8 @@ export class A5ChatWindowComponent implements OnInit {
   };
   // aliveDial
   showAliveDialModal = false;
+  //AliveEmail (user requests email back)
+  showAliveEmailModal = false;
   galleryImages: Image[] = [
     new Image(0, {
       img: "https://www.websitealive.com/images/chatwindow-1.png",
@@ -1163,7 +1158,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "HibuBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -1347,6 +1342,12 @@ export class A5ChatWindowComponent implements OnInit {
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
+        case "email me back":
+          botQuote = `<p>Email Me Back</p>`;
+          this.showResponse(false, botQuote);
+          this.showAliveEmailModal = true;
+          this.bounceMenu = "button";
+          break;
         case "gallery":
           botQuote = `<p>Gallery Text:</p>`;
           this.showResponse(false, botQuote);
@@ -1401,6 +1402,49 @@ export class A5ChatWindowComponent implements OnInit {
             {
               text: "View other ticket options",
               value: "buy tickets"
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+        case "aliveemail-cancel-btn":
+            this.showAliveEmailModal = evt.dialogState;
+            userQuote = `Don't email me right now.`;
+            this.showResponse(true, userQuote);
+            botQuote = `Anything else I can help you with?`;
+            this.bounceMenu = "button";
+            setTimeout(() => {
+              this.showBotOptions = true;
+              this.botOptionsTitle = "View Main Menu?";
+              this.botMenuOptions = [
+                {
+                  text: "View other get started options",
+                  value: "get started"
+                },
+                {
+                  text: "Main Menu",
+                  value: "menu"
+                }
+              ];
+            }, 1000);
+            break;
+      case "aliveemail-send-email":
+        this.showAliveEmailModal = evt.dialogState;
+        userQuote = `Yes, Please email me back.`;
+        this.showResponse(true, userQuote);
+        botQuote = "Ok, one of our agents should reach out to you soon. Can I help you with anything else?";
+        this.showResponse(false, botQuote);
+        this.bounceMenu = "button";
+        setTimeout(()=> {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: "View other get started options",
+              value: "get started"
             },
             {
               text: "Main Menu",
