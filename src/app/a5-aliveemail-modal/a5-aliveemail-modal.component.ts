@@ -13,7 +13,7 @@ import { map } from "rxjs/operators";
 // import { fa-envelope-open-text } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-a5-aliveemail-modal',
+  selector: 'a5-aliveemail-modal',
   templateUrl: './a5-aliveemail-modal.component.html',
   styleUrls: ['./a5-aliveemail-modal.component.css'],
   animations: [
