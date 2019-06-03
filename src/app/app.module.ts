@@ -23,6 +23,7 @@ import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-modal.component";
+import { A5AliveemailModalComponent } from './a5-aliveemail-modal/a5-aliveemail-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { A5AlivedialModalComponent } from "./a5-alivedial-modal/a5-alivedial-mod
     HtmlSanitizerPipe,
     A5AlivepayModalComponent,
     AutofocusDirective,
-    A5AlivedialModalComponent
+    A5AlivedialModalComponent,
+    A5AliveemailModalComponent
   ],
   imports: [
     BrowserModule,
