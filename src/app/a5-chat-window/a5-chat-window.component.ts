@@ -174,7 +174,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#ff8359"
   };
-  logoImg = "/assets/img/docjuris-logo.svg";
+  logoImg = "/docjuris/assets/img/docjuris-logo.svg";
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
