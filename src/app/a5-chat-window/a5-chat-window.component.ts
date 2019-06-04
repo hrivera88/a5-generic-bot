@@ -172,20 +172,20 @@ export class A5ChatWindowComponent implements OnInit {
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
-    "border-bottom-color": "#000"
+    "border-bottom-color": "#2B3A42"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/digitalcrafts-logo.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
-    "background-color": "red",
-    border: "red",
+    "background-color": "#F47820",
+    border: "orange",
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to DigitalCrafts!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    "background-color": "#5A7079"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,12 +194,12 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    "background-color": "#486290"
+    "background-color": "#5A7079"
   };
   botOptionButtonStyle = {
     "border-color": "#f1592b",
     color: "#fff",
-    background: "#f1592b"
+    background: "#7CC143"
   };
   botOptionTitleStyle = {
     color: "#fff"
@@ -1163,7 +1163,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "DigitalCraftsBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
@@ -1289,13 +1289,13 @@ export class A5ChatWindowComponent implements OnInit {
       //End alive5 Widget Code v2.0
       window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
         this.fullname
-      }&email=${this.email}&question=${this.question}`;
+        }&email=${this.email}&question=${this.question}`;
     } else {
       //alive5_cta_button is your object/button you want enabled with SMS trigger
       if (this.currentIntentName === "humanChat") {
         window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
           this.fullname
-        }&email=${this.email}&question=${this.question}`;
+          }&email=${this.email}&question=${this.question}`;
       } else {
         document.location.href = alive5_pre_link;
       }
