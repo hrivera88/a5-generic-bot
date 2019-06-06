@@ -172,9 +172,9 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#000",
     "border-bottom-color": "#000"
   };
-  logoImg = "/spectrabec/assets/img/bec-logo.png";
+  logoImg = "/assets/img/bec-logo.png";
   showGreetingSection = true;
-  greetingLine = "Welcome to Budweiser Events Center!";
+  greetingLine = "Welcome to Budweiser Events Center! This is sponsored by Chick-Fil-A";
   greetingSectionStyle = {
     "background-color": "#D7191F"
   };
@@ -452,7 +452,7 @@ export class A5ChatWindowComponent implements OnInit {
         this.isTyping = false;
         let answer = parsed.shift();
         this.storeFAQAnswersLocalStorage(parsed);
-        this.showResponse(false, anchorme(answer, {attributes: [{'name': 'target', value: 'blank'}]}));
+        this.showResponse(false, anchorme(answer, { attributes: [{ 'name': 'target', value: 'blank' }] }));
         this.sendToBotReportingService(
           "out",
           "html",

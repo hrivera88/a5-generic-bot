@@ -158,6 +158,12 @@
   letter-spacing: 0.45px;
   color: #b38f4f;
 }
+
+.greeting-line a {
+text-decoration: none;
+}
+
+
 #message-list {
   overflow: auto;
   overflow-x: hidden;
