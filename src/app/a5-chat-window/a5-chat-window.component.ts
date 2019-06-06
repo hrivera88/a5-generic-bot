@@ -165,7 +165,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/HIBU_logo_3x.png"; //EDIT with s3 bucket file name
+  logoImg = "/hibu/assets/img/HIBU_logo_3x.png"; //EDIT with s3 bucket file name 
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -346,9 +346,9 @@ export class A5ChatWindowComponent implements OnInit {
 
   selectedEmoji(event: any) {
     let evt = event;
-    console.log(event);
-    console.log(this.userMessageInput);
-    console.log(this.botMessageInput);
+    // console.log('selectedEmoji: ', event);
+    // console.log('selectedEmoji: ', this.userMessageInput);
+    // console.log('selectedEmoji: ', this.botMessageInput);
     if (evt.emoji.custom) {
       let customEmojiElem = this.renderer.createElement("img");
       this.renderer.addClass(customEmojiElem, "emojiImg");
@@ -384,6 +384,28 @@ export class A5ChatWindowComponent implements OnInit {
       console.log(result);
     });
   }
+
+  sendMailReplyRequest(email, fullname, question) {
+    // console.log("Becci sendEmail:", this.email, this.fullname, this.question)
+    let toEmail = `hibu@alive5.com`;
+    let replyToEmail = `${email}`;
+    let subject = `Hibu Chatbot Lead Requesting Email Reply`;
+    let emailBody = `<p>Hi! this email was submitted through your Hibu bot:</p>`;
+    emailBody += `<p>${fullname} is requesting reply to ${email} regarding: </p>`;
+    emailBody += `<p>${question}.</p>`;
+    this.http
+      .get(
+        `https://api-v1.websitealive.com/email/?action=sendemail&email_to=${toEmail}&email_from=outbox@websitealive.com&email_replyto=${replyToEmail}&subject=${subject}&textorhtml=html&body=${emailBody}`
+      )
+      .subscribe(data => {});
+    
+  }
+
+
+
+
+
+
 
   showResponse(isUserMessage: boolean, message: string) {
     // Check whether the User to show a response from the User or Bot
@@ -463,7 +485,7 @@ export class A5ChatWindowComponent implements OnInit {
     let parsed = JSON.parse(answers);
     if (parsed) {
       if (parsed.length === 0) {
-        console.log("parsed equal zeero");
+       // console.log('sendAnswerToUser-parsed.length: ', "parsed equal zeero");
         this.isTyping = false;
         this.showResponse(
           false,
@@ -595,7 +617,7 @@ export class A5ChatWindowComponent implements OnInit {
         })
         .subscribe((data: any) => {
           if (data.error) {
-            console.log("subscribe error");
+           // console.log('makeCallToFAQAPI: ',"subscribe error");
             this.isTyping = false;
             this.showResponse(
               false,
@@ -619,7 +641,7 @@ export class A5ChatWindowComponent implements OnInit {
             this.sendAnswerToUser();
             this.activeFAQDirectory = true;
           }
-          console.log(data);
+          console.log("~~~~ ", data);
         });
     } else {
       this.isTyping = false;
@@ -647,8 +669,8 @@ export class A5ChatWindowComponent implements OnInit {
     this.currentIntentName = botResponse.intentName;
     if (
       this.currentIntentName === "askQuestion" ||
-      this.currentIntentName === "humanChat" 
-      // this.currentIntentName === "emailMeBack"
+      this.currentIntentName === "humanChat"  ||
+      this.currentIntentName === "emailMeBack"
     ) {
       this.showUserInput = true;
     } else {
@@ -984,15 +1006,27 @@ export class A5ChatWindowComponent implements OnInit {
         botResponse.slots.email &&
         botResponse.slots.question
       ) {
-        this.fullname = botResponse.slots.name;
+        this.fullname = botResponse.slots.fullname;
         this.email = botResponse.slots.email;
         this.question = botResponse.slots.question;
-        this.triggerAliveChat();
+        //Check intent type of button request for action to execute.
+        if (this.currentIntentName) {
+          switch(this.currentIntentName) {
+            case "humanChat":
+              this.triggerAliveChat();
+              break;
+            case "emailMeBack":
+                this.sendMailReplyRequest(this.email, this.fullname, this.question);
+                break;
+          }
+          
+        }
+       
       }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
-        console.log("botResponses *****", this.fullname, this.email);
+         console.log("botResponses *****", this.fullname, this.email);
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
         this.showBotOptions = true;
@@ -1120,7 +1154,7 @@ export class A5ChatWindowComponent implements OnInit {
       }
       if (this.currentIntentName === "askQuestion") {
         this.makeCallToFAQAPI(messageUserTyped);
-      } else if (this.currentIntentName === "humanChat") {
+      } else if (this.currentIntentName === "humanChat"||"emailMeBack") {
         this.sendTextMessageToBot(messageUserTyped);
       }
     } else {
@@ -1169,7 +1203,7 @@ export class A5ChatWindowComponent implements OnInit {
         console.log(err, err.stack);
       }
       if (data) {
-        console.log("boooottttttttt: ", data);
+        // console.log("boooottttttttt: ", data);
         this.lexBotResponseObj = data;
         this.showBotResponseToUser(data);
       }
@@ -1190,7 +1224,7 @@ export class A5ChatWindowComponent implements OnInit {
     } else {
       this.movieTitle = null;
     }
-    console.log(this.movieTitle);
+   // console.log(this.movieTitle);
   }
 
   exchangeContact() {
@@ -1202,24 +1236,24 @@ export class A5ChatWindowComponent implements OnInit {
     let alive5_sms_phone_number, alive5_sms_message_question;
 
     if (window.location.pathname == "/hibu") {
-      alive5_sms_phone_number = "+17139994636"; // glenn's number
-      alive5_sms_message_question = "I'd like to connect with Hibu representative [hit send>]";
+      alive5_sms_phone_number = "+17139994636"; // becci's number
+      alive5_sms_message_question = "I'd like to connect with a Hibu representative [hit send>]";
     }
 
-    if (window.location.pathname == "/budweiser-gardens") {
-      alive5_sms_phone_number = "+15196675700";
-      alive5_sms_message_question = "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
-    }
+    // if (window.location.pathname == "/budweiser-gardens") {
+    //   alive5_sms_phone_number = "+15196675700";
+    //   alive5_sms_message_question = "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+    // }
 
-    if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question = "I'd like to connect with dustin@alive5.com [hit Send>]";
-    }
+    // if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
+    //   alive5_sms_phone_number = "+17139994636";
+    //   alive5_sms_message_question = "I'd like to connect with dustin@alive5.com [hit Send>]";
+    // }
 
-    if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question = "I'd like to connect with glenn@alive5.com [hit Send>]";
-    }
+    // if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
+    //   alive5_sms_phone_number = "+17139994636";
+    //   alive5_sms_message_question = "I'd like to connect with glenn@alive5.com [hit Send>]";
+    // }
 
     let alive5_pre_link;
     let alive5_isDesktop = false;
@@ -1345,12 +1379,18 @@ export class A5ChatWindowComponent implements OnInit {
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
-        // case "email me back":
-        //   botQuote = `<p>Email Me Back</p>`;
-        //   this.showResponse(false, botQuote);
-        //   this.sendTextMessageToBot(optionText);
-        //   this.bounceMenu = "button";
-        //   break;
+        case "text us":
+          botQuote = `<p>Text Us</p>`;
+          this.showResponse(false, botQuote);
+          this.triggerAliveChat();
+          this.bounceMenu = "button";
+          break;
+        case "email me back":
+          botQuote = `<p>Email Me Back</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
         case "gallery":
           botQuote = `<p>Gallery Text:</p>`;
           this.showResponse(false, botQuote);
