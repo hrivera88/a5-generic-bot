@@ -51,6 +51,13 @@
   margin-left: auto;
   height: auto;
 }
+.message video {
+  border: 0;
+  max-width: 247px;
+  margin-left: auto;
+  margin-left: auto;
+  height: auto;
+}
 .message.user {
   background: #F69220;
   font-family: "Nunito", sans-serif;
