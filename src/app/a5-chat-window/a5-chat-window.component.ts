@@ -675,7 +675,14 @@ export class A5ChatWindowComponent implements OnInit {
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
       this.showMainMenuButton = false;
-      this.showBotOptions = false;
+      this.showBotOptions = true;
+      this.botOptionsTitle = "Back to Main Menu?";
+      this.botMenuOptions = [
+        {
+          text: "Main Menu",
+          value: "menu"
+        }
+      ];
       this.showMainMenuOptions = false;
       //Event Direction is always out
       //Then Check if Intent is humanChat
