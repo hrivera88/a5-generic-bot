@@ -175,6 +175,8 @@ export class A5ChatWindowComponent implements OnInit {
     "border-bottom-color": "#0A00CD"
   };
   logoImg = "/tdcBot/assets/img/tdc-logo.png";
+  showContactButton = false;
+  messageListStyle = {};
   showGreetingSection = true;
   greetingLine = "Hi! Welcome to The Duke Corporation Foundation";
   greetingSectionStyle = {
