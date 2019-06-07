@@ -402,12 +402,6 @@ export class A5ChatWindowComponent implements OnInit {
     
   }
 
-
-
-
-
-
-
   showResponse(isUserMessage: boolean, message: string) {
     // Check whether the User to show a response from the User or Bot
     if (isUserMessage) {
