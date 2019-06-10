@@ -153,10 +153,9 @@
 
  
 }
-.chat-icon img{
-
-  height: 13%;
-  width: 13%;
+.chat-icon img {
+  height: 40px ;
+  width: 40px ;
 }
 .greeting-line p {
   font-size: 14px;
@@ -167,7 +166,7 @@
 }
 
 .greeting-line a {
-text-decoration: none;
+text-decoration: underline;
 }
 
 
