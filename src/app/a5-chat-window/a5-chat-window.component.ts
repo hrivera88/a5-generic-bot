@@ -172,7 +172,7 @@ export class A5ChatWindowComponent implements OnInit {
     background: "#000",
     "border-bottom-color": "#000"
   };
-  logoImg = "/assets/img/bec-logo.png";
+  logoImg = "/spectrabec-sponsored/assets/img/bec-logo.png";
   showGreetingSection = true;
   greetingLine = "Welcome to Budweiser Events Center! This is sponsored by Chick-Fil-A";
   greetingSectionStyle = {
