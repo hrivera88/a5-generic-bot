@@ -174,7 +174,7 @@ export class A5ChatWindowComponent implements OnInit {
     background: "white",
     "border-bottom-color": "#0A00CD"
   };
-  logoImg = "/tdcBot/assets/img/tdc-logo.png";
+  logoImg = "/tdcBot/assets/img/tdc-logo2.png";
   showContactButton = false;
   messageListStyle = {};
   showGreetingSection = true;
