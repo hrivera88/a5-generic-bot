@@ -151,7 +151,7 @@ export class A5ChatWindowComponent implements OnInit {
   showGallery: boolean;
 
   // Customizing
-  logoImg = '/assets/img/alive5-logo-white2.svg';
+  logoImg = '/alive5-angel/assets/img/alive5-logo-white2.svg';
   brandLine = "Welcome Message!";
   showBrandingLine = false;
   showHideButton = false;
