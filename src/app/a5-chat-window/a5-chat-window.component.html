@@ -8,8 +8,12 @@
   <div id="greeting-section" *ngIf="showGreetingSection" [ngStyle]="greetingSectionStyle">
     <div class="greeting-line">
       <div class="chat-icon" [ngStyle]="greetingFontStyle">
-        <fa-icon *ngIf="notMobileScreen" [icon]="faComment"></fa-icon>
+        <!-- <fa-icon *ngIf="notMobileScreen" [icon]="faComment"></fa-icon> -->
+
+        <img src="assets\img\cow circle.png" />
       </div>
+
+
       <a href="https://qr.alive5.com/chickfila">
         <p [ngStyle]="greetingFontStyle">{{ greetingLine }}</p>
       </a>

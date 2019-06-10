@@ -150,6 +150,13 @@
   margin-right: 7px;
   margin-bottom: 0px;
   color: #b38f4f;
+
+ 
+}
+.chat-icon img{
+
+  height: 13%;
+  width: 13%;
 }
 .greeting-line p {
   font-size: 14px;
