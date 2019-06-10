@@ -1205,10 +1205,10 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == "/budweiser-gardens") {
-      alive5_sms_phone_number = "+15196675700";
+    if (window.location.pathname == "/spectra") {
+      alive5_sms_phone_number = "+17016306563";
       alive5_sms_message_question =
-        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+        "I have a question for Guest Services[hit Send>]";
     }
 
     if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
