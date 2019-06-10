@@ -205,7 +205,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#fff"
   };
   messageListStyle = {
-    backgroundColor: "white" //EDIT with S3 bucket name (remove../../)
+    background: "url(../../assets/img/alerus2.jpg)" //EDIT with S3 bucket name (remove../../)
   };
   messageSubmissionStyle = {
     background: "#fff",
