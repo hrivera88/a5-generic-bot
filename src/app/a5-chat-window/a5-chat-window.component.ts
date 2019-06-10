@@ -178,7 +178,7 @@ export class A5ChatWindowComponent implements OnInit {
   showContactButton = false;
   messageListStyle = {};
   showGreetingSection = true;
-  greetingLine = "Hi! Welcome to The Duke Corporation Foundation";
+  greetingLine = "Hi! Welcome to The Duke Corporation";
   greetingSectionStyle = {
     "background-color": "#000000"
   };
