@@ -1342,6 +1342,11 @@ export class A5ChatWindowComponent implements OnInit {
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
           break;
+          case 'customization':
+            botQuote = `<p>Customizable chat windows and calls to action to uniquely match your brand:</p>`;
+            this.showResponse(false, botQuote);
+            this.openGallery();
+          break;
         case "gallery":
           botQuote = `<p>Gallery Text:</p>`;
           this.showResponse(false, botQuote);
