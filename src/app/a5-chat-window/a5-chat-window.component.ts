@@ -174,7 +174,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#000000",
     "border-bottom-color": "#C3C92E"
   };
-  logoImg = "/assets/img/boms-logo.png"; //EDIT with s3 bucket file name
+  logoImg = "/spectra/assets/img/boms-logo.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = false; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -205,7 +205,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#fff"
   };
   messageListStyle = {
-    background: "url(../../assets/img/alerus2.jpg)" //EDIT with S3 bucket name (remove../../)
+    background: "url(/spectra/assets/img/alerus2.jpg)" //EDIT with S3 bucket name (remove../../)
   };
   messageSubmissionStyle = {
     background: "#fff",
@@ -339,8 +339,7 @@ export class A5ChatWindowComponent implements OnInit {
 
   checkForCookie() {
     let cookieExist: boolean = this.cookieService.check("a5BotCookie");
-    if (cookieExist) {
-      // do something
+    if (cookieExist) {      // do something
     } else {
       this.cookieService.set("a5BotCookie", uuid.v4());
     }
@@ -439,6 +438,9 @@ export class A5ChatWindowComponent implements OnInit {
     this.currentResponseCardPosition = position;
     this.botOptionsTitle = botOptions[position].title;
     this.loopThroughBotResponseCardButtons(botOptions[position].buttons);
+    // this.triggerAliveChat();
+
+
   }
 
   setBotOptionPagination(currentPosition, responseCards) {
@@ -1346,6 +1348,11 @@ export class A5ChatWindowComponent implements OnInit {
           this.showResponse(false, botQuote);
           this.showAliveDialModal = true;
           this.bounceMenu = "button";
+          break;
+        case "text us":
+          botQuote = `<p>Text Us</p>`;
+          this.showResponse(false, botQuote);
+          this.triggerAliveChat()
           break;
         case "gallery":
           botQuote = `<p>Gallery Text:</p>`;
