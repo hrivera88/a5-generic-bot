@@ -42,7 +42,7 @@
   -ms-flex-pack: center;
   justify-content: space-around;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/WebsiteAlive/assets/img/carbonFiber.jpg");
+    url("../../assets/img/carbonFiber.jpg");
   /* background-image: url('../../assets/img/geometry.png'); */
   background-size: cover;
 }
@@ -68,14 +68,15 @@
 .logo {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-left: 10px;
 }
 .logo img,
 .logo svg {
   width: auto;
   height: auto;
-  max-height: 53px;
+  max-height: 40px;
   max-width: 177px;
 }
 .logo svg {
@@ -137,7 +138,9 @@
 .logo-img-container div {
   width: 100%;
 }
-
+.justify-middle {
+  justify-content: center;
+}
 .greeting-line {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -206,7 +209,7 @@
   /* background-color: rgba(41, 41, 85,1); */
   /* color: #fff; */
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/WebsiteAlive/assets/img/carbonFiber.jpg");
+    url("../../assets/img/carbonFiber.jpg");
   background-size: 'cover'; 
   color: #f1592b;
 }
@@ -242,6 +245,11 @@
   padding: 0.25rem;
   height: 100%;
 }
+[contenteditable="true"]:empty:not(:focus) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 [contenteditable="true"]:empty:not(:focus):before {
   content: attr(data-ph);
   font-size: 14px;
@@ -271,7 +279,7 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: rgb(93, 93, 95);
+  color: rgba(95,95,95);
   font-family: "Nunito", sans-serif;
   letter-spacing: 0.25px;
   font-weight: bold;
@@ -383,7 +391,7 @@ button.more-options-btn span {
     width: 50%;
   }
 }
-@media (min-width:1300px) {
+@media (min-width: 1300px) {
   .option-buttons-container {
     width: 30%;
   }

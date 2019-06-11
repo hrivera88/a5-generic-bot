@@ -5,7 +5,7 @@ import {
   ViewChild,
   ElementRef
 } from "@angular/core";
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import {
   trigger,
   state,
@@ -19,14 +19,22 @@ import {
   faGrin,
   faArrowAltCircleLeft,
   faTimesCircle,
-  faArrowRight
+  faArrowRight,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "./message";
 import { Option } from "./option";
+import { SendMailService } from "../send-mail.service";
+import { BotReportingService } from "../bot-reporting.service";
+import { ClientIpServiceService } from "../client-ip-service.service";
+import { CookieService } from "ngx-cookie-service";
+import { ReturnStatement } from "@angular/compiler";
+import { Image, GalleryService } from "angular-modal-gallery";
+import { DeviceDetectorService } from "ngx-device-detector";
+
 import * as AWS from "aws-sdk";
 import * as _ from "lodash";
-import { SendMailService } from "../send-mail.service";
-import { ReturnStatement } from "@angular/compiler";
+import * as uuid from "uuid";
 
 @Component({
   selector: "a5-chat-window",
@@ -58,6 +66,7 @@ export class A5ChatWindowComponent implements OnInit {
   faComment = faComment;
   faTimesCircle = faTimesCircle;
   faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faAddressCard = faAddressCard;
   faGrin = faGrin;
   faArrowRight = faArrowRight;
   userMessageInput: string;
@@ -150,23 +159,34 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  // Customizing
+  //EDITS: add the following:
+  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
+  // HAL: update master branch with changes:
+  // * Contact button with on/off
+  // * aliveDial on/off
+  // * Word wrapping to chat bubbles
+  // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
+  // * Style.css add. Message ul paddding-left: 1.5rem
+
+  // Customizing **************
   windowBannerStyle = {
     'background-color': '#000',
     'border-bottom-color': '#f1592b'
   };
-  logoImg = "/WebsiteAlive/assets/img/Alive5_white_Logo.svg";
+  // logoImg = "/assets/img/Alive5_white_Logo.svg";
+  logoImg = "/WebsiteAlive/assets/img/logo-white_websiteAlive.png"
+  
   showGreetingSection = true;
   greetingLine = "Welcome to WebsiteAlive!";
   greetingSectionStyle = {
     'background-color': '#5f6062'
   };
   greetingFontStyle = {
-    color: '#fff'
+    color: "#fff"
   };
   botOptionsImg = false;
   showBotOptions = false;
-  botOptionImgSource = "../../assets/img/featurettes-header.png";
+  botOptionImgSource = "/WebsiteAlive/assets/img/featurettes-header.png";
   botOptionsStyle = {
     'background-color': '#f1592b'
   };
@@ -175,39 +195,95 @@ export class A5ChatWindowComponent implements OnInit {
     color: '#f1592b'
   }
   botOptionTitleStyle = {
-    'color': "#fff"
-
-  }
+    color: "#fff"
+  };
   messageSubmissionStyle = {
-    background: '#fff'
-  }
+    background: "#fff"
+  };
   sendButtonStyle = {
     color: '#f1592b'
   };
-
+  
+  //Contact button
+  showContactButton = false; //Turn to true to show top right Contact Button
   //User info for live chat agent
-  name = '';
-  email = '';
+  fullname = "";
+  email = "";
+  question = "";
   showUserInput = false;
-  currentIntentName = '';
+  currentIntentName = "";
+  clientIP: string;
+  slotToElicit: string;
+  browser: string;
   //elastic search
   activeFAQDirectory = false;
   isTyping = false;
   httpOptions = {
     headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGl2ZV9wYXkiOnRydWUsImFsbG93X2J1bGtzbXMiOiIiLCJjaGFyZ2ViZWVfcGxhbiI6InByby1wbGFuIiwiY2hhcmdlYmVlX3BsYW5fbGFiZWwiOjksImNyZWRpdHNfdXNlZCI6OTQwOCwiaXNzIjoiYWxpdmU1X2FwaSIsIm1heF9jcmVkaXRzIjoyMzM1MCwib3JnX25hbWUiOiJhbGl2ZTVzdGFnZSIsInBheW1lbnRfbWV0aG9kIjoiY2hhcmdlYmVlIiwic2NyZWVuX25hbWUiOiJkdXN0aW4yIiwic3Vic2NyaXB0aW9uX2VuZF9kYXRlIjoxNTQ4NTgyNzMzLCJzdWJzY3JpcHRpb25faWQiOiJIcjU1MThuUW5VSVF0Yk5FMyIsInN1YnNjcmlwdGlvbl9zdGFydF9kYXRlIjoxNTQ1OTA0MzMzLCJ0eXBlIjoidXNlciIsInVzZXJfaWQiOiIzNzJmMWM2NS0xOWNhLTQwYzctOTJhOC01ZTJiMTNhMDU5MjMiLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJwb2xpY3lfaWQiOiJhMGY3MmMzMC1mYTdjLTQ5Y2EtODM1Mi1lNGZiZDYxMTJlMjMiLCJwb2xpY3kiOnsiY3JlYXRlZF9hdCI6MTU0MzMwNDE1NDY1MiwicG9saWN5X25hbWUiOiJhbGl2ZUNoYXQgRW5hYmxlZCIsInBvbGljeV9mZWF0dXJlcyI6WyJTTVMiLCJCT1RTIiwiYWxpdmVDaGF0IiwiQWxpdmVQYXkiLCJQSVBMIl0sInBvbGljeV9pZCI6ImEwZjcyYzMwLWZhN2MtNDljYS04MzUyLWU0ZmJkNjExMmUyMyJ9LCJpYXQiOjE1NDc2Njg3NDN9.5YDP1-SX0_6YH3GxKhPPNbeFjkb-2MMRtAM_HkwzpBQ"
     }),
     data: {
-      "org_name": "alive5demo",
-      "search": "",
-      "category_name": "AliveChat Support",
-      }
+      org_name: "alive5bot",
+      search: "",
+      category_name: "AliveChat Support"
+    }
   };
+
+  //Check whether an agent is online for Live Chat
+  agentOnline: any;
+  //Gallery Images
+  previewConfig = {
+    visible: false
+  };
+  // aliveDial
+  showAliveDialModal = false;
+  galleryImages: Image[] = [
+    new Image(0, {
+      img: "https://www.websitealive.com/images/chatwindow-1.png",
+      description: "Customized Chat Windows"
+    }),
+    new Image(1, {
+      img: "https://www.websitealive.com/images/chatwindow-2.png",
+      description: "Customized Chat Windows"
+    }),
+    new Image(2, {
+      img: "https://www.websitealive.com/images/chatwindow-3.png",
+      description: "Customized Chat Windows"
+    }),
+    new Image(3, {
+      img: "https://www.websitealive.com/images/chatwindow-4.png",
+      description: "Customized Chat Windows"
+    }),
+    new Image(4, {
+      img: "https://www.websitealive.com/images/cta-example-1.png",
+      description: "Add a welcoming face to your engagement efforts."
+    }),
+    new Image(5, {
+      img: "https://www.websitealive.com/images/cta-example-4.png",
+      description:
+        "Use shortlinks for easy social media or website engagements."
+    }),
+    new Image(6, {
+      img: "https://www.websitealive.com/images/cta-example-3.png",
+      description:
+        "Customize call-to-action to suit your website's look and feel."
+    }),
+    new Image(7, {
+      img: "https://www.websitealive.com/images/cta-example-2.png",
+      description: "Communicate in your customer's language."
+    })
+  ];
 
   constructor(
     private sendMailService: SendMailService,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private galleryService: GalleryService,
+    private botReporting: BotReportingService,
+    private clientIPService: ClientIpServiceService,
+    private cookieService: CookieService,
+    private deviceService: DeviceDetectorService
   ) {
     AWS.config.region = "us-east-1";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -218,12 +294,48 @@ export class A5ChatWindowComponent implements OnInit {
 
   ngOnInit() {
     this.sendTextMessageToBot("menu");
-    console.log(screen.width);
+
+    //Checking to see if bot is running in a mobile device
     if (screen.width < 768) {
       this.notMobileScreen = false;
     }
+
+    //Making request to API to retrieve info on whether an live chat agent is online or not.
+    const params = new HttpParams()
+      .set("action", "groupstatus")
+      .set("groupid", "9");
+    const headers = new HttpHeaders().set(
+      "Content-Type",
+      "text/plain; charset=utf-8"
+    );
+
+    //Get Current User's Client IP Address
+    this.http
+      .get("https://www.websitealive3.com/9/status.asp", {
+        headers: headers,
+        params: params,
+        responseType: "text"
+      })
+      .subscribe(data => {
+        this.agentOnline = data;
+      });
+    this.clientIPService.getClientIP().subscribe(data => {
+      this.clientIP = data["ip"];
+    });
+
+    this.checkForCookie();
+
+    this.browser = this.deviceService.browser;
   }
 
+  checkForCookie() {
+    let cookieExist: boolean = this.cookieService.check("a5BotCookie");
+    if (cookieExist) {
+      // do something
+    } else {
+      this.cookieService.set("a5BotCookie", uuid.v4());
+    }
+  }
   toggleEmojiPicker() {
     this.emojiPickerShown = !this.emojiPickerShown;
   }
@@ -292,7 +404,14 @@ export class A5ChatWindowComponent implements OnInit {
 
   loopThroughBotResponseCardButtons(responseCardButtons) {
     _.map(responseCardButtons, opt => {
-      this.botMenuOptions.push(opt);
+      //Check to see if an agent is online to shoow Chat With A Human button
+      if (opt.value === "chat with a human") {
+        if (this.agentOnline === "online") {
+          this.botMenuOptions.push(opt);
+        }
+      } else {
+        this.botMenuOptions.push(opt);
+      }
     });
   }
 
@@ -331,35 +450,46 @@ export class A5ChatWindowComponent implements OnInit {
     );
   }
   storeFAQAnswersLocalStorage(answers: any) {
-    localStorage.setItem('faq-answers', JSON.stringify(answers));
+    localStorage.setItem("faq-answers", JSON.stringify(answers));
   }
 
   removeFAQAnswersLocalStorage() {
-    localStorage.removeItem('faq-answers');
+    localStorage.removeItem("faq-answers");
   }
 
   sendAnswerToUser() {
-    let answers = localStorage.getItem('faq-answers');
+    let answers = localStorage.getItem("faq-answers");
     let parsed = JSON.parse(answers);
     if (parsed) {
       if (parsed.length === 0) {
-        console.log('parsed equal zeero');
+        console.log("parsed equal zeero");
         this.isTyping = false;
-        this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+        this.showResponse(
+          false,
+          "Sorry, I couldn't help you out. Would you like to ask a human?"
+        );
         this.removeFAQAnswersLocalStorage();
         this.activeFAQDirectory = false;
-
+        this.sendToBotReportingService(
+          "out",
+          "html",
+          `Sorry, I couldn't help you out. Would you like to ask a human?`,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
         setTimeout(() => {
-          this.botOptionsTitle = "Speak with a person or go to main menu?"
+          this.botOptionsTitle = "Speak with a person or go to main menu?";
           this.botMenuOptions = [
             {
-              text: 'Text Us Your Question',
-              value: 'text us your question'
+              text: "Chat with a human",
+              value: "chat with a human"
             },
-          {
-            text: 'Main Menu',
-            value: 'go back to main menu'
-          }];
+            {
+              text: "Main Menu",
+              value: "go back to main menu"
+            }
+          ];
           this.showBotOptions = true;
         }, 1000);
       } else {
@@ -367,16 +497,24 @@ export class A5ChatWindowComponent implements OnInit {
         let answer = parsed.shift();
         this.storeFAQAnswersLocalStorage(parsed);
         this.showResponse(false, answer);
+        this.sendToBotReportingService(
+          "out",
+          "html",
+          answer,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
         setTimeout(() => {
-          this.botOptionsTitle = 'Was this helpful?'
+          this.botOptionsTitle = "Was this helpful?";
           this.botMenuOptions = [
             {
-              text: 'Yes',
-              value: 'yes'
+              text: "Yes",
+              value: "yes"
             },
             {
-              text: 'No',
-              value: 'no'
+              text: "No",
+              value: "no"
             }
           ];
           this.showBotOptions = true;
@@ -387,74 +525,130 @@ export class A5ChatWindowComponent implements OnInit {
 
   sendSuccessFAQMessage() {
     this.isTyping = false;
-    this.showResponse(false, 'Great, if you have any other questions let us know.');
+    this.showResponse(
+      false,
+      "Great, if you have any other questions let us know."
+    );
+    this.sendToBotReportingService(
+      "out",
+      "html",
+      `Great, if you have any other questions let us know.`,
+      this.clientIP,
+      this.browser,
+      this.cookieService.get("a5BotCookie")
+    );
     this.removeFAQAnswersLocalStorage();
     this.activeFAQDirectory = false;
     setTimeout(() => {
       this.showBotOptions = true;
-      this.botOptionsTitle = "View Main Menu?"
+      this.botOptionsTitle = "View Main Menu?";
       this.botMenuOptions = [
         {
-          text: 'Main Menu',
-          value: 'menu'
-        }];
+          text: "Main Menu",
+          value: "menu"
+        }
+      ];
     }, 1000);
+  }
+
+  sendToBotReportingService(
+    event_direction: string,
+    event_type: string,
+    event_content: string,
+    client_ip: string,
+    browser_type: string,
+    cookieid: string
+  ) {
+    let action = `record_event`;
+    let objectref = "wsa3";
+    let groupid = 9;
+    let websiteid = 1184;
+    let alive5_org_name = null;
+    this.botReporting
+      .sendToReportingAPI(
+        action,
+        objectref,
+        groupid,
+        websiteid,
+        client_ip,
+        event_direction,
+        event_type,
+        event_content,
+        browser_type,
+        cookieid,
+        alive5_org_name
+      )
+      .subscribe(data => {
+        console.log("reporting data : ", data);
+      });
   }
 
   makeCallToFAQAPI(userMessage: string) {
     this.isTyping = true;
-    if(userMessage) {
+    if (userMessage) {
       this.httpOptions.data.search = userMessage;
-      this.http.get("https://api-v2.alive5.com/1.0/kb-article/search-external" , {
-        headers: this.httpOptions.headers,
-        params: this.httpOptions.data
-      })
-      .subscribe((data: any) => {
-        if(data.error) {
-          console.log('subscribe error');
-          this.isTyping = false;
-          this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
-          this.showBotOptions = true;
-          this.botMenuOptions = [
-            {
-              text: 'Text Us Your Question',
-              value: 'text us your question'
-            },
-            {
-              text: 'Main Menu',
-              value: 'go back to main menu'
-            }];
-        } else {
-          let faqAnswersData = data.data;
-          this.storeFAQAnswersLocalStorage(faqAnswersData);
-          this.isTyping = false;
-          this.sendAnswerToUser();
-          this.activeFAQDirectory = true;
-        }
-        console.log(data);
-      })
-    
+      this.http
+        .get("https://api-v2.alive5.com/1.0/kb-article/search-external", {
+          headers: this.httpOptions.headers,
+          params: this.httpOptions.data
+        })
+        .subscribe((data: any) => {
+          if (data.error) {
+            console.log("subscribe error");
+            this.isTyping = false;
+            this.showResponse(
+              false,
+              "Sorry, I couldn't help you out. Would you like to ask a human?"
+            );
+            this.showBotOptions = true;
+            this.botMenuOptions = [
+              {
+                text: "Chat with a human",
+                value: "chat with a human"
+              },
+              {
+                text: "Main Menu",
+                value: "go back to main menu"
+              }
+            ];
+          } else {
+            let faqAnswersData = data.data;
+            this.storeFAQAnswersLocalStorage(faqAnswersData);
+            this.isTyping = false;
+            this.sendAnswerToUser();
+            this.activeFAQDirectory = true;
+          }
+          console.log(data);
+        });
     } else {
       this.isTyping = false;
-      console.log('no user message');
-      this.showResponse(false, 'Sorry, I couldn\'t help you out. Would you like to ask a human?');
+      console.log("no user message");
+      this.showResponse(
+        false,
+        "Sorry, I couldn't help you out. Would you like to ask a human?"
+      );
       this.showBotOptions = true;
       this.botMenuOptions = [
         {
-          text: 'Text Us Your Question',
-          value: 'text us your question'
+          text: "Chat with a human",
+          value: "chat with a human"
         },
         {
-          text: 'Main Menu',
-          value: 'go back to main menu'
-        }];   
+          text: "Main Menu",
+          value: "go back to main menu"
+        }
+      ];
     }
   }
 
   showBotResponseToUser(botResponse) {
+    console.log("Mr. Telephone: ", botResponse);
     //Display Bot's response to Chat UI
     this.currentIntentName = botResponse.intentName;
-    if (this.currentIntentName === 'askQuestion' || this.currentIntentName === 'humanChat') {
+    if (
+      this.currentIntentName === "askQuestion" ||
+      this.currentIntentName === "humanChat"
+    ) {
       this.showUserInput = true;
     } else {
       this.showUserInput = false;
@@ -462,14 +656,221 @@ export class A5ChatWindowComponent implements OnInit {
     this.showResponse(false, botResponse.message);
     //Check whether the Dialog is at the ending state or not.
     if (botResponse.dialogState !== "Fulfilled" && !botResponse.responseCard) {
-      console.log("RAWRWRWRWRWRW");
       this.showMainMenuButton = false;
       this.showBotOptions = false;
       this.showMainMenuOptions = false;
+      //Event Direction is always out
+      //Then Check if Intent is humanChat
+      //If Intent is askQuestion - Check if activeDirectory is true
+      //Check Slot type name
+      // Get Client IP
+      //Pass Slot type
+      //Checking to see if Bot is asking for these specific things from the User
+      switch (botResponse.slotToElicit) {
+        case "email":
+          this.slotToElicit = "email";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_email",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "fullname":
+          this.slotToElicit = "fullname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_fullname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "firstname":
+          this.slotToElicit = "firstname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_firstname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "lastname":
+          this.slotToElicit = "lastname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_lastname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "phone":
+          this.slotToElicit = "phone";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_phone",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company":
+          this.slotToElicit = "company";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company_title":
+          this.slotToElicit = "company_title";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company_title",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "question":
+          this.slotToElicit = "question";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_notes",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+      }
     } else if (
       botResponse.responseCard &&
       botResponse.dialogState !== "Fulfilled"
     ) {
+      //Capture Bot's reply for Bot Reporting API
+      switch (botResponse.slotToElicit) {
+        case "email":
+          this.slotToElicit = "email";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_email",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "fullname":
+          this.slotToElicit = "fullname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_fullname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "firstname":
+          this.slotToElicit = "firstname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_firstname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "lastname":
+          this.slotToElicit = "lastname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_lastname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "phone":
+          this.slotToElicit = "phone";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_phone",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company":
+          this.slotToElicit = "company";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company_title":
+          this.slotToElicit = "company_title";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company_title",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "question":
+          this.slotToElicit = "question";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_notes",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+      }
+
       this.botMenuOptions = [];
       //If the Bot response has a Response Card with Options show them in the UI
       this.responseCards = botResponse.responseCard.genericAttachments;
@@ -477,14 +878,120 @@ export class A5ChatWindowComponent implements OnInit {
       this.showBotOptions = true;
       this.bounceMenu = "botResponse";
     } else {
+      //Capture Bot's reply for Bot Reporting API
+      switch (botResponse.slotToElicit) {
+        case "email":
+          this.slotToElicit = "email";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_email",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "fullname":
+          this.slotToElicit = "fullname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_fullname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "firstname":
+          this.slotToElicit = "firstname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_firstname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "lastname":
+          this.slotToElicit = "lastname";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_lastname",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "phone":
+          this.slotToElicit = "phone";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_phone",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company":
+          this.slotToElicit = "company";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "company_title":
+          this.slotToElicit = "company_title";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_company_title",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        case "question":
+          this.slotToElicit = "question";
+          this.sendToBotReportingService(
+            "out",
+            "alive5_notes",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+          break;
+        default:
+          this.sendToBotReportingService(
+            "out",
+            "html",
+            botResponse.message,
+            this.clientIP,
+            this.browser,
+            this.cookieService.get("a5BotCookie")
+          );
+      }
+      if (
+        botResponse.slots.fullname &&
+        botResponse.slots.email &&
+        botResponse.slots.question
+      ) {
+        this.fullname = botResponse.slots.name;
+        this.email = botResponse.slots.email;
+        this.question = botResponse.slots.question;
+        this.triggerAliveChat();
+      }
       if (botResponse.responseCard) {
         //If the Bot response has a Response Card with Options show them in the UI
         this.botMenuOptions = [];
-        if (botResponse.slots.name && botResponse.slots.email) {
-          this.name = botResponse.slots.name;
-          this.email = botResponse.slots.email;
-        }
-        console.log('botResponses *****', this.name, this.email)
+        console.log("botResponses *****", this.fullname, this.email);
         this.responseCards = botResponse.responseCard.genericAttachments;
         this.setBotOptions(this.responseCards, 0);
         this.showBotOptions = true;
@@ -500,7 +1007,7 @@ export class A5ChatWindowComponent implements OnInit {
   submitMessageToBot(message: any) {
     let messageUserTyped = this.botMessageInput.nativeElement.innerText;
     messageUserTyped = messageUserTyped.replace(/(\r\n|\n|\r)/gm, "");
-    if(messageUserTyped === '') {
+    if (messageUserTyped === "") {
       return;
     }
     this.showResponse(true, messageUserTyped);
@@ -508,28 +1015,138 @@ export class A5ChatWindowComponent implements OnInit {
     this.multipleCards = false;
     if (this.activeFAQDirectory === false) {
       this.showBotOptions = false;
-      if (this.currentIntentName === 'askQuestion') {
+      //If the user is replying to a Bot's question; we check what slot we are answering for API.
+      if (this.slotToElicit) {
+        switch (this.slotToElicit) {
+          case "email":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_email",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "fullname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_fullname",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "firstname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_firstname",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "lastname":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_lastname",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "phone":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_phone",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "company":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_company",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "company_title":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_company_title",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+          case "question":
+            this.slotToElicit = null;
+            this.sendToBotReportingService(
+              "in",
+              "alive5_notes",
+              messageUserTyped,
+              this.clientIP,
+              this.browser,
+              this.cookieService.get("a5BotCookie")
+            );
+            break;
+        }
+      } else {
+        this.sendToBotReportingService(
+          "in",
+          "html",
+          messageUserTyped,
+          this.clientIP,
+          this.browser,
+          this.cookieService.get("a5BotCookie")
+        );
+      }
+      if (this.currentIntentName === "askQuestion") {
         this.makeCallToFAQAPI(messageUserTyped);
-      } else if (this.currentIntentName === 'humanChat') {
+      } else if (this.currentIntentName === "humanChat") {
         this.sendTextMessageToBot(messageUserTyped);
       }
     } else {
-      if (messageUserTyped.toLowerCase() === 'yes') {
+      this.sendToBotReportingService(
+        "in",
+        "html",
+        messageUserTyped,
+        this.clientIP,
+        this.browser,
+        this.cookieService.get("a5BotCookie")
+      );
+      if (messageUserTyped.toLowerCase() === "yes") {
         this.isTyping = true;
         this.showBotOptions = false;
         this.sendSuccessFAQMessage();
-      } else if (messageUserTyped.toLowerCase() === 'no') {
+      } else if (messageUserTyped.toLowerCase() === "no") {
         this.sendAnswerToUser();
         this.showBotOptions = false;
-      } else if (messageUserTyped.toLowerCase() === 'go back to main menu') {
+      } else if (messageUserTyped.toLowerCase() === "go back to main menu") {
         this.sendTextMessageToBot(messageUserTyped.toLowerCase());
         this.activeFAQDirectory = false;
         this.removeFAQAnswersLocalStorage();
       } else {
-        this.showResponse(false, 'Let me search for that real quick');
+        this.showResponse(false, "Let me search for that real quick");
         this.removeFAQAnswersLocalStorage();
         this.showBotOptions = false;
-        setTimeout(()=> {
+        setTimeout(() => {
           this.makeCallToFAQAPI(messageUserTyped);
         }, 1000);
       }
@@ -558,106 +1175,6 @@ export class A5ChatWindowComponent implements OnInit {
     });
   }
 
-  triggerAliveChat() {
-    //for Hal's webbot
-    let alive5_sms_phone_number, alive5_sms_message_question;
-
-    if (window.location.pathname == '/websiteAlive') {
-      alive5_sms_phone_number = '+17139994636';
-      alive5_sms_message_question = 'I have a question about WebsiteAlive. [hit Send>]';
-    }
-
-    let alive5_pre_link;
-    let alive5_isDesktop = false;
-    let alive5_platform = navigator.platform.toUpperCase();
-    let alive5_isMobile = true;
-    let alive5_is_alive5_phone_number;
-
-    switch (alive5_platform) {
-      case 'IPAD':
-        alive5_isMobile = false;
-        //desktop Apple
-        if (alive5_is_alive5_phone_number == 'Y') {
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
-          alive5_isDesktop = true;
-        } else {
-          alive5_pre_link = 'javascript:void()';
-        }
-        break;
-      case 'IPHONE':
-        //see if 5, 6, or 7
-        //mobile
-        var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-          navigator.userAgent && !navigator.userAgent.match('CriOS');
-
-        if (isSafari && (window.self !== window.top)) {
-          //if safari AND in iframe. If in iframe, iMessages does not trigger, so open a new web page with a hack to run the SMS via redirect when page loads.
-          //mainly for WIX embed widget issue.
-          alive5_pre_link = "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" + alive5_sms_phone_number + "');";
-          alive5_isDesktop = true;
-        } else {
-          alive5_pre_link = 'sms:' + alive5_sms_phone_number + '&body=' + alive5_sms_message_question;
-        }
-        break;
-      default:
-        //ANDROID and Desktop others
-        //3/6/19 - chrome (72.0.3626.121) on android does not populate SMS
-        if (/Mobi/.test(navigator.userAgent)) {
-          //alive5_pre_link = 'sms:' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
-          alive5_pre_link = 'sms://' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
-        } else {
-          alive5_isMobile = false;
-          alive5_pre_link = 'javascript:popAliveSMS(\'' + alive5_sms_phone_number + '\')';
-          alive5_isDesktop = true;
-        }
-        break;
-    }
-
-    if (alive5_isDesktop) {
-      //currently desktop is not supported
-      //End alive5 Widget Code v2.0
-      window.location.href = `https://go.websitealive.com/?name=${this.name}&email=${this.email}`;
-    } else {
-      //alive5_cta_button is your object/button you want enabled with SMS trigger
-      document.location.href = alive5_pre_link;
-    }
-  }
-
-  chooseBotOption(evt: any) {
-    let optionText = evt.target.value;
-    if(this.activeFAQDirectory === true){
-      if (optionText === 'yes'){
-        this.isTyping = true;
-        this.sendSuccessFAQMessage();
-        this.showBotOptions = false;
-      } else if (optionText === 'go back to main menu') {
-        this.isTyping = true;
-        this.sendTextMessageToBot(optionText);
-        this.showBotOptions = false;
-        this.activeFAQDirectory = false;
-      } else {
-        this.isTyping = true;
-        this.sendAnswerToUser();
-        this.showBotOptions = false;
-      }
-    } else {
-      if (optionText === "text us your question") {
-        this.triggerAliveChat();
-
-      } else {
-        if (optionText === "agent") {
-          this.showResponse(true, optionText);
-          // this.sendTextMessageToBot(optionText);
-          this.triggerAliveChat();
-        }  else {
-          this.showResponse(true, optionText);
-          this.sendTextMessageToBot(optionText);
-          this.bounceMenu = "button";
-        }
-      }
-    } 
-  }
-
   chooseMainOption(evt: any) {
     //Get text value from Main Menu Button
     let optionText = evt.target.value;
@@ -675,7 +1192,218 @@ export class A5ChatWindowComponent implements OnInit {
     console.log(this.movieTitle);
   }
 
+  exchangeContact() {
+    this.triggerAliveChat();
+  }
+
+  triggerAliveChat() {
+    //for Hal's webbot
+    let alive5_sms_phone_number, alive5_sms_message_question;
+
+    if (window.location.pathname == "/budweiser-gardens") {
+      alive5_sms_phone_number = "+15196675700";
+      alive5_sms_message_question =
+        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+    }
+
+    if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
+      alive5_sms_phone_number = "+17139994636";
+      alive5_sms_message_question =
+        "I'd like to connect with dustin@alive5.com [hit Send>]";
+    }
+
+    if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
+      alive5_sms_phone_number = "+17139994636";
+      alive5_sms_message_question =
+        "I'd like to connect with glenn@alive5.com [hit Send>]";
+    }
+
+    let alive5_pre_link;
+    let alive5_isDesktop = false;
+    let alive5_platform = navigator.platform.toUpperCase();
+    let alive5_isMobile = true;
+    let alive5_is_alive5_phone_number;
+
+    switch (alive5_platform) {
+      case "IPAD":
+        alive5_isMobile = false;
+        //desktop Apple
+        if (alive5_is_alive5_phone_number == "Y") {
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
+          alive5_isDesktop = true;
+        } else {
+          alive5_pre_link = "javascript:void()";
+        }
+        break;
+      case "IPHONE":
+        //see if 5, 6, or 7
+        //mobile
+        var isSafari =
+          navigator.vendor &&
+          navigator.vendor.indexOf("Apple") > -1 &&
+          navigator.userAgent &&
+          !navigator.userAgent.match("CriOS");
+
+        if (isSafari && window.self !== window.top) {
+          //if safari AND in iframe. If in iframe, iMessages does not trigger, so open a new web page with a hack to run the SMS via redirect when page loads.
+          //mainly for WIX embed widget issue.
+          alive5_pre_link =
+            "javascript:window.open( alive5_cdn_url + '/test/click.html?phone_number=" +
+            alive5_sms_phone_number +
+            "');";
+          alive5_isDesktop = true;
+        } else {
+          alive5_pre_link =
+            "sms:" +
+            alive5_sms_phone_number +
+            "&body=" +
+            alive5_sms_message_question;
+        }
+        break;
+      default:
+        //ANDROID and Desktop others
+        //3/6/19 - chrome (72.0.3626.121) on android does not populate SMS
+        if (/Mobi/.test(navigator.userAgent)) {
+          //alive5_pre_link = 'sms:' + alive5_sms_phone_number + '?body=' + alive5_sms_message_question;
+          alive5_pre_link =
+            "sms://" +
+            alive5_sms_phone_number +
+            "?body=" +
+            alive5_sms_message_question;
+        } else {
+          alive5_isMobile = false;
+          alive5_pre_link =
+            "javascript:popAliveSMS('" + alive5_sms_phone_number + "')";
+          alive5_isDesktop = true;
+        }
+        break;
+    }
+    if (alive5_isDesktop) {
+      //currently desktop is not supported
+      //End alive5 Widget Code v2.0
+      window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+        this.fullname
+      }&email=${this.email}&question=${this.question}`;
+    } else {
+      //alive5_cta_button is your object/button you want enabled with SMS trigger
+      if (this.currentIntentName === "humanChat") {
+        window.location.href = `https://go.websitealive.com/alive5/wsa-connect/?name=${
+          this.fullname
+        }&email=${this.email}&question=${this.question}`;
+      } else {
+        document.location.href = alive5_pre_link;
+      }
+    }
+  }
+
+  openGallery() {
+    this.galleryService.openGallery(1, 0);
+  }
+
+  chooseBotOption(evt: any) {
+    let optionText = evt.target.value;
+    this.sendToBotReportingService(
+      "in",
+      "html",
+      optionText,
+      this.clientIP,
+      this.browser,
+      this.cookieService.get("a5BotCookie")
+    );
+    if (this.activeFAQDirectory === true) {
+      if (optionText === "yes") {
+        this.isTyping = true;
+        this.sendSuccessFAQMessage();
+        this.showBotOptions = false;
+      } else if (optionText === "go back to main menu") {
+        this.isTyping = true;
+        this.sendTextMessageToBot(optionText);
+        this.showBotOptions = false;
+        this.activeFAQDirectory = false;
+      } else {
+        this.isTyping = true;
+        this.sendAnswerToUser();
+        this.showBotOptions = false;
+      }
+    } else {
+      let botQuote;
+      switch (optionText) {
+        //Check if special action is required by certain button pressed
+        case "chat with a human":
+          botQuote = `<p>Ok, I see you want to chat with a real human. I suppose I’m not human enough, huh? It’s ok, I’m not hurt as I have no feelings. Let me get you someone.</p>`;
+          this.showResponse(false, botQuote);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+        case "call me":
+          botQuote = `<p>Call Me</p>`;
+          this.showResponse(false, botQuote);
+          this.showAliveDialModal = true;
+          this.bounceMenu = "button";
+          break;
+        case "gallery":
+          botQuote = `<p>Gallery Text:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
+          break;
+        default:
+          this.showResponse(true, optionText);
+          this.sendTextMessageToBot(optionText);
+          this.bounceMenu = "button";
+          break;
+      }
+    }
+  }
+
   modalState(evt: any) {
-    this.showAlivePayModal = evt;
+    let userQuote;
+    let botQuote;
+    switch (evt.triggeredBy) {
+      case "alivedial-cancel-btn":
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Don't call me right now.`;
+        this.showResponse(true, userQuote);
+        botQuote = `Anything else I can help you with?`;
+        this.bounceMenu = "button";
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: "View other ticket options",
+              value: "buy tickets"
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+      case "alivedial-make-call":
+        this.showAliveDialModal = evt.dialogState;
+        userQuote = `Yes, I'm ready for a call.`;
+        this.showResponse(true, userQuote);
+        botQuote =
+          "Ok, one of our agents should reach out to you soon. Can I help you with anything else?";
+        this.showResponse(false, botQuote);
+        this.bounceMenu = "button";
+        setTimeout(() => {
+          this.showBotOptions = true;
+          this.botOptionsTitle = "View Main Menu?";
+          this.botMenuOptions = [
+            {
+              text: "View other ticket options",
+              value: "buy tickets"
+            },
+            {
+              text: "Main Menu",
+              value: "menu"
+            }
+          ];
+        }, 1000);
+        break;
+    }
   }
 }
