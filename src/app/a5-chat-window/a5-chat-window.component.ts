@@ -160,21 +160,14 @@ export class A5ChatWindowComponent implements OnInit {
     "search"
   ];
 
-  //EDITS: add the following:
-  // HAL:  Bot UPDATE: ‘sendTextMsgToBot’ function make a change to parameters from string to variable and add to variable to customization section.
-  // HAL: update master branch with changes:
-  // * Contact button with on/off
-  // * aliveDial on/off
-  // * Word wrapping to chat bubbles
-  // * Knowledgebase - limiting answers to 3 then ask if wants to speak with a human
-  // * Style.css add. Message ul paddding-left: 1.5rem
+ 
 
   // Customizing **************
   windowBannerStyle = {
     "background-color": "#fff",
-    "border-bottom-color": "#000"
+    "border-bottom-color": "#4198B5"
   };
-  logoImg = "/assets/img/docjuris-logo.svg"; //EDIT with s3 bucket file name
+  logoImg = "/assets/img/hdnLogo.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -183,9 +176,9 @@ export class A5ChatWindowComponent implements OnInit {
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Welcome to Doc Juris!";
+  greetingLine = "Welcome to HDN's Chatbot!";
   greetingSectionStyle = {
-    "background-color": "#486290"
+    "background-color": "#3c4558"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,18 +187,18 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    "background-color": "#486290"
+    "background-color": "#3c4558"
   };
   botOptionButtonStyle = {
-    "border-color": "#f1592b",
+    "border-color": "#4198B5",
     color: "#fff",
-    background: "#f1592b"
+    background: "#4198B5"
   };
   botOptionTitleStyle = {
     color: "#fff"
   };
   messageListStyle = {
-    background: "url(../../assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
+    background: "url(/assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
   };
   messageSubmissionStyle = {
     background: "#fff",
@@ -1163,7 +1156,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "HDNbot",
       inputText: textMessage,
       userId: this.lexUserID
     };
