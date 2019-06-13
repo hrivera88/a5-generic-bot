@@ -25,6 +25,10 @@ p {
   color: #fff;
   text-decoration: underline;
 }
+.message a:hover {
+  color:rgb(39,247,247);
+  font-size: 1.2em;
+}
 .message ul {
   padding-left: 1.5rem;
 }

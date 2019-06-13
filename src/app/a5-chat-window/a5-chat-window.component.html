@@ -124,7 +124,11 @@
   (modalHidden)="modalState($event)"
   [movieTitle]="movieTitle"
 ></a5-alivepay-modal>
-<ks-modal-gallery [id]="1" [modalImages]="galleryImages"></ks-modal-gallery>
+<ks-modal-gallery [id]="1" [modalImages]="galleryImages"
+  [previewConfig]="{visible: false}"
+  [currentImageConfig]="{navigateOnClick: false, downloadable: true}"
+  [buttonsConfig]="customButtonsConfigExtUrlNewTab"
+></ks-modal-gallery>
 <a5-alivedial-modal
   *ngIf="showAliveDialModal"
   [showModal]="showAliveDialModal"

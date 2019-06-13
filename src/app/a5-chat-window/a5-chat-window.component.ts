@@ -29,7 +29,7 @@ import { BotReportingService } from "../bot-reporting.service";
 import { ClientIpServiceService } from "../client-ip-service.service";
 import { CookieService } from "ngx-cookie-service";
 import { ReturnStatement } from "@angular/compiler";
-import { Image, GalleryService } from "angular-modal-gallery";
+import { Image, GalleryService, ButtonsStrategy, ButtonsConfig, ButtonType } from "angular-modal-gallery";
 import { DeviceDetectorService } from "ngx-device-detector";
 
 import * as AWS from "aws-sdk";
@@ -235,19 +235,31 @@ export class A5ChatWindowComponent implements OnInit {
   //Check whether an agent is online for Live Chat
   agentOnline: any;
   //Gallery Images
-  previewConfig = {
-    visible: false
-  };
+  customButtonsConfigExtUrlNewTab: ButtonsConfig = {
+    visible: true,
+    strategy: ButtonsStrategy.CUSTOM,
+    buttons: [
+      {
+        className: 'ext-url-image',
+        type: ButtonType.EXTURL,
+        extUrlInNewTab: true
+      }
+    ]
+  }
+
   // aliveDial
   showAliveDialModal = false;
   galleryImages: Image[] = [
+  
     new Image(0, {
-      img: "https://www.websitealive.com/images/chatwindow-1.png",
-      description: "Customized Chat Windows"
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
+      description: "Balboa 1of2"
     }),
     new Image(1, {
-      img: "https://www.websitealive.com/images/chatwindow-2.png",
-      description: "Customized Chat Windows"
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
+      description: "Balboa 2of2"
     }),
     new Image(2, {
       img: "https://www.websitealive.com/images/chatwindow-3.png",
@@ -1345,6 +1357,11 @@ export class A5ChatWindowComponent implements OnInit {
           this.showResponse(false, botQuote);
           this.openGallery();
           break;
+          case "fifty foot":
+            botQuote = `<p>50' Floor Plans:</p>`;
+            this.showResponse(false, botQuote);
+            this.openGallery();
+            break;
         default:
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);

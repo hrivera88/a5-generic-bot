@@ -30,6 +30,15 @@
   margin-left: auto;
   width: 20em;
 }
+a:link {
+  color: #fff;
+}
+.message a:visited {
+  color: red;
+}
+a:hover {
+  color: red;
+}
 .message p {
   letter-spacing: 0.55px;
   margin-left: auto;
