@@ -234,6 +234,11 @@ export class A5ChatWindowComponent implements OnInit {
 
   //Check whether an agent is online for Live Chat
   agentOnline: any;
+
+
+  // aliveDial
+  showAliveDialModal = false;
+
   //Gallery Images
   customButtonsConfigExtUrlNewTab: ButtonsConfig = {
     visible: true,
@@ -246,9 +251,6 @@ export class A5ChatWindowComponent implements OnInit {
       }
     ]
   }
-
-  // aliveDial
-  showAliveDialModal = false;
   galleryImages: Image[] = [
   
     new Image(0, {
