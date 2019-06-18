@@ -167,7 +167,7 @@ export class A5ChatWindowComponent implements OnInit {
     "background-color": "#fff",
     "border-bottom-color": "#4198B5"
   };
-  logoImg = "/assets/img/hdnLogo.png"; //EDIT with s3 bucket file name
+  logoImg = "/hdn-hiep/assets/img/hdnLogo.png"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -198,7 +198,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#fff"
   };
   messageListStyle = {
-    background: "url(/assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
+    background: "url(/hdn-hiep/assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
   };
   messageSubmissionStyle = {
     background: "#fff",
@@ -292,20 +292,120 @@ export class A5ChatWindowComponent implements OnInit {
       img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus2of2.png",
       extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus2of2.png" ,
       description: "Columbus 2/2"
+    }),
+    new Image(8, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Desoto1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Desoto1of2.png" ,
+      description: "Desoto 1/2"
+    }),
+    new Image(9, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Desoto2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Desoto2of2.png" ,
+      description: "Desoto 2/2"
+    }),
+    new Image(10, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Hudson1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Hudson1of2.png" ,
+      description: "Hudson 1/2"
+    }),
+    new Image(11, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Hudson2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Hudson2of2.png" ,
+      description: "Hudson 2/2"
+    }),
+    new Image(12, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Magellen1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Magellen1of2.png" ,
+      description: "Magellen 1/2"
+    }),
+    new Image(13, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Magellen2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Magellen2of2.png" ,
+      description: "Magellen 2/2"
+    }),
+    new Image(14, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Pizarro1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Pizarro1of2.png" ,
+      description: "Pizarro 1/2"
+    }),
+    new Image(15, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Pizarro2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Pizarro2of2.png" ,
+      description: "Pizarro 2/2"
+    }),
+    new Image(16, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Polo1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Polo1of2.png" ,
+      description: "Polo 1/2"
+    }),
+    new Image(17, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Polo2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Polo2of2.png" ,
+      description: "Polo 2/2"
     })
   ];
   galleryImages2: Image[] = [
   
     new Image(0, {
-      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
-      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
-      description: "Balboa 1/2"
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Dogwood1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Dogwood1of2.png",
+      description: "Dogwood 1/2"
     }),
     new Image(1, {
-      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
-      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
-      description: "Balboa 2/2"
-    })
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Dogwood2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Dogwood2of2.png",
+      description: "Dogwood 2/2"
+    }),
+    new Image(2, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Larkspur1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Larkspur1of2.png",
+      description: "Larkspur1/2"
+    }),
+    new Image(3, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Larkspur2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Larkspur2of2.png",
+      description: "Dogwood 2/2"
+    }),
+    new Image(4, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Magnolia1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Magnolia1of2.png",
+      description: "Magnolia1/2"
+    }),
+    new Image(5, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Magnolia2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Magnolia2of2.png",
+      description: "Magnolia 2/2"
+    }),
+    new Image(6, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Primrose1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Primrose1of2.png",
+      description: "Primrose 1/2"
+    }),
+    new Image(7, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Primrose2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Primrose2of2.png",
+      description: "Primrose 2/2"
+    }),
+    new Image(8, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Verbena1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Verbena1of2.png",
+      description: "Verbena 1/2"
+    }),
+    new Image(9, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Verbena2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Verbena2of2.png",
+      description: "Verbena 2/2"
+    }),
+    new Image(10, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Wisteria1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Wisteria1of2.png",
+      description: "Wisteria 1/2"
+    }),
+    new Image(11, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Wisteria2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/40footfloorplans/Wisteria2of2.png",
+      description: "Wisteria 2/2"
+    }),
   ];
 
   constructor(
@@ -1229,23 +1329,23 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == "/budweiser-gardens") {
-      alive5_sms_phone_number = "+15196675700";
+    if (window.location.pathname == "/hdn-hiep") {
+      alive5_sms_phone_number = "+18323719771";
       alive5_sms_message_question =
-        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
-    }
+        "I'd like to connect with hdn.0429@gmail.com [hit Send>]";
+     }
 
-    if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with dustin@alive5.com [hit Send>]";
-    }
+    // if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
+    //   alive5_sms_phone_number = "+17139994636";
+    //   alive5_sms_message_question =
+    //     "I'd like to connect with dustin@alive5.com [hit Send>]";
+    // }
 
-    if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with glenn@alive5.com [hit Send>]";
-    }
+    // if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
+    //   alive5_sms_phone_number = "+17139994636";
+    //   alive5_sms_message_question =
+    //     "I'd like to connect with glenn@alive5.com [hit Send>]";
+    // }
 
     let alive5_pre_link;
     let alive5_isDesktop = false;
@@ -1378,17 +1478,17 @@ export class A5ChatWindowComponent implements OnInit {
           botQuote = `<p>Gallery Text:</p>`;
           this.showResponse(false, botQuote);
           this.openGallery();
-          break;
-          case "fifty foot":
-            botQuote = `<p>50' Floor Plans:</p>`;
-            this.showResponse(false, botQuote);
-            this.openGallery();
-            break;
-            case "forty foot":
-              botQuote = `<p>40' Floor Plans:</p>`;
-              this.showResponse(false, botQuote);
-              this.openGallery2();
-              break;
+        break;
+        case "fifty foot":
+          botQuote = `<p>50' Floor Plans:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery();
+        break;
+        case "forty foot":
+          botQuote = `<p>40' Floor Plans:</p>`;
+          this.showResponse(false, botQuote);
+          this.openGallery2();
+        break;
         default:
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
