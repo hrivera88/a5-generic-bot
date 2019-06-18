@@ -256,38 +256,55 @@ export class A5ChatWindowComponent implements OnInit {
     new Image(0, {
       img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
       extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
-      description: "Balboa 1of2"
+      description: "Balboa 1/2"
     }),
     new Image(1, {
       img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
       extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
-      description: "Balboa 2of2"
+      description: "Balboa 2/2"
     }),
     new Image(2, {
-      img: "https://www.websitealive.com/images/chatwindow-3.png",
-      description: "Customized Chat Windows"
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Boone1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Boone1of2.png",
+      description: "Boone 1/2"
     }),
     new Image(3, {
-      img: "https://www.websitealive.com/images/chatwindow-4.png",
-      description: "Customized Chat Windows"
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Boone2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Boone2of2.png" ,
+      description: "Boone 2/2"
     }),
     new Image(4, {
-      img: "https://www.websitealive.com/images/cta-example-1.png",
-      description: "Add a welcoming face to your engagement efforts."
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Cabot1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Cabot1of2.png",
+      description: "Cabot 1/2"
     }),
     new Image(5, {
-      img: "https://www.websitealive.com/images/cta-example-4.png",
-      description:
-        "Use shortlinks for easy social media or website engagements."
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Cabot2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Cabot2of2.png",
+      description: "Cabot 2/2"
     }),
     new Image(6, {
-      img: "https://www.websitealive.com/images/cta-example-3.png",
-      description:
-        "Customize call-to-action to suit your website's look and feel."
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus1of2.png",
+      description: "Columbus 1/2"
     }),
     new Image(7, {
-      img: "https://www.websitealive.com/images/cta-example-2.png",
-      description: "Communicate in your customer's language."
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Columbus2of2.png" ,
+      description: "Columbus 2/2"
+    })
+  ];
+  galleryImages2: Image[] = [
+  
+    new Image(0, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa1of2.png",
+      description: "Balboa 1/2"
+    }),
+    new Image(1, {
+      img: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
+      extUrl: "https://s3.amazonaws.com/qr.alive5.com/images/HDN/50footfloorplans/Balboa2of2.png",
+      description: "Balboa 2/2"
     })
   ];
 
@@ -1310,7 +1327,10 @@ export class A5ChatWindowComponent implements OnInit {
   }
 
   openGallery() {
-    this.galleryService.openGallery(1, 0);
+    this.galleryService.openGallery(1,0);
+  }
+  openGallery2() {
+    this.galleryService.openGallery(2,0);
   }
 
   chooseBotOption(evt: any) {
@@ -1364,6 +1384,11 @@ export class A5ChatWindowComponent implements OnInit {
             this.showResponse(false, botQuote);
             this.openGallery();
             break;
+            case "forty foot":
+              botQuote = `<p>40' Floor Plans:</p>`;
+              this.showResponse(false, botQuote);
+              this.openGallery2();
+              break;
         default:
           this.showResponse(true, optionText);
           this.sendTextMessageToBot(optionText);
