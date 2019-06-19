@@ -150,7 +150,7 @@ export class A5ChatWindowComponent implements OnInit {
   ];
 
   // Customizing
-  logoImg = "/mercury-fund-lilly/assets/img/mercury-logo.svg";
+  logoImg = "/mercuryfund-lilly/assets/img/mercury-logo.svg";
   brandLine = "Welcome Message!";
   showBrandingLine = false;
   showHideButton = false;
