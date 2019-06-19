@@ -178,8 +178,8 @@ export class A5ChatWindowComponent implements OnInit {
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
-    "background-color": "red",
-    border: "red",
+    "background-color": "#B4975A",
+    border: "#B4975A",
     color: "white"
   };
   showGreetingSection = true;
@@ -205,7 +205,7 @@ export class A5ChatWindowComponent implements OnInit {
     color: "#fff"
   };
   messageListStyle = {
-    background: "url(../../assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
+    background: "url(/golden-knights-chase-jolesch/assets/img/geometry.png)" //EDIT with S3 bucket name (remove../../)
   };
   messageSubmissionStyle = {
     background: "#fff",
