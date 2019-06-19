@@ -1163,7 +1163,7 @@ export class A5ChatWindowComponent implements OnInit {
     // Gather needed parameters for Amazon Lex
     let params = {
       botAlias: "$LATEST",
-      botName: "websiteAliveBot",
+      botName: "goldenKnightsChaseJoleshBot",
       inputText: textMessage,
       userId: this.lexUserID
     };
