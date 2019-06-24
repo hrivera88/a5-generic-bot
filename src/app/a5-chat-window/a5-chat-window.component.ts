@@ -1265,23 +1265,23 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == "/budweiser-gardens") {
-      alive5_sms_phone_number = "+15196675700";
-      alive5_sms_message_question =
-        "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
-    }
+    // if (window.location.pathname == "/budweiser-gardens") {
+    //   alive5_sms_phone_number = "+15196675700";
+    //   alive5_sms_message_question =
+    //     "I'd like to connect with Budweiser Gardens Concierge [hit Send>]";
+    // }
 
-    if (window.location.pathname == "/alive5?u=dustin@alive5.com") {
+    if (window.location.pathname == "/jaguars") {
       alive5_sms_phone_number = "+17139994636";
       alive5_sms_message_question =
-        "I'd like to connect with dustin@alive5.com [hit Send>]";
+        "I'd like to connect with the Jags! [hit Send>]";
     }
 
-    if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
-      alive5_sms_phone_number = "+17139994636";
-      alive5_sms_message_question =
-        "I'd like to connect with glenn@alive5.com [hit Send>]";
-    }
+    // if (window.location.pathname == "/alive5?u=glenn@alive5.com") {
+    //   alive5_sms_phone_number = "+17139994636";
+    //   alive5_sms_message_question =
+    //     "I'd like to connect with glenn@alive5.com [hit Send>]";
+    // }
 
     let alive5_pre_link;
     let alive5_isDesktop = false;
