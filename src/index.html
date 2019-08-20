@@ -1,51 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Chase Jolesch</title>
+    <!--EDIT  -->
+    <base href="/golden-knights-chase-jolesch/" />
+    <!--EDIT  with s3 bucket file name-->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!--EDIT  with s3 bucket file name-->
+    <link
+      rel="stylesheet"
+      href="/golden-knights-chase-jolesch/assets/css/styles.css"
+    />
+    <!--EDIT  with s3 bucket file name-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="/golden-knights-chase-jolesch/assets/css/animate.min.css"
+    />
+    <!--EDIT  with s3 bucket file name-->
+    <link
+      rel="stylesheet"
+      href="/golden-knights-chase-jolesch/assets/css/emoji-mart.css"
+    />
+    <!--EDIT  with s3 bucket file name-->
+    <script>
+      var global = global || window;
+      document.addEventListener("gesturestart", function(e) {
+        e.preventDefault();
+      });
+    </script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Chase Jolesch</title>  <!--EDIT  -->
-  <base href="/golden-knights-chase-jolesch/" > <!--EDIT  with s3 bucket file name-->
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />  
-  <link rel="icon" type="image/x-icon" href="/golden-knights-chase-jolesch/favicon.ico" />  <!--EDIT  with s3 bucket file name-->
-  <link rel="stylesheet" href="/golden-knights-chase-jolesch/assets/css/styles.css" />  <!--EDIT  with s3 bucket file name-->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700" rel="stylesheet" />
-  <link rel="stylesheet" href="/golden-knights-chase-jolesch/assets/css/animate.min.css" />  <!--EDIT  with s3 bucket file name-->
-  <link rel="stylesheet" href="/golden-knights-chase-jolesch/assets/css/emoji-mart.css" />  <!--EDIT  with s3 bucket file name-->
-  <script>
-    var global = global || window;
-    document.addEventListener("gesturestart", function (e) {
-      e.preventDefault();
-    });
-  </script>
-</head>
+  <body>
+    <app-root></app-root>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-131288052-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<body>
-  <app-root></app-root>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131288052-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "UA-131288052-1");
-  </script>
+      gtag("config", "UA-131288052-1");
+    </script>
     <!-- Start WebsiteAlive AliveTracker Code -->
     <script type="text/javascript">
       function wsa_include_js() {
-        var wsa_host = (("https:" == document.location.protocol) ? "https://" : "http://");
+        var wsa_host =
+          "https:" == document.location.protocol ? "https://" : "http://";
         var js = document.createElement("script");
         js.setAttribute("language", "javascript");
         js.setAttribute("type", "text/javascript");
-        js.setAttribute("src", wsa_host + "tracking-v3.websitealive.com/3.0/?objectref=wsa3&groupid=9&websiteid=1226");
-        document.getElementsByTagName("head").item(0).appendChild(js);
+        js.setAttribute(
+          "src",
+          wsa_host +
+            "tracking-v3.websitealive.com/3.0/?objectref=wsa3&groupid=9&websiteid=1226"
+        );
+        document
+          .getElementsByTagName("head")
+          .item(0)
+          .appendChild(js);
       }
-      if (window.attachEvent) { window.attachEvent("onload", wsa_include_js); }
-      else if (window.addEventListener) { window.addEventListener("load", wsa_include_js, false); }
-      else { document.addEventListener("load", wsa_include_js, false); }
+      if (window.attachEvent) {
+        window.attachEvent("onload", wsa_include_js);
+      } else if (window.addEventListener) {
+        window.addEventListener("load", wsa_include_js, false);
+      } else {
+        document.addEventListener("load", wsa_include_js, false);
+      }
     </script>
     <!-- End WebsiteAlive AliveTracker v3.0 Code -->
-</body>
-
+  </body>
 </html>

@@ -23,7 +23,7 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
   text-align: center;
-  border-bottom: 2px solid #B4975A;
+  border-bottom: 2px solid #b4975a;
   font-size: 17px;
   padding: 0.25rem;
   color: #fdf9f0;
@@ -205,8 +205,8 @@
 .exchange-btn {
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #B4975A;
-  background: #B4975A;
+  border: 1px solid #b4975a;
+  background: #b4975a;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;
@@ -259,6 +259,11 @@
   font-size: 14px;
   color: rgba(0, 0, 0, 0.4);
 }
+
+#dialog-options[_ngcontent-c1] button[value="linkedin"] {
+  background-color: #0077b5 !important;
+}
+
 .bot-option-title,
 .main-menu-options-title,
 .main-menu-btn-title {
@@ -363,8 +368,8 @@
   font-size: 16px;
 }
 #dialog-options .option-buttons-container button.more-options-btn {
-  border: 1px solid #C8102E;
-  color: #C8102E;
+  border: 1px solid #c8102e;
+  color: #c8102e;
 }
 button.more-options-btn span {
   margin-right: 4px;

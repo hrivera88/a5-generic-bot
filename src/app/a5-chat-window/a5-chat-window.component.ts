@@ -171,10 +171,11 @@ export class A5ChatWindowComponent implements OnInit {
 
   // Customizing **************
   windowBannerStyle = {
-    'background-color': '#fff',
-    'border-bottom-color': '#B4975A'
+    "background-color": "#fff",
+    "border-bottom-color": "#B4975A"
   };
-  logoImg = "/golden-knights-chase-jolesch/assets/img/vegas_golden_knights_logo-222x300.jpg";  //EDIT with s3 bucket file name
+  logoImg =
+    "/golden-knights-chase-jolesch/assets/img/vegas_golden_knights_logo-222x300.jpg"; //EDIT with s3 bucket file name
   //Contact button
   showContactButton = true; //Turn to true to show top right Contact Button
   contactButtonStyle = {
@@ -183,9 +184,9 @@ export class A5ChatWindowComponent implements OnInit {
     color: "white"
   };
   showGreetingSection = true;
-  greetingLine = "Connect"; 
+  greetingLine = "Connect";
   greetingSectionStyle = {
-    'background-color': '#333F42'
+    "background-color": "#333F42"
   };
   greetingFontStyle = {
     color: "#fff"
@@ -194,13 +195,13 @@ export class A5ChatWindowComponent implements OnInit {
   showBotOptions = false;
   botOptionImgSource = ""; // IF USE IMG: EDIT with S3 bucket name
   botOptionsStyle = {
-    'background-color': '#333F42'
+    "background-color": "#333F42"
   };
   botOptionButtonStyle = {
-    'border-color': '#B4975A',
-    color: '#000',
-    background: '#B4975A'
-  }
+    "border-color": "#000000",
+    color: "#fff",
+    background: "#B4975A"
+  };
   botOptionTitleStyle = {
     color: "#fff"
   };
@@ -1205,9 +1206,10 @@ export class A5ChatWindowComponent implements OnInit {
     //for Hal's webbot
     let alive5_sms_phone_number, alive5_sms_message_question;
 
-    if (window.location.pathname == '/golden-knights-chase-jolesch') {
-      alive5_sms_phone_number = '+17027902652'; 
-      alive5_sms_message_question = 'I\'d like to connect with Chase Jolesch, Director of Ticketing & Premium Seating, Las Vegas Golden Knights. [hit Send>]';
+    if (window.location.pathname == "/golden-knights-chase-jolesch") {
+      alive5_sms_phone_number = "+17027902652";
+      alive5_sms_message_question =
+        "I'd like to connect with Chase Jolesch, Director of Ticketing & Premium Seating, Las Vegas Golden Knights. [hit Send>]";
     }
 
     // if (window.location.pathname == '/alive5?u=dustin@alive5.com') {
